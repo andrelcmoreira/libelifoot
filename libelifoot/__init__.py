@@ -1,4 +1,4 @@
-from .libelifoot import bulk_update, update, view
+from .libelifoot import bulk_update, update_equipa, view_equipa
 
 
-__all__ = ['bulk_update', 'update', 'view']
+__all__ = ['bulk_update', 'update_equipa', 'view_equipa']

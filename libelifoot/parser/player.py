@@ -1,9 +1,9 @@
-from util.offset import Offsets
-from util.sizes import Sizes
-from util.player_position import PlayerPosition
-from util.crypto import decrypt
-from parser.base_parser import BaseParser
-from entity.player import Player
+from libelifoot.util.offset import Offsets
+from libelifoot.util.sizes import Sizes
+from libelifoot.util.player_position import PlayerPosition
+from libelifoot.util.crypto import decrypt
+from libelifoot.parser.base_parser import BaseParser
+from libelifoot.entity.player import Player
 
 
 class PlayersParser(BaseParser):

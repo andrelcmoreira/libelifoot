@@ -1,9 +1,9 @@
 from typing import Self
 
-from parser.equipa import EquipaParser
-from serializer.coach import CoachSerializer
-from serializer.player import PlayerSerializer
-from util.offset import OffsetCalculator
+from libelifoot.parser.equipa import EquipaParser
+from libelifoot.serializer.coach import CoachSerializer
+from libelifoot.serializer.player import PlayerSerializer
+from libelifoot.util.offset import OffsetCalculator
 
 
 class EquipaBuilder:

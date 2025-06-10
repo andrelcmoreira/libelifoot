@@ -1,14 +1,14 @@
 from os.path import exists
 
-from error.header_not_found import EquipaHeaderNotFound
-from error.not_found import EquipaNotFound
-from entity.color import Color
-from entity.equipa import Equipa
-from parser.base_parser import BaseParser
-from parser.player import PlayersParser
-from util.crypto import decrypt
-from util.offset import (Offsets, OffsetCalculator)
-from util.sizes import Sizes
+from libelifoot.error.header_not_found import EquipaHeaderNotFound
+from libelifoot.error.not_found import EquipaNotFound
+from libelifoot.entity.color import Color
+from libelifoot.entity.equipa import Equipa
+from libelifoot.parser.base_parser import BaseParser
+from libelifoot.parser.player import PlayersParser
+from libelifoot.util.crypto import decrypt
+from libelifoot.util.offset import (Offsets, OffsetCalculator)
+from libelifoot.util.sizes import Sizes
 
 
 class EquipaParser(BaseParser):
