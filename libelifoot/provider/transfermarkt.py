@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 
-from entity.player import Player
-from provider.base_provider import BaseProvider
-from util.player_position import PlayerPosition
+from libelifoot.entity.player import Player
+from libelifoot.provider.base_provider import BaseProvider
+from libelifoot.util.player_position import PlayerPosition
 
 
 class TransfermarktProvider(BaseProvider):

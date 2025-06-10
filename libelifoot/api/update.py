@@ -1,14 +1,14 @@
 from os import mkdir
 from os.path import sep, exists
 
-from command.command import Command
-from equipa.builder import EquipaBuilder
-from error.data_not_available import EquipaDataNotAvailable
-from error.not_found import EquipaNotFound
-from error.not_provided import EquipaNotProvided
-from event.update_equipa_listener import UpdateEquipaListener
+from libelifoot.api.command import Command
+from libelifoot.equipa.builder import EquipaBuilder
+from libelifoot.error.data_not_available import EquipaDataNotAvailable
+from libelifoot.error.not_found import EquipaNotFound
+from libelifoot.error.not_provided import EquipaNotProvided
+from libelifoot.event.update_equipa_listener import UpdateEquipaListener
 
-import provider.factory
+import libelifoot.provider.factory
 
 
 class UpdateEquipa(Command):
@@ -16,7 +16,7 @@ class UpdateEquipa(Command):
     def __init__(self, equipa_file: str, prov: str, season: str,
                  output_dir: str, listener: UpdateEquipaListener):
         self._equipa = equipa_file
-        self._prov = provider.factory.create(prov)
+        self._prov = libelifoot.provider.factory.create(prov)
         self._season = season
         self._out_dir = output_dir
         self._listener = listener

@@ -1,5 +1,5 @@
-from provider.espn import EspnProvider
-from provider.transfermarkt import TransfermarktProvider
+from libelifoot.provider.espn import EspnProvider
+from libelifoot.provider.transfermarkt import TransfermarktProvider
 
 
 def create(

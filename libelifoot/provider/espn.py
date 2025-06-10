@@ -1,9 +1,9 @@
 from json import loads
 from re import findall
 
-from entity.player import Player
-from provider.base_provider import BaseProvider
-from util.player_position import PlayerPosition
+from libelifoot.entity.player import Player
+from libelifoot.provider.base_provider import BaseProvider
+from libelifoot.util.player_position import PlayerPosition
 
 
 class EspnProvider(BaseProvider):

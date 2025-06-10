@@ -1,5 +1,5 @@
-from serializer.base_serializer import BaseSerializer
-from util.crypto import encrypt
+from libelifoot.serializer.base_serializer import BaseSerializer
+from libelifoot.util.crypto import encrypt
 
 
 class CoachSerializer(BaseSerializer):

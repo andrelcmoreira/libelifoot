@@ -3,8 +3,8 @@ from json import load
 from requests import exceptions, get
 from unidecode import unidecode
 
-from error.data_not_available import EquipaDataNotAvailable
-from error.not_provided import EquipaNotProvided
+from libelifoot.error.data_not_available import EquipaDataNotAvailable
+from libelifoot.error.not_provided import EquipaNotProvided
 
 
 class BaseProvider(ABC):
