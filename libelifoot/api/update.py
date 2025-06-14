@@ -27,12 +27,12 @@ class UpdateEquipa(Command):
             players = self._prov.get_players(equipa_file, self._season)
             coach = self._prov.get_coach(equipa_file, self._season)
 
-            data = builder.create_base_equipa_from_file(self._equipa) \
+            equipa = builder.create_base_equipa(self._equipa) \
                 .add_players(players) \
                 .add_coach(coach) \
                 .build()
 
-            self._listener.on_update_equipa(equipa_file, data)
+            self._listener.on_update_equipa(equipa_file, equipa)
         except (EquipaNotProvided, EquipaDataNotAvailable, EquipaNotFound) as e:
             self._listener.on_update_equipa_error(e)
         except PermissionError as e:

@@ -9,7 +9,7 @@ class EquipaBuilder:
     def __init__(self):
         self._equipa = None
 
-    def create_base_equipa_from_file(self, equipa_file: str) -> Self:
+    def create_base_equipa(self, equipa_file: str) -> Self:
         ep = EquipaParser(equipa_file)
 
         with open(equipa_file, 'rb') as f:
