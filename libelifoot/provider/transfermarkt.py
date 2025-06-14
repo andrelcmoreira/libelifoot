@@ -71,10 +71,10 @@ class TransfermarktProvider(BaseProvider):
                          'https://www.transfermarkt.com.br/',
                          self._COUNTRIES)
 
-    def get_coach(self, equipa_file: str, season: str) -> list:
+    def get_coach(self, equipa_file: str, season: int) -> list:
         return '' # TODO
 
-    def assemble_uri(self, team_id: str, season: str) -> str:
+    def assemble_uri(self, team_id: str, season: int) -> str:
         return f'{self._base_url}{team_id}/saison_id/{season}' if season else \
             f'{self._base_url}{team_id}'
 

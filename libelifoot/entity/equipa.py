@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from libelifoot.entity.color import Color
+
 
 @dataclass
 class Equipa:
@@ -8,7 +10,7 @@ class Equipa:
     short_name: str
     country: str
     level: int
-    colors: str
+    colors: Color
     coach: str
     players: list
 

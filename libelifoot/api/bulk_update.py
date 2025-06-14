@@ -7,12 +7,11 @@ import libelifoot.provider.factory
 
 class BulkUpdate(Command):
 
-    def __init__(self, equipa_dir: str, prov: str, season: str, output_dir: str,
+    def __init__(self, equipa_dir: str, prov: str, season: int,
                  listener: UpdateEquipaListener):
         self._dir = equipa_dir
         self._prov = libelifoot.provider.factory.create(prov)
         self._season = season
-        self._out_dir = output_dir
         self._listener = listener
 
     def run(self) -> None:
@@ -20,6 +19,6 @@ class BulkUpdate(Command):
 
         for team in teams:
             cmd = UpdateEquipa(self._dir + '/' + team['file'], self._prov.name,
-                               self._season, self._out_dir, self._listener)
+                               self._season, self._listener)
 
             cmd.run()

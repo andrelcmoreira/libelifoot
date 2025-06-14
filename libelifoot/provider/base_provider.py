@@ -22,7 +22,7 @@ class BaseProvider(ABC):
         self._country_map = country_map
 
     @abstractmethod
-    def assemble_uri(self, team_id: str, season: str) -> str:
+    def assemble_uri(self, team_id: str, season: int) -> str:
         pass
 
     @abstractmethod
@@ -34,7 +34,7 @@ class BaseProvider(ABC):
         pass
 
     @abstractmethod
-    def get_coach(self, equipa_file: str, season: str) -> list:
+    def get_coach(self, equipa_file: str, season: int) -> list:
         pass
 
     @property
@@ -46,7 +46,7 @@ class BaseProvider(ABC):
             if country in self._country_map \
             else unidecode(country[0:3]).upper()
 
-    def _fetch_team_data(self, team_id: str, season: str) -> list | None:
+    def _fetch_team_data(self, team_id: str, season: int) -> list | None:
         headers = { 'User-Agent': 'elf98' }
         uri = self.assemble_uri(team_id, season)
 
@@ -73,7 +73,7 @@ class BaseProvider(ABC):
 
             return mapping
 
-    def get_players(self, equipa_file: str, season: str) -> list:
+    def get_players(self, equipa_file: str, season: int) -> list:
         team_id = self._get_team_id(equipa_file)
         if team_id == '':
             raise EquipaNotProvided(equipa_file)
