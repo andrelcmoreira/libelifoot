@@ -1,4 +1,3 @@
-from libelifoot.util.offset import Offsets
 from libelifoot.util.sizes import Sizes
 from libelifoot.util.player_position import PlayerPosition
 from libelifoot.util.crypto import decrypt
