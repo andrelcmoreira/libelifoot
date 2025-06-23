@@ -1,23 +1,23 @@
 from os.path import sep
 
-from libelifoot.api.command import Command
+from libelifoot.api.async_command import AsyncCommand
 from libelifoot.equipa.builder import EquipaBuilder
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
 
-import libelifoot.provider.factory
+from libelifoot.provider import factory
 
 
-class UpdateEquipa(Command):
+class UpdateEquipa(AsyncCommand):
 
     def __init__(self, equipa_file: str, prov: str, season: int,
                  listener: UpdateEquipaListener):
         self._equipa = equipa_file
-        self._prov = libelifoot.provider.factory.create(prov)
+        self._prov = factory.create(prov)
         self._season = season
-        self._listener = listener
+        self._event = listener
 
     def run(self) -> None:
         equipa_file = self._equipa.split(sep)[-1]
@@ -32,8 +32,8 @@ class UpdateEquipa(Command):
                 .add_coach(coach) \
                 .build()
 
-            self._listener.on_update_equipa(equipa_file, equipa)
+            self._event.on_update_equipa(equipa_file, equipa)
         except (EquipaNotProvided, EquipaDataNotAvailable, EquipaNotFound) as e:
-            self._listener.on_update_equipa_error(e)
+            self._event.on_update_equipa_error(e)
         except PermissionError as e:
-            self._listener.on_update_equipa_error(e)
+            self._event.on_update_equipa_error(e)

@@ -1,16 +1,16 @@
-from libelifoot.api.command import Command
+from libelifoot.api.async_command import AsyncCommand
 from libelifoot.api.update import UpdateEquipa
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
 
-import libelifoot.provider.factory
+from libelifoot.provider import factory
 
 
-class BulkUpdate(Command):
+class BulkUpdate(AsyncCommand):
 
     def __init__(self, equipa_dir: str, prov: str, season: int,
                  listener: UpdateEquipaListener):
         self._dir = equipa_dir
-        self._prov = libelifoot.provider.factory.create(prov)
+        self._prov = factory.create(prov)
         self._season = season
         self._listener = listener
 

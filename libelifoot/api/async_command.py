@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class Command(ABC):
+class AsyncCommand(ABC):
 
     @abstractmethod
     def run(self) -> None:
