@@ -50,7 +50,7 @@ class EquipaParser(BaseParser):
     def parse_country(self, data: bytes, ext_len: int, short_len: int) -> str:
         offs = OffsetCalculator.get_country(ext_len, short_len)
 
-        return decrypt(data, offs, Sizes.COUNTRY.value)
+        return decrypt(data, offs, Sizes.COUNTRY.value - 1) # to skip the size byte
 
     def parse_players(self, data: bytes, ext_len: int, short_len: int) -> list:
         players_offs = OffsetCalculator.get_players(ext_len, short_len)

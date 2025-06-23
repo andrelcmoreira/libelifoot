@@ -14,7 +14,7 @@ class EquipaSerializer(BaseSerializer):
         equipa += encrypt(obj.ext_name)
         equipa += encrypt(obj.short_name)
         equipa += bytearray(obj.colors.background + b'\x00')
-        equipa += bytearray(obj.colors.text) # ???
+        equipa += bytearray(obj.colors.text + b'\x00')
         equipa += encrypt(obj.country)
         equipa += bytearray(obj.level.to_bytes())
         equipa += bytearray(len(obj.players).to_bytes())

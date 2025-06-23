@@ -17,10 +17,10 @@ class EquipaBuilder:
 
             ext_name = ep.parse_ext_name(data)
             short_name = ep.parse_short_name(data, len(ext_name))
+            colors = ep.parse_colors(data, len(ext_name), len(short_name))
             country = ep.parse_country(data, len(ext_name), len(short_name))
             level = ep.parse_level(data, len(ext_name), len(short_name))
             coach = ep.parse_coach(data, len(ext_name), len(short_name))
-            colors = ep.parse_colors(data, len(ext_name), len(short_name))
 
             self._equipa = Equipa(ext_name, short_name, country, level, colors,
                                   coach, [])

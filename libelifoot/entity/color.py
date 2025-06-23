@@ -4,9 +4,9 @@ from dataclasses import dataclass
 @dataclass
 class Color:
 
-    text: str
-    background: str
+    text: bytes
+    background: bytes
 
-    def __str__(self):
+    def __str__(self) -> str:
         return '#' + self.background.hex().upper() + ', #' \
             + self.text.hex().upper()

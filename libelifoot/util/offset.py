@@ -31,8 +31,9 @@ class OffsetCalculator:
         # +1 to skip the size byte of extended field
         # +1 to skip the size byte of short name field
         # +2 to skip the apparently unused 1 byte on each color
+        # +1 to skip the size byte of country field
         return Sizes.HEADER.value + ext_len + short_len + \
-            Sizes.COLOR.value * 2 + 4
+            Sizes.COLOR.value * 2 + 5
 
     @staticmethod
     def get_level(ext_len: int, short_len: int) -> int:
