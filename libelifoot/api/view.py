@@ -1,8 +1,6 @@
 from libelifoot.entity.equipa import Equipa
-from libelifoot.parser.equipa import EquipaParser
+from libelifoot.file.equipa import EquipaFileHandler
 
 
 def view(equipa: str) -> Equipa:
-    ep = EquipaParser(equipa)
-
-    return ep.parse()
+    return EquipaFileHandler.read(equipa)
