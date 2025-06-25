@@ -1,3 +1,5 @@
+from typing import Any
+
 from libelifoot.entity.equipa import Equipa
 from libelifoot.serializer.base_serializer import BaseSerializer
 from libelifoot.serializer.coach import CoachSerializer
@@ -8,7 +10,10 @@ from libelifoot.util.crypto import encrypt
 class EquipaSerializer(BaseSerializer):
 
     @staticmethod
-    def serialize(obj: Equipa) -> bytearray:
+    def serialize(obj: Any) -> bytearray | None:
+        if not isinstance(obj, Equipa):
+            return None
+
         equipa = bytearray(b'EFa' + b'\x00' * 47)
 
         equipa += encrypt(obj.ext_name)

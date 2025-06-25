@@ -1,8 +1,10 @@
-from abc import abstractstaticmethod, ABC
+from abc import abstractmethod, ABC
+from typing import Any
 
 
 class BaseSerializer(ABC):
 
-    @abstractstaticmethod
-    def serialize(obj: str) -> bytearray:
+    @staticmethod
+    @abstractmethod
+    def serialize(obj: Any) -> bytearray | None:
         pass

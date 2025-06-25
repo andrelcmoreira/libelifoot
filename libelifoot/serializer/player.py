@@ -1,3 +1,5 @@
+from typing import Any
+
 from libelifoot.entity.player import Player
 from libelifoot.serializer.base_serializer import BaseSerializer
 from libelifoot.util.player_position import PlayerPosition
@@ -7,7 +9,10 @@ from libelifoot.util.crypto import encrypt
 class PlayerSerializer(BaseSerializer):
 
     @staticmethod
-    def serialize(obj: Player) -> bytearray:
+    def serialize(obj: Any) -> bytearray | None:
+        if not isinstance(obj, Player):
+            return None
+
         player = bytearray()
 
         player.append(0)
