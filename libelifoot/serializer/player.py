@@ -13,9 +13,7 @@ class PlayerSerializer(BaseSerializer):
         if not isinstance(obj, Player):
             return None
 
-        player = bytearray()
-
-        player.append(0)
+        player = bytearray(b'\x00')
         player += encrypt(obj.country)
         player += encrypt(obj.name)
         player.append(PlayerPosition.to_pos_code(obj.position))

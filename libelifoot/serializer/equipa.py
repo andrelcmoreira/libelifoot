@@ -15,7 +15,6 @@ class EquipaSerializer(BaseSerializer):
             return None
 
         equipa = bytearray(b'EFa' + b'\x00' * 47)
-
         equipa += encrypt(obj.ext_name)
         equipa += encrypt(obj.short_name)
         equipa += bytearray(obj.colors.background + b'\x00')

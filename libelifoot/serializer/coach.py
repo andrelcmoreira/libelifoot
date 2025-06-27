@@ -11,9 +11,7 @@ class CoachSerializer(BaseSerializer):
         if not isinstance(obj, str):
             return None
 
-        coach = bytearray()
-
-        coach.append(0)
+        coach = bytearray(b'\x00')
         coach += encrypt(obj)
 
         return coach

@@ -60,12 +60,13 @@ class EspnProvider(BaseProvider):
         'Zimbábue': 'ZBW'
     }
 
+    # TODO: considerar o torneio
     def __init__(self):
         super().__init__('espn',
                          'https://www.espn.com.br/futebol/time/elenco/_/id/',
                          self._COUNTRIES)
 
-    def get_coach(self, equipa_file: str, season: int) -> list:
+    def get_coach(self, equipa_file: str, season: int) -> str:
         return '' # not available on espn provider
 
     def assemble_uri(self, team_id: str, season: int) -> str:

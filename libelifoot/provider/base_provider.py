@@ -34,7 +34,7 @@ class BaseProvider(ABC):
         pass
 
     @abstractmethod
-    def get_coach(self, equipa_file: str, season: int) -> list:
+    def get_coach(self, equipa_file: str, season: int) -> str:
         pass
 
     @property
