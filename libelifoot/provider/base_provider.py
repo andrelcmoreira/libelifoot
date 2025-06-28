@@ -53,7 +53,7 @@ class BaseProvider(ABC):
         try:
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
 
-            return self.parse_reply(reply)
+            return self.parse_reply(reply.text)
         except (exceptions.ConnectionError, exceptions.ReadTimeout):
             return None
 

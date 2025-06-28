@@ -79,7 +79,7 @@ class TransfermarktProvider(BaseProvider):
             f'{self._base_url}{team_id}'
 
     def parse_reply(self, reply: str) -> list:
-        bs = BeautifulSoup(reply.text, 'html.parser')
+        bs = BeautifulSoup(reply, 'html.parser')
         players = []
 
         even_players = bs.find_all('tr', class_='even')

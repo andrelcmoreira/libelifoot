@@ -75,7 +75,7 @@ class EspnProvider(BaseProvider):
 
     def parse_reply(self, reply: str) -> list | None:
         ret = findall(r'(\"athletes\":[\'\[\{"\w:,\/\.\d~\-\s\}\\p{L}\(\)]+\])',
-                      reply.text)
+                      reply)
 
         try:
             goalkeepers = loads('{' + ret[0] + '}')
