@@ -4,6 +4,7 @@ from libelifoot.error.header_not_found import EquipaHeaderNotFound
 from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.entity.color import Color
 from libelifoot.entity.equipa import Equipa
+from libelifoot.entity.player import Player
 from libelifoot.parser.base_parser import BaseParser
 from libelifoot.parser.player import PlayersParser
 from libelifoot.util.crypto import decrypt
@@ -52,7 +53,12 @@ class EquipaParser(BaseParser):
 
         return decrypt(data, offs, Sizes.COUNTRY.value - 1) # to skip the size byte
 
-    def parse_players(self, data: bytes, ext_len: int, short_len: int) -> list:
+    def parse_players(
+        self,
+        data: bytes,
+        ext_len: int,
+        short_len: int
+    ) -> list[Player]:
         players_offs = OffsetCalculator.get_players(ext_len, short_len)
         count_offs = OffsetCalculator.get_players_number(ext_len, short_len)
         pp = PlayersParser(data, players_offs, count_offs)

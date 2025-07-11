@@ -12,7 +12,7 @@ class PlayersParser(BaseParser):
         self._players_offs = players_offs
         self._count_offs = count_offs
 
-    def parse(self) -> list:
+    def parse(self) -> list[Player]:
         number_players = self._data[self._count_offs]
         players = []
 

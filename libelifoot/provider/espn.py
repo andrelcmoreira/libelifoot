@@ -73,7 +73,7 @@ class EspnProvider(BaseProvider):
         return f'{self._base_url}{team_id}/season/{season}' if season else \
             f'{self._base_url}{team_id}'
 
-    def parse_reply(self, reply: str) -> list | None:
+    def parse_reply(self, reply: str) -> list[Player]:
         ret = findall(r'(\"athletes\":[\'\[\{"\w:,\/\.\d~\-\s\}\\p{L}\(\)]+\])',
                       reply)
 
@@ -84,9 +84,9 @@ class EspnProvider(BaseProvider):
             return self._parse_players(goalkeepers.get('athletes') + \
                                        others.get('athletes'))
         except IndexError:
-            return None
+            return []
 
-    def select_players(self, player_list: list) -> list:
+    def select_players(self, player_list: list) -> list[Player]:
         players = []
         gk = []
         df = []
@@ -118,7 +118,7 @@ class EspnProvider(BaseProvider):
             if len(player.get('name')) <= self._MAX_NAME_SIZE \
             else player.get('shortName')
 
-    def _parse_players(self, data: list) -> list:
+    def _parse_players(self, data: list) -> list[Player]:
         players = []
 
         for player in data:

@@ -3,6 +3,7 @@ from json import load
 from requests import exceptions, get
 from unidecode import unidecode
 
+from libelifoot.entity.player import Player
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_provided import EquipaNotProvided
 
@@ -26,11 +27,11 @@ class BaseProvider(ABC):
         pass
 
     @abstractmethod
-    def parse_reply(self, reply: str) -> list | None:
+    def parse_reply(self, reply: str) -> list[Player]:
         pass
 
     @abstractmethod
-    def select_players(self, player_list: list) -> list:
+    def select_players(self, player_list: list) -> list[Player]:
         pass
 
     @abstractmethod
@@ -46,7 +47,7 @@ class BaseProvider(ABC):
             if country in self._country_map \
             else unidecode(country[0:3]).upper()
 
-    def _fetch_team_data(self, team_id: str, season: int) -> list | None:
+    def _fetch_team_data(self, team_id: str, season: int) -> list[Player]:
         headers = { 'User-Agent': 'elf98' }
         uri = self.assemble_uri(team_id, season)
 
@@ -55,7 +56,7 @@ class BaseProvider(ABC):
 
             return self.parse_reply(reply.text)
         except (exceptions.ConnectionError, exceptions.ReadTimeout):
-            return None
+            return []
 
     def _get_team_id(self, equipa_file: str) -> str:
         with open(f'data/{self._name}.json', encoding='utf-8') as f:
@@ -67,13 +68,13 @@ class BaseProvider(ABC):
 
             return ''
 
-    def get_teams(self) -> list:
+    def get_teams(self) -> list[dict]:
         with open(f'data/{self._name}.json', encoding='utf-8') as f:
             mapping = load(f)
 
             return mapping
 
-    def get_players(self, equipa_file: str, season: int) -> list:
+    def get_players(self, equipa_file: str, season: int) -> list[Player]:
         team_id = self._get_team_id(equipa_file)
         if team_id == '':
             raise EquipaNotProvided(equipa_file)

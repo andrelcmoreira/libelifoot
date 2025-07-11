@@ -78,7 +78,7 @@ class TransfermarktProvider(BaseProvider):
         return f'{self._base_url}{team_id}/saison_id/{season}' if season else \
             f'{self._base_url}{team_id}'
 
-    def parse_reply(self, reply: str) -> list:
+    def parse_reply(self, reply: str) -> list[Player]:
         bs = BeautifulSoup(reply, 'html.parser')
         players = []
 
@@ -123,7 +123,7 @@ class TransfermarktProvider(BaseProvider):
 
         return self._parse_players(players)
 
-    def select_players(self, player_list: list) -> list:
+    def select_players(self, player_list: list) -> list[Player]:
         players = []
         gk = []
         df = []
@@ -150,7 +150,7 @@ class TransfermarktProvider(BaseProvider):
 
         return players
 
-    def _parse_players(self, data: list) -> list:
+    def _parse_players(self, data: list) -> list[Player]:
         players = []
 
         for player in data:
