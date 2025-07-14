@@ -170,7 +170,7 @@ class TransfermarktProvider(BaseProvider):
 
         return players
 
-    def _get_value(self, value: str) -> int:
+    def _get_value(self, value: str) -> float:
         if value != '-':
             raw, mul, _ = value.replace(',', '.').split(' ')
 
