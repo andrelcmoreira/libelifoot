@@ -2,10 +2,11 @@ from enum import Enum
 
 
 class PlayerPosition(Enum):
-    G = 0 # goalkeeper
-    D = 1 # defender
-    M = 2 # midfielder
-    A = 3 # forward ('atacante' in portuguese)
+    U = -1 # unknown
+    G = 0  # goalkeeper
+    D = 1  # defender
+    M = 2  # midfielder
+    A = 3  # forward ('atacante' in portuguese)
 
     @staticmethod
     def to_pos_code(pos: str) -> int:
@@ -15,6 +16,8 @@ class PlayerPosition(Enum):
             case PlayerPosition.M.name: return PlayerPosition.M.value
             case PlayerPosition.A.name: return PlayerPosition.A.value
 
+        return PlayerPosition.U.value
+
     @staticmethod
     def to_pos_name(pos_code: int) -> str:
         match pos_code:
@@ -22,3 +25,5 @@ class PlayerPosition(Enum):
             case PlayerPosition.D.value: return PlayerPosition.D.name
             case PlayerPosition.M.value: return PlayerPosition.M.name
             case PlayerPosition.A.value: return PlayerPosition.A.name
+
+        return PlayerPosition.U.name
