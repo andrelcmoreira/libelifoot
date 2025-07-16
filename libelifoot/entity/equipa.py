@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from libelifoot.entity.color import Color
+from libelifoot.entity.player import Player
 
 
 @dataclass
@@ -12,7 +13,7 @@ class Equipa:
     level: int
     colors: Color
     coach: str
-    players: list
+    players: list[Player]
 
     def __str__(self) -> str:
         return (
