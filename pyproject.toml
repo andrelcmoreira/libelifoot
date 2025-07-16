@@ -3,17 +3,17 @@ requires = ["hatchling >= 1.26"]
 build-backend = "hatchling.build"
 
 [project]
-name = 'libelifoot'
-version = '0.1.0'
-requires-python = '>=3.7'
+name = "libelifoot"
+version = "0.1.0"
+requires-python = ">=3.7"
 dependencies = [
-    'requests',
-    'Unidecode',
-    'BeautifulSoup4'
+    "requests",
+    "Unidecode",
+    "BeautifulSoup4"
 ]
-authors = [{ name = 'André L. C. Moreira', email = 'andrelcmoreira@disroot.org' }]
-description = 'Library to handle Elifoot equipas'
-license = 'LGPL-3.0-only'
+authors = [{ name = "André L. C. Moreira", email = "andrelcmoreira@disroot.org" }]
+description = "Library to handle Elifoot equipas"
+license = "LGPL-3.0-only"
 license-files = ["LICEN[CS]E.*"]
 readme = { file = "README.md", content-type = "text/markdown" }
 
@@ -21,9 +21,9 @@ readme = { file = "README.md", content-type = "text/markdown" }
 Repository = "https://github.com/andrelcmoreira/libelifoot.git"
 
 [tool.pytest.ini_options]
-minversion = '6.0'
-addopts = '-ra -q'
-pythonpath = '.'
+minversion = "6.0"
+addopts = "-ra -q"
+pythonpath = "."
 testpaths = [
-    'tests'
+    "tests"
 ]
