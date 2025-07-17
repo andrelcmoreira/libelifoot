@@ -31,7 +31,7 @@ class BaseProvider(ABC):
         pass
 
     @abstractmethod
-    def select_players(self, player_list: list) -> list[Player]:
+    def select_players(self, player_list: list[Player]) -> list[Player]:
         pass
 
     @abstractmethod

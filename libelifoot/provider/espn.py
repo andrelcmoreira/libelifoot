@@ -86,7 +86,7 @@ class EspnProvider(BaseProvider):
         except IndexError:
             return []
 
-    def select_players(self, player_list: list) -> list[Player]:
+    def select_players(self, player_list: list[Player]) -> list[Player]:
         players = []
         gk = []
         df = []
