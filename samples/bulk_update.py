@@ -9,7 +9,7 @@ class EventHandler(UpdateEquipaListener):
     def on_update_equipa(self, equipa_name: str, equipa_data: Equipa) -> None:
         print(f'{equipa_name}\n{equipa_data}')
 
-        EquipaFileHandler.save(f'{equipa_name}.patch', equipa_data)
+        EquipaFileHandler.write(f'{equipa_name}.patch', equipa_data)
 
     def on_update_equipa_error(self, error: str) -> None:
         print(f'ERROR: {error}')

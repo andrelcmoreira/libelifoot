@@ -1,4 +1,3 @@
-from unittest.mock import patch
 from pytest import raises
 
 from libelifoot.entity.color import Color
@@ -17,8 +16,7 @@ def test_create_base_equipa_with_not_existent_file():
         builder.create_base_equipa(equipa_file)
 
 
-@patch('libelifoot.file.equipa.EquipaFileHandler.read')
-def test_create_base_equipa_with_existent_file(read_mock):
+def test_create_base_equipa_with_existent_file(mocker):
     builder = EquipaBuilder()
     equipa_file = 'FORTALEZA.eft'
     player_list = [
@@ -35,7 +33,8 @@ def test_create_base_equipa_with_existent_file(read_mock):
                     colors=Color(text=b'', background=b''),
                     coach='Juan Pablo Vojvoda', players=player_list)
 
-    read_mock.return_value = equipa
+    read_mock = mocker.patch('libelifoot.file.equipa.EquipaFileHandler.read',
+                             return_value=equipa)
 
     builder.create_base_equipa(equipa_file)
 

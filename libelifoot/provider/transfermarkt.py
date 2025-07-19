@@ -150,7 +150,7 @@ class TransfermarktProvider(BaseProvider):
 
         return players
 
-    def _parse_players(self, data: list) -> list[Player]:
+    def _parse_players(self, data: list[dict]) -> list[Player]:
         players = []
 
         for player in data:

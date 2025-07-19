@@ -118,7 +118,7 @@ class EspnProvider(BaseProvider):
             if len(player.get('name')) <= self._MAX_NAME_SIZE \
             else player.get('shortName')
 
-    def _parse_players(self, data: list) -> list[Player]:
+    def _parse_players(self, data: list[dict]) -> list[Player]:
         players = []
 
         for player in data:

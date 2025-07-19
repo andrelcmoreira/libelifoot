@@ -8,6 +8,9 @@ from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_provided import EquipaNotProvided
 
 
+# TODO: strategy pattern?
+
+
 class BaseProvider(ABC):
 
     _REQUEST_TIMEOUT = 30
