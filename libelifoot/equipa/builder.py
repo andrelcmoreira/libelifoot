@@ -1,6 +1,7 @@
 from typing import Self
 
 from libelifoot.entity.equipa import Equipa
+from libelifoot.entity.player import Player
 from libelifoot.file.equipa import EquipaFileHandler
 
 
@@ -16,7 +17,7 @@ class EquipaBuilder:
 
         return self
 
-    def add_players(self, players: list) -> Self:
+    def add_players(self, players: list[Player]) -> Self:
         if self._equipa:
             self._equipa.players = players
 

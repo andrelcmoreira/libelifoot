@@ -30,7 +30,7 @@ def test_create_base_equipa_with_existent_file(mocker):
     ]
     equipa = Equipa(ext_name='Fortaleza Esporte Clube', short_name='Fortaleza',
                     country='BRA', level=10,
-                    colors=Color(text=b'', background=b''),
+                    colors=Color(text=b'001122', background=b'334455'),
                     coach='Juan Pablo Vojvoda', players=player_list)
 
     read_mock = mocker.patch('libelifoot.file.equipa.EquipaFileHandler.read',
