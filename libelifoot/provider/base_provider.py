@@ -1,11 +1,14 @@
 from abc import abstractmethod, ABC
 from json import load
+from typing import Callable
+
 from requests import exceptions, get
 from unidecode import unidecode
 
 from libelifoot.entity.player import Player
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_provided import EquipaNotProvided
+from libelifoot.util.player_position import PlayerPosition
 
 
 # TODO: strategy pattern?
@@ -20,10 +23,12 @@ class BaseProvider(ABC):
     _MAX_FW_PLAYERS = 6
     _MAX_NAME_SIZE = 18
 
-    def __init__(self, provider_name: str, base_url: str, country_map: dict):
+    def __init__(self, provider_name: str, base_url: str, country_map: dict,
+                 sorting_fn: Callable[[Player], int]):
         self._name = provider_name
         self._base_url = base_url
         self._country_map = country_map
+        self._sorting_fn = sorting_fn
 
     @abstractmethod
     def assemble_uri(self, team_id: str, season: int) -> str:
@@ -34,16 +39,39 @@ class BaseProvider(ABC):
         pass
 
     @abstractmethod
-    def select_players(self, player_list: list[Player]) -> list[Player]:
-        pass
-
-    @abstractmethod
     def get_coach(self, equipa_file: str, season: int) -> str:
         pass
 
     @property
     def name(self) -> str:
         return self._name
+
+    def select_players(self, player_list: list[Player]) -> list[Player]:
+        players = []
+        gk = []
+        df = []
+        mf = []
+        fw = []
+
+        for player in player_list:
+            match player.position:
+                case PlayerPosition.G.name: gk.append(player)
+                case PlayerPosition.D.name: df.append(player)
+                case PlayerPosition.M.name: mf.append(player)
+                case PlayerPosition.A.name: fw.append(player)
+
+        gk.sort(key=self._sorting_fn, reverse=True)
+        df.sort(key=self._sorting_fn, reverse=True)
+        mf.sort(key=self._sorting_fn, reverse=True)
+        fw.sort(key=self._sorting_fn, reverse=True)
+
+        # TODO: check the maximum number of players allowed by the game
+        players.extend(gk[0:self._MAX_GK_PLAYERS])
+        players.extend(df[0:self._MAX_DEF_PLAYERS])
+        players.extend(mf[0:self._MAX_MD_PLAYERS])
+        players.extend(fw[0:self._MAX_FW_PLAYERS])
+
+        return players
 
     def get_country(self, country: str) -> str:
         return self._country_map[country] \
@@ -79,7 +107,7 @@ class BaseProvider(ABC):
 
     def get_players(self, equipa_file: str, season: int) -> list[Player]:
         team_id = self._get_team_id(equipa_file)
-        if team_id == '':
+        if not team_id:
             raise EquipaNotProvided(equipa_file)
 
         players = self._fetch_team_data(team_id, season)

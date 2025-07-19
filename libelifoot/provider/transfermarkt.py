@@ -69,7 +69,8 @@ class TransfermarktProvider(BaseProvider):
     def __init__(self):
         super().__init__('transfermarkt',
                          'https://www.transfermarkt.com.br/',
-                         self._COUNTRIES)
+                         self._COUNTRIES,
+                         lambda p: int(p.value))
 
     def get_coach(self, equipa_file: str, season: int) -> str:
         return '' # TODO
@@ -122,33 +123,6 @@ class TransfermarktProvider(BaseProvider):
                 continue
 
         return self._parse_players(players)
-
-    def select_players(self, player_list: list[Player]) -> list[Player]:
-        players = []
-        gk = []
-        df = []
-        mf = []
-        fw = []
-
-        for player in player_list:
-            match player.position:
-                case PlayerPosition.G.name: gk.append(player)
-                case PlayerPosition.D.name: df.append(player)
-                case PlayerPosition.M.name: mf.append(player)
-                case PlayerPosition.A.name: fw.append(player)
-
-        gk.sort(key=lambda p: int(p.value), reverse=True)
-        df.sort(key=lambda p: int(p.value), reverse=True)
-        mf.sort(key=lambda p: int(p.value), reverse=True)
-        fw.sort(key=lambda p: int(p.value), reverse=True)
-
-        ## TODO: check the maximum number of players allowed by the game
-        players.extend(gk[0:self._MAX_GK_PLAYERS])
-        players.extend(df[0:self._MAX_DEF_PLAYERS])
-        players.extend(mf[0:self._MAX_MD_PLAYERS])
-        players.extend(fw[0:self._MAX_FW_PLAYERS])
-
-        return players
 
     def _parse_players(self, data: list[dict]) -> list[Player]:
         players = []

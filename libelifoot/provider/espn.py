@@ -3,7 +3,6 @@ from re import findall
 
 from libelifoot.entity.player import Player
 from libelifoot.provider.base_provider import BaseProvider
-from libelifoot.util.player_position import PlayerPosition
 
 
 class EspnProvider(BaseProvider):
@@ -64,7 +63,8 @@ class EspnProvider(BaseProvider):
     def __init__(self):
         super().__init__('espn',
                          'https://www.espn.com.br/futebol/time/elenco/_/id/',
-                         self._COUNTRIES)
+                         self._COUNTRIES,
+                         lambda p: int(p.appearances))
 
     def get_coach(self, equipa_file: str, season: int) -> str:
         return '' # not available on espn provider
@@ -85,33 +85,6 @@ class EspnProvider(BaseProvider):
                                        others.get('athletes'))
         except IndexError:
             return []
-
-    def select_players(self, player_list: list[Player]) -> list[Player]:
-        players = []
-        gk = []
-        df = []
-        mf = []
-        fw = []
-
-        for player in player_list:
-            match player.position:
-                case PlayerPosition.G.name: gk.append(player)
-                case PlayerPosition.D.name: df.append(player)
-                case PlayerPosition.M.name: mf.append(player)
-                case PlayerPosition.A.name: fw.append(player)
-
-        gk.sort(key=lambda p: int(p.appearances), reverse=True)
-        df.sort(key=lambda p: int(p.appearances), reverse=True)
-        mf.sort(key=lambda p: int(p.appearances), reverse=True)
-        fw.sort(key=lambda p: int(p.appearances), reverse=True)
-
-        # TODO: check the maximum number of players allowed by the game
-        players.extend(gk[0:self._MAX_GK_PLAYERS])
-        players.extend(df[0:self._MAX_DEF_PLAYERS])
-        players.extend(mf[0:self._MAX_MD_PLAYERS])
-        players.extend(fw[0:self._MAX_FW_PLAYERS])
-
-        return players
 
     def _get_player_name(self, player: dict) -> str:
         return player.get('name') \
