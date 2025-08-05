@@ -1,5 +1,4 @@
 from json import loads
-from re import findall
 
 from libelifoot.entity.player import Player
 from libelifoot.provider.base_provider import BaseProvider
@@ -74,16 +73,21 @@ class EspnProvider(BaseProvider):
             f'{self._base_url}{team_id}'
 
     def parse_reply(self, reply: str) -> list[Player]:
-        ret = findall(r'(\"athletes\":[\'\[\{"\w:,\/\.\d~\-\s\}\\p{L}\(\)]+\])',
-                      reply)
+        start_str = ";window['__espnfitt__']="
+        end_str = ";</script>"
 
         try:
-            goalkeepers = loads('{' + ret[0] + '}')
-            others = loads('{' + ret[1] + '}')
+            ret = loads(reply.split(start_str)[1].split(end_str)[0])
+            groups = ret['page']['content']['squad']['groups']
 
-            return self._parse_players(goalkeepers.get('athletes') + \
-                                       others.get('athletes'))
-        except IndexError:
+            if not groups:
+                return []
+
+            goalkeepers = groups[0]['athletes']
+            others = groups[1]['athletes']
+
+            return self._parse_players(goalkeepers + others)
+        except (IndexError, KeyError):
             return []
 
     def _get_player_name(self, player: dict) -> str:
