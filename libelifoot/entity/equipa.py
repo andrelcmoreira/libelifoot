@@ -16,6 +16,8 @@ class Equipa:
     players: list[Player]
 
     def __str__(self) -> str:
+        players = ', '.join([str(p) for p in self.players])
+
         return (
             f'extended name:\t{self.ext_name}\n'
             f'short name:\t{self.short_name}\n'
@@ -23,5 +25,5 @@ class Equipa:
             f'colors:\t\t{self.colors} (text, background)\n'
             f'level:\t\t{self.level}\n'
             f'coach:\t\t{self.coach}\n'
-            f'players:\t{self.players}'
+            f'players:\t{players}'
         )
