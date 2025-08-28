@@ -182,7 +182,7 @@ class TransfermarktProvider(BaseProvider):
 
     def _get_value(self, value: str) -> float:
         if value != '-':
-            raw, mul, _ = value.replace(',', '.').split(' ')
+            _, raw, mul = value.replace(',', '.').split(' ')
 
             match mul:
                 case 'mi.': return float(raw) * 1000000
