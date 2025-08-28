@@ -65,14 +65,17 @@ class EspnProvider(BaseProvider):
                          self._COUNTRIES,
                          lambda p: int(p.appearances))
 
-    def get_coach(self, equipa_file: str, season: int) -> str:
-        return '' # not available on espn provider
-
-    def assemble_uri(self, team_id: str, season: int) -> str:
+    def assemble_team_data_uri(self, team_id: str, season: int) -> str:
         return f'{self._base_url}{team_id}/season/{season}' if season else \
             f'{self._base_url}{team_id}'
 
-    def parse_reply(self, reply: str) -> list[Player]:
+    def assemble_team_coach_uri(self, team_id: str) -> str:
+        pass
+
+    def parse_coach_data(self, reply: str, season: int) -> str:
+        pass
+
+    def parse_team_data(self, reply: str) -> list[Player]:
         start_str = ";window['__espnfitt__']="
         end_str = ";</script>"
 

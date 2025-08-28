@@ -31,15 +31,19 @@ class BaseProvider(ABC):
         self._sorting_fn = sorting_fn
 
     @abstractmethod
-    def assemble_uri(self, team_id: str, season: int) -> str:
+    def assemble_team_data_uri(self, team_id: str, season: int) -> str:
         pass
 
     @abstractmethod
-    def parse_reply(self, reply: str) -> list[Player]:
+    def assemble_team_coach_uri(self, team_id: str) -> str:
         pass
 
     @abstractmethod
-    def get_coach(self, equipa_file: str, season: int) -> str:
+    def parse_team_data(self, reply: str) -> list[Player]:
+        pass
+
+    @abstractmethod
+    def parse_coach_data(self, reply: str, season: int) -> str:
         pass
 
     @property
@@ -80,14 +84,25 @@ class BaseProvider(ABC):
 
     def _fetch_team_data(self, team_id: str, season: int) -> list[Player]:
         headers = { 'User-Agent': 'elf98' }
-        uri = self.assemble_uri(team_id, season)
+        uri = self.assemble_team_data_uri(team_id, season)
 
         try:
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
 
-            return self.parse_reply(reply.text)
+            return self.parse_team_data(reply.text)
         except (exceptions.ConnectionError, exceptions.ReadTimeout):
             return []
+
+    def _fetch_coach_data(self, team_id: str, season: int) -> str:
+        headers = { 'User-Agent': 'elf98' }
+        uri = self.assemble_team_coach_uri(team_id)
+
+        try:
+            reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
+
+            return self.parse_coach_data(reply.text, season)
+        except (exceptions.ConnectionError, exceptions.ReadTimeout):
+            return ''
 
     def _get_team_id(self, equipa_file: str) -> str:
         with open(f'data/{self._name}.json', encoding='utf-8') as f:
@@ -115,3 +130,10 @@ class BaseProvider(ABC):
             raise EquipaDataNotAvailable(equipa_file)
 
         return self.select_players(players)
+
+    def get_coach(self, equipa_file: str, season: int) -> str:
+        team_id = self._get_team_id(equipa_file)
+        if not team_id:
+            raise EquipaNotProvided(equipa_file)
+
+        return self._fetch_coach_data(team_id, season)
