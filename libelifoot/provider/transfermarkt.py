@@ -85,18 +85,17 @@ class TransfermarktProvider(BaseProvider):
         return f'{self._base_url}{tid}/personalie_id/1'
 
     def parse_coach_data(self, reply: str, season: int) -> str:
+        bs = BeautifulSoup(reply, 'html.parser')
         coach = ''
         days = 0
-        bs = BeautifulSoup(reply, 'html.parser')
 
-        try:
-            ret = bs.find_all('tbody')[1]
-            odd = ret.find_all('tr', class_='odd')
-            even = ret.find_all('tr', class_='even')
-            entries = odd + even
+        ret = bs.find_all('tbody')[1]
+        odd = ret.find_all('tr', class_='odd')
+        even = ret.find_all('tr', class_='even')
 
-            for entry in entries:
-                name = entry.tr.td.a.img['title']
+        for entry in odd + even:
+            try:
+                name = entry.tr.td.a.img.get('title')
                 dates = entry.find_all('td', class_="zentriert")
                 start = dates[1].text
                 end = dates[2].text
@@ -110,8 +109,8 @@ class TransfermarktProvider(BaseProvider):
                 if days_in_season > days:
                     coach = name
                     days = days_in_season
-        except (IndexError, KeyError):
-            pass
+            except IndexError:
+                continue
 
         return coach
 
@@ -121,12 +120,8 @@ class TransfermarktProvider(BaseProvider):
 
         even_players = bs.find_all('tr', class_='even')
         odd_players = bs.find_all('tr', class_='odd')
-        #coach = bs.find_all('div', class_='container-main')
 
-        even_players.extend(odd_players)
-
-        #print('coach', coach[0].text.strip().split('\n'))
-        for player in even_players:
+        for player in even_players + odd_players:
             try:
                 p = player.find('table') \
                     .text \
@@ -139,7 +134,8 @@ class TransfermarktProvider(BaseProvider):
                 name = p[0].strip()
                 pos = p[-1].strip()
                 country = player.find_all('td', class_='zentriert')[2] \
-                    .find('img')['title']
+                    .find('img') \
+                    .get('title')
 
                 if not country:
                     continue
@@ -182,7 +178,7 @@ class TransfermarktProvider(BaseProvider):
 
     def _get_value(self, value: str) -> float:
         if value != '-':
-            _, raw, mul = value.replace(',', '.').split(' ')
+            _, raw, mul = value.split(' ')
 
             match mul:
                 case 'mi.': return float(raw) * 1000000
@@ -191,12 +187,14 @@ class TransfermarktProvider(BaseProvider):
         return 0.0
 
     def _get_name(self, name: str) -> str:
-        if len(name) > self._MAX_NAME_SIZE:
-            ret = name.split(' ')
+        if (len(name) <= self._MAX_NAME_SIZE) or (name.find(' ') == -1):
+            return name
 
-            return f'{ret[0][0]} {' '.join(ret[1:])}'
+        ret = name.split(' ')
+        initial = ret[0][0]
+        second_name = ' '.join(ret[1:])
 
-        return name
+        return f'{initial} {second_name}'
 
     def _get_position(self, position: str) -> str:
         match position.split(' ')[0]:

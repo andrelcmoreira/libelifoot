@@ -22,6 +22,7 @@ class BaseProvider(ABC):
     _MAX_MD_PLAYERS = 6
     _MAX_FW_PLAYERS = 6
     _MAX_NAME_SIZE = 18
+    _USER_AGENT = 'libelifoot'
 
     def __init__(self, provider_name: str, base_url: str, country_map: dict,
                  sorting_fn: Callable[[Player], int]):
@@ -83,7 +84,7 @@ class BaseProvider(ABC):
             else unidecode(country[0:3]).upper()
 
     def _fetch_team_data(self, team_id: str, season: int) -> list[Player]:
-        headers = { 'User-Agent': 'elf98' }
+        headers = { 'User-Agent': self._USER_AGENT }
         uri = self.assemble_team_data_uri(team_id, season)
 
         try:
@@ -94,7 +95,7 @@ class BaseProvider(ABC):
             return []
 
     def _fetch_coach_data(self, team_id: str, season: int) -> str:
-        headers = { 'User-Agent': 'elf98' }
+        headers = { 'User-Agent': self._USER_AGENT }
         uri = self.assemble_team_coach_uri(team_id)
 
         try:
