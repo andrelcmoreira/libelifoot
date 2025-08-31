@@ -6,9 +6,8 @@
         "request": "launch",
         "type": "python",
         "name": "Python: Launch",
-        "program": "view.py",
-        "args": ["BARCELON.EFT.patch"],
-        "console": "integratedTerminal",
+        "program": "update.py",
+        "args": ["$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/FLAMENGO.EFT", "transfermarkt", "2024"],
         "justMyCode": true
       }
     }
