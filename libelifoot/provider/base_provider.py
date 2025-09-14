@@ -16,13 +16,13 @@ from libelifoot.util.player_position import PlayerPosition
 
 class BaseProvider(ABC):
 
+    _USER_AGENT = 'libelifoot'
     _REQUEST_TIMEOUT = 30
     _MAX_GK_PLAYERS = 3
     _MAX_DEF_PLAYERS = 6
     _MAX_MD_PLAYERS = 6
     _MAX_FW_PLAYERS = 6
     _MAX_NAME_SIZE = 18
-    _USER_AGENT = 'libelifoot'
 
     def __init__(self, provider_name: str, base_url: str, country_map: dict,
                  sorting_fn: Callable[[Player], int]):
@@ -97,6 +97,9 @@ class BaseProvider(ABC):
     def _fetch_coach_data(self, team_id: str, season: int) -> str:
         headers = { 'User-Agent': self._USER_AGENT }
         uri = self.assemble_team_coach_uri(team_id)
+
+        if not uri:
+            return ''
 
         try:
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)

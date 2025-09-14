@@ -14,7 +14,6 @@ def update_equipa(equipa_file: str, provider: str, season: int,
     :provider: The data provider (espn or transfermarkt).
     :season: Year's season to use as reference in update operation.
     :listener: Event listener to handle the events.
-
     """
     cmd = UpdateEquipa(equipa_file, provider, season, listener)
 
@@ -41,7 +40,7 @@ def view_equipa(equipa_file: str) -> Equipa:
     View an equipa specified by 'equipa_file'.
 
     :equipa_file: The equipa file.
-    :returns: The equipa data.
 
+    :returns: The equipa data.
     """
     return view(equipa_file)

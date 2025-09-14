@@ -86,26 +86,32 @@ class TransfermarktProvider(BaseProvider):
 
     def parse_coach_data(self, reply: str, season: int) -> str:
         bs = BeautifulSoup(reply, 'html.parser')
+
+        ret = bs.find_all('tbody')
+        if len(ret) > 1:
+            odd = ret[1].find_all('tr', class_='odd')
+            even = ret[1].find_all('tr', class_='even')
+
+            return self._select_coach(season, odd + even)
+
+        return ''
+
+    def _select_coach(self, season: int, coaches: list) -> str:
         coach = ''
         days = 0
 
-        ret = bs.find_all('tbody')[1]
-        odd = ret.find_all('tr', class_='odd')
-        even = ret.find_all('tr', class_='even')
-
-        for entry in odd + even:
+        for entry in coaches:
             try:
                 name = entry.tr.td.a.img.get('title')
-                dates = entry.find_all('td', class_="zentriert")
+                dates = entry.find_all('td', class_='zentriert')
                 start = dates[1].text
                 end = dates[2].text
 
-                days_in_season = get_work_days_in_season(season, start, end)
-                start_season_year = int(start.split('/')[2])
-
-                if (season == start_season_year) and (end == ''):
+                if (str(season) in start) and (end == ''):
                     coach = name
                     break
+
+                days_in_season = get_work_days_in_season(season, start, end)
                 if days_in_season > days:
                     coach = name
                     days = days_in_season

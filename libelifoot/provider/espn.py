@@ -70,10 +70,10 @@ class EspnProvider(BaseProvider):
             f'{self._base_url}{team_id}'
 
     def assemble_team_coach_uri(self, team_id: str) -> str:
-        pass
+        return ''
 
     def parse_coach_data(self, reply: str, season: int) -> str:
-        pass
+        return ''
 
     def parse_team_data(self, reply: str) -> list[Player]:
         start_str = ";window['__espnfitt__']="
