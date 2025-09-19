@@ -10,7 +10,8 @@ class EquipaFileHandler:
         with open(file_name, 'wb') as f:
             data = EquipaSerializer.serialize(equipa)
 
-            f.write(data)
+            if data:
+                f.write(data)
 
     @staticmethod
     def read(file_name: str) -> Equipa:
