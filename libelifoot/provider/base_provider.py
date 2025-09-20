@@ -25,11 +25,13 @@ class BaseProvider(ABC):
     _MAX_NAME_SIZE = 18
 
     def __init__(self, provider_name: str, base_url: str, country_map: dict,
-                 sorting_fn: Callable[[Player], int]):
+                 interval: int, sorting_fn: Callable[[Player], int]):
         self._name = provider_name
         self._base_url = base_url
         self._country_map = country_map
         self._sorting_fn = sorting_fn
+        self._interval = interval
+        self._teams = self._get_teams()
 
     @abstractmethod
     def assemble_team_data_uri(self, team_id: str, season: int) -> str:
@@ -50,6 +52,14 @@ class BaseProvider(ABC):
     @property
     def name(self) -> str:
         return self._name
+
+    @property
+    def teams(self) -> list[dict]:
+        return self._teams
+
+    @property
+    def interval(self) -> int:
+        return self._interval
 
     def select_players(self, player_list: list[Player]) -> list[Player]:
         players = []
@@ -99,7 +109,7 @@ class BaseProvider(ABC):
         uri = self.assemble_team_coach_uri(team_id)
 
         if not uri:
-            return ''
+            return '' # operation not implemented by the specific provider
 
         try:
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
@@ -118,7 +128,7 @@ class BaseProvider(ABC):
 
             return ''
 
-    def get_teams(self) -> list[dict]:
+    def _get_teams(self) -> list[dict]:
         with open(f'data/{self._name}.json', encoding='utf-8') as f:
             mapping = load(f)
 

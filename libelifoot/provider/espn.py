@@ -63,6 +63,7 @@ class EspnProvider(BaseProvider):
         super().__init__('espn',
                          'https://www.espn.com.br/futebol/time/elenco/_/id/',
                          self._COUNTRIES,
+                         0,
                          lambda p: int(p.appearances))
 
     def assemble_team_data_uri(self, team_id: str, season: int) -> str:

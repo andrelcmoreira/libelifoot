@@ -71,6 +71,7 @@ class TransfermarktProvider(BaseProvider):
         super().__init__('transfermarkt',
                          'https://www.transfermarkt.com.br/',
                          self._COUNTRIES,
+                         10,
                          lambda p: int(p.value))
 
     def assemble_team_data_uri(self, team_id: str, season: int) -> str:
