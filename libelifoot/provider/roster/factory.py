@@ -1,6 +1,6 @@
 from libelifoot.error.unknown_provider import UnknownProvider
-from libelifoot.provider.espn import EspnProvider
-from libelifoot.provider.transfermarkt import TransfermarktProvider
+from libelifoot.provider.roster.espn import EspnProvider
+from libelifoot.provider.roster.transfermarkt import TransfermarktProvider
 
 
 def create(prov_name: str) -> EspnProvider | TransfermarktProvider:

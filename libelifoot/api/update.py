@@ -6,7 +6,8 @@ from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
-from libelifoot.provider import factory
+from libelifoot.provider.roster import factory as roster_factory
+from libelifoot.provider.coach import factory as coach_factory
 
 
 class UpdateEquipa(AsyncCommand):
@@ -14,7 +15,8 @@ class UpdateEquipa(AsyncCommand):
     def __init__(self, equipa_file: str, prov: str, season: int,
                  listener: UpdateEquipaListener):
         self._equipa = equipa_file
-        self._prov = factory.create(prov)
+        self._roster_prov = roster_factory.create(prov)
+        self._coach_prov = coach_factory.create()
         self._season = season
         self._ev = listener
 
@@ -23,8 +25,8 @@ class UpdateEquipa(AsyncCommand):
         builder = EquipaBuilder()
 
         try:
-            players = self._prov.get_players(equipa_file, self._season)
-            coach = self._prov.get_coach(equipa_file, self._season)
+            players = self._roster_prov.get_players(equipa_file, self._season)
+            coach = self._coach_prov.get_coach(equipa_file, self._season)
 
             equipa = builder.create_base_equipa(self._equipa) \
                 .add_players(players) \

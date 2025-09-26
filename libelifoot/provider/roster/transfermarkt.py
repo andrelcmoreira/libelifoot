@@ -1,12 +1,12 @@
 from bs4 import BeautifulSoup
 
 from libelifoot.entity.player import Player
-from libelifoot.provider.base_provider import BaseProvider
-from libelifoot.util.date import get_work_days_in_season
+from libelifoot.provider.roster_provider import RosterProvider
+#from libelifoot.util.date import get_work_days_in_season
 from libelifoot.util.player_position import PlayerPosition
 
 
-class TransfermarktProvider(BaseProvider):
+class TransfermarktProvider(RosterProvider):
 
     # Cazaquistão, Curaçao, Eritreia, El salvador, Eswatini, French Guiana,
     # Gibraltar, Ilhas Caimão, Irã, Kosovo, Neocaledonia, Liechtenstein,
@@ -74,54 +74,13 @@ class TransfermarktProvider(BaseProvider):
                          10,
                          lambda p: int(p.value))
 
-    def assemble_team_data_uri(self, team_id: str, season: int) -> str:
+    def assemble_roster_uri(self, team_id: str, season: int) -> str:
         tid = team_id.format('startseite')
 
         return f'{self._base_url}{tid}/saison_id/{season}' if season else \
             f'{self._base_url}{team_id}'
 
-    def assemble_team_coach_uri(self, team_id: str) -> str:
-        tid = team_id.format('mitarbeiterhistorie')
-
-        return f'{self._base_url}{tid}/personalie_id/1'
-
-    def parse_coach_data(self, reply: str, season: int) -> str:
-        bs = BeautifulSoup(reply, 'html.parser')
-
-        ret = bs.find_all('tbody')
-        if len(ret) > 1:
-            odd = ret[1].find_all('tr', class_='odd')
-            even = ret[1].find_all('tr', class_='even')
-
-            return self._select_coach(season, odd + even)
-
-        return ''
-
-    def _select_coach(self, season: int, coaches: list) -> str:
-        coach = ''
-        days = 0
-
-        for entry in coaches:
-            try:
-                name = entry.tr.td.a.img.get('title')
-                dates = entry.find_all('td', class_='zentriert')
-                start = dates[1].text
-                end = dates[2].text
-
-                if (str(season) in start) and (end == ''):
-                    coach = name
-                    break
-
-                days_in_season = get_work_days_in_season(season, start, end)
-                if days_in_season > days:
-                    coach = name
-                    days = days_in_season
-            except IndexError:
-                continue
-
-        return coach
-
-    def parse_team_data(self, reply: str) -> list[Player]:
+    def parse_roster_data(self, reply: str) -> list[Player]:
         bs = BeautifulSoup(reply, 'html.parser')
         players = []
 
