@@ -1,12 +1,13 @@
-from abc import abstractmethod, ABC
+from abc import abstractmethod
 
 from requests import exceptions, get
 
+from libelifoot.equipa.mapping import get_team_id
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.provider.base_provider import BaseProvider
 
 
-class CoachProvider(ABC, BaseProvider):
+class BaseCoachProvider(BaseProvider):
 
     def __init__(self, provider_name: str, base_url: str, interval: int):
         self._name = provider_name
@@ -14,16 +15,12 @@ class CoachProvider(ABC, BaseProvider):
         self._interval = interval
 
     @abstractmethod
-    def assemble_coach_uri(self, team_id: str) -> str:
-        pass
-
-    @abstractmethod
     def parse_coach_data(self, reply: str, season: int) -> str:
         pass
 
     def _fetch_coach_data(self, team_id: str, season: int) -> str:
         headers = { 'User-Agent': self._USER_AGENT }
-        uri = self.assemble_coach_uri(team_id)
+        uri = self.assemble_uri(team_id, season)
 
         if not uri:
             return '' # operation not implemented by the specific provider
@@ -36,7 +33,7 @@ class CoachProvider(ABC, BaseProvider):
             return ''
 
     def get_coach(self, equipa_file: str, season: int) -> str:
-        team_id = self._get_team_id(equipa_file)
+        team_id = get_team_id(equipa_file, self._name)
         if not team_id:
             raise EquipaNotProvided(equipa_file)
 

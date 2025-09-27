@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from libelifoot.entity.equipa import Equipa
+from libelifoot.dto.equipa import Equipa
 
 
 class UpdateEquipaListener(ABC):

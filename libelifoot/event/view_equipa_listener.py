@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from entity.equipa import Equipa
+from dto.equipa import Equipa
 
 
 class ViewEquipaListener(ABC):

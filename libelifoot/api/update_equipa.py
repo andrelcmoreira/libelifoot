@@ -6,17 +6,18 @@ from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
-from libelifoot.provider.roster import factory as roster_factory
-from libelifoot.provider.coach import factory as coach_factory
+from libelifoot.provider.base_coach_provider import BaseCoachProvider
+from libelifoot.provider.base_roster_provider import BaseRosterProvider
 
 
 class UpdateEquipa(AsyncCommand):
 
-    def __init__(self, equipa_file: str, prov: str, season: int,
+    def __init__(self, equipa_file: str, roster_prov: BaseRosterProvider,
+                 coach_prov: BaseCoachProvider, season: int,
                  listener: UpdateEquipaListener):
         self._equipa = equipa_file
-        self._roster_prov = roster_factory.create(prov)
-        self._coach_prov = coach_factory.create()
+        self._roster_prov = roster_prov
+        self._coach_prov = coach_prov
         self._season = season
         self._ev = listener
 

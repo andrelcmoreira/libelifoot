@@ -1,4 +1,4 @@
-from libelifoot.entity.equipa import Equipa
+from libelifoot.dto.equipa import Equipa
 from libelifoot.parser.equipa import EquipaParser
 from libelifoot.serializer.equipa import EquipaSerializer
 

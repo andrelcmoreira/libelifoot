@@ -1,27 +1,31 @@
-from libelifoot.api.async_command import AsyncCommand
-from libelifoot.api.update import UpdateEquipa
-from libelifoot.event.update_equipa_listener import UpdateEquipaListener
-from libelifoot.provider.roster import factory as roster_factory
-
 from time import sleep
+
+from libelifoot.api.async_command import AsyncCommand
+from libelifoot.api.update_equipa import UpdateEquipa
+from libelifoot.equipa.mapping import get_teams
+from libelifoot.event.update_equipa_listener import UpdateEquipaListener
+from libelifoot.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.provider.base_coach_provider import BaseCoachProvider
 
 
 class BulkUpdate(AsyncCommand):
 
-    def __init__(self, equipa_dir: str, prov: str, season: int,
+    def __init__(self, equipa_dir: str, roster_prov: BaseRosterProvider,
+                 coach_prov: BaseCoachProvider, season: int,
                  listener: UpdateEquipaListener):
         self._dir = equipa_dir
-        self._prov = roster_factory.create(prov)
+        self._roster_prov = roster_prov
+        self._coach_prov = coach_prov
         self._season = season
         self._ev = listener
 
     def run(self) -> None:
-        teams = self._prov.teams
+        teams = get_teams(self._roster_prov.name)
 
         for team in teams:
-            cmd = UpdateEquipa(f"{self._dir}/{team['file']}", self._prov.name,
-                               self._season, self._ev)
+            cmd = UpdateEquipa(f"{self._dir}/{team['file']}", self._roster_prov,
+                               self._coach_prov, self._season, self._ev)
 
             cmd.run()
 
-            sleep(self._prov.interval)  # to avoid overwhelming the data source
+            sleep(self._roster_prov.interval)  # to avoid overwhelming the data source

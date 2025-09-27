@@ -1,18 +1,18 @@
-from abc import abstractmethod, ABC
-from json import load
+from abc import abstractmethod
 from typing import Callable
 
 from requests import exceptions, get
 from unidecode import unidecode
 
-from libelifoot.entity.player import Player
+from libelifoot.dto.player import Player
+from libelifoot.equipa.mapping import get_team_id
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.util.player_position import PlayerPosition
 from libelifoot.provider.base_provider import BaseProvider
 
 
-class RosterProvider(ABC, BaseProvider):
+class BaseRosterProvider(BaseProvider):
 
     _MAX_GK_PLAYERS = 3
     _MAX_DEF_PLAYERS = 6
@@ -27,19 +27,10 @@ class RosterProvider(ABC, BaseProvider):
         self._country_map = country_map
         self._sorting_fn = sorting_fn
         self._interval = interval
-        self._teams = self._get_teams()
-
-    @abstractmethod
-    def assemble_roster_uri(self, team_id: str, season: int) -> str:
-        pass
 
     @abstractmethod
     def parse_roster_data(self, reply: str) -> list[Player]:
         pass
-
-    @property
-    def teams(self) -> list[dict]:
-        return self._teams
 
     def select_players(self, player_list: list[Player]) -> list[Player]:
         players = []
@@ -75,7 +66,7 @@ class RosterProvider(ABC, BaseProvider):
 
     def _fetch_team_data(self, team_id: str, season: int) -> list[Player]:
         headers = { 'User-Agent': self._USER_AGENT }
-        uri = self.assemble_roster_uri(team_id, season)
+        uri = self.assemble_uri(team_id, season)
 
         try:
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
@@ -84,14 +75,8 @@ class RosterProvider(ABC, BaseProvider):
         except (exceptions.ConnectionError, exceptions.ReadTimeout):
             return []
 
-    def _get_teams(self) -> list[dict]:
-        with open(f'data/{self._name}.json', encoding='utf-8') as f:
-            mapping = load(f)
-
-            return mapping
-
     def get_players(self, equipa_file: str, season: int) -> list[Player]:
-        team_id = self._get_team_id(equipa_file)
+        team_id = get_team_id(equipa_file, self._name)
         if not team_id:
             raise EquipaNotProvided(equipa_file)
 

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from libelifoot.entity.color import Color
-from libelifoot.entity.player import Player
+from libelifoot.dto.color import Color
+from libelifoot.dto.player import Player
 
 
 @dataclass

@@ -1,10 +1,10 @@
 from json import loads
 
-from libelifoot.entity.player import Player
-from libelifoot.provider.roster_provider import RosterProvider
+from libelifoot.dto.player import Player
+from libelifoot.provider.base_roster_provider import BaseRosterProvider
 
 
-class EspnProvider(RosterProvider):
+class RosterProvider(BaseRosterProvider):
 
     # Cazaquistão, Curaçao, Eritreia, El salvador, French Guiana, Gibraltar,
     # Irã, Kosovo, Neocaledonia, Liechtenstein, Palestina and Saint Martin are
@@ -66,7 +66,7 @@ class EspnProvider(RosterProvider):
                          0,
                          lambda p: int(p.appearances))
 
-    def assemble_roster_uri(self, team_id: str, season: int) -> str:
+    def assemble_uri(self, team_id: str, season: int) -> str:
         return f'{self._base_url}{team_id}/season/{season}' if season else \
             f'{self._base_url}{team_id}'
 

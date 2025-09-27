@@ -1,4 +1,4 @@
-from libelifoot.entity.player import Player
+from libelifoot.dto.player import Player
 from libelifoot.serializer.player import PlayerSerializer
 from libelifoot.util.player_position import PlayerPosition
 

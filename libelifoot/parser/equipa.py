@@ -1,10 +1,8 @@
-from os.path import exists
-
 from libelifoot.error.header_not_found import EquipaHeaderNotFound
 from libelifoot.error.not_found import EquipaNotFound
-from libelifoot.entity.color import Color
-from libelifoot.entity.equipa import Equipa
-from libelifoot.entity.player import Player
+from libelifoot.dto.color import Color
+from libelifoot.dto.equipa import Equipa
+from libelifoot.dto.player import Player
 from libelifoot.parser.base_parser import BaseParser
 from libelifoot.parser.player import PlayersParser
 from libelifoot.util.crypto import decrypt
@@ -73,23 +71,25 @@ class EquipaParser(BaseParser):
         return decrypt(data, offs + 1, data[offs])
 
     def parse(self) -> Equipa:
-        if not exists(self._file):
-            raise EquipaNotFound(self._file)
+        try:
+            with open(self._file, 'rb') as f:
+                data = f.read()
 
-        with open(self._file, 'rb') as f:
-            data = f.read()
+                if not self.has_equipa_header(data):
+                    raise EquipaHeaderNotFound(self._file)
 
-            if not self.has_equipa_header(data):
-                raise EquipaHeaderNotFound(self._file)
+                ext_name = self.parse_ext_name(data)
+                short_name = self.parse_short_name(data, len(ext_name))
+                colors = self.parse_colors(data, len(ext_name), len(short_name))
+                level = self.parse_level(data, len(ext_name), len(short_name))
+                coach = self.parse_coach(data, len(ext_name), len(short_name))
+                players = self.parse_players(data, len(ext_name),
+                                             len(short_name))
+                country = self.parse_country(data, len(ext_name),
+                                             len(short_name))
 
-            ext_name = self.parse_ext_name(data)
-            short_name = self.parse_short_name(data, len(ext_name))
-            colors = self.parse_colors(data, len(ext_name), len(short_name))
-            country = self.parse_country(data, len(ext_name), len(short_name))
-            level = self.parse_level(data, len(ext_name), len(short_name))
-            players = self.parse_players(data, len(ext_name), len(short_name))
-            coach = self.parse_coach(data, len(ext_name), len(short_name))
-
-            return Equipa(ext_name=ext_name, short_name=short_name,
-                          country=country, level=level, colors=colors,
-                          coach=coach, players=players)
+                return Equipa(ext_name=ext_name, short_name=short_name,
+                              country=country, level=level, colors=colors,
+                              coach=coach, players=players)
+        except FileNotFoundError as exc:
+            raise EquipaNotFound(self._file) from exc
