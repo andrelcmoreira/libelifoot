@@ -1,8 +1,8 @@
 from pytest import raises
 
-from libelifoot.entity.color import Color
-from libelifoot.entity.equipa import Equipa
-from libelifoot.entity.player import Player
+from libelifoot.dto.color import Color
+from libelifoot.dto.equipa import Equipa
+from libelifoot.dto.player import Player
 from libelifoot.util.player_position import PlayerPosition
 from libelifoot.equipa.builder import EquipaBuilder
 from libelifoot.error.not_found import EquipaNotFound

@@ -1,7 +1,7 @@
 from json import loads
 
-from libelifoot.entity.player import Player
-from libelifoot.provider.roster_provider import RosterProvider
+from libelifoot.dto.player import Player
+from libelifoot.provider.roster.roster_provider import RosterProvider
 
 
 class EspnProvider(RosterProvider):

@@ -2,9 +2,9 @@ from os.path import exists
 
 from libelifoot.error.header_not_found import EquipaHeaderNotFound
 from libelifoot.error.not_found import EquipaNotFound
-from libelifoot.entity.color import Color
-from libelifoot.entity.equipa import Equipa
-from libelifoot.entity.player import Player
+from libelifoot.dto.color import Color
+from libelifoot.dto.equipa import Equipa
+from libelifoot.dto.player import Player
 from libelifoot.parser.base_parser import BaseParser
 from libelifoot.parser.player import PlayersParser
 from libelifoot.util.crypto import decrypt

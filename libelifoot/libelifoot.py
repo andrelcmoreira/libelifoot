@@ -1,8 +1,10 @@
-from libelifoot.entity.equipa import Equipa
-from libelifoot.event.update_equipa_listener import UpdateEquipaListener
 from libelifoot.api.bulk_update import BulkUpdate
 from libelifoot.api.update import UpdateEquipa
 from libelifoot.api.view import view
+from libelifoot.dto.equipa import Equipa
+from libelifoot.event.update_equipa_listener import UpdateEquipaListener
+from libelifoot.provider.coach import factory as coach_factory
+from libelifoot.provider.roster import factory as roster_factory
 
 
 def update_equipa(equipa_file: str, provider: str, season: int,
@@ -15,7 +17,8 @@ def update_equipa(equipa_file: str, provider: str, season: int,
     :season: Year's season to use as reference in update operation.
     :listener: Event listener to handle the events.
     """
-    cmd = UpdateEquipa(equipa_file, provider, season, listener)
+    cmd = UpdateEquipa(equipa_file, roster_factory.create(provider),
+                       coach_factory.create(), season, listener)
 
     cmd.run()
 
@@ -30,7 +33,8 @@ def bulk_update(equipa_dir: str, provider: str, season: int,
     :season: Year's season to use as reference in update operation.
     :listener: Event listener to handle the events.
     """
-    cmd = BulkUpdate(equipa_dir, provider, season, listener)
+    cmd = BulkUpdate(equipa_dir, roster_factory.create(provider),
+                     coach_factory.create(), season, listener)
 
     cmd.run()
 

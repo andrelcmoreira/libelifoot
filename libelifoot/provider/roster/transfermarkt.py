@@ -1,8 +1,7 @@
 from bs4 import BeautifulSoup
 
-from libelifoot.entity.player import Player
-from libelifoot.provider.roster_provider import RosterProvider
-#from libelifoot.util.date import get_work_days_in_season
+from libelifoot.dto.player import Player
+from libelifoot.provider.roster.roster_provider import RosterProvider
 from libelifoot.util.player_position import PlayerPosition
 
 

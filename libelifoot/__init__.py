@@ -1,4 +1,4 @@
-from .entity.equipa import Equipa
+from .dto.equipa import Equipa
 from .event.update_equipa_listener import UpdateEquipaListener
 
 from .libelifoot import bulk_update, update_equipa, view_equipa

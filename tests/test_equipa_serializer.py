@@ -1,6 +1,6 @@
-from libelifoot.entity.color import Color
-from libelifoot.entity.equipa import Equipa
-from libelifoot.entity.player import Player
+from libelifoot.dto.color import Color
+from libelifoot.dto.equipa import Equipa
+from libelifoot.dto.player import Player
 from libelifoot.serializer.equipa import EquipaSerializer
 from libelifoot.util.player_position import PlayerPosition
 

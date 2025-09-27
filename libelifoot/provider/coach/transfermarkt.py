@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from libelifoot.provider.coach_provider import CoachProvider
+from libelifoot.provider.coach.coach_provider import CoachProvider
 from libelifoot.util.date import get_work_days_in_season
 
 
@@ -10,7 +10,7 @@ class TransfermarktProvider(CoachProvider):
     _REQUEST_TIMEOUT = 30
 
     def __init__(self):
-        super().__init__('transfermarkt', 'https://transfermarkt.com.br/', 5)
+        super().__init__('transfermarkt', 'https://transfermarkt.com.br/', 10)
 
     def assemble_coach_uri(self, team_id: str) -> str:
         tid = team_id.format('mitarbeiterhistorie')
@@ -39,6 +39,10 @@ class TransfermarktProvider(CoachProvider):
                 dates = entry.find_all('td', class_='zentriert')
                 start = dates[1].text
                 end = dates[2].text
+
+                if not start:
+                    continue
+
                 start_year = int(start.split('/')[-1])
 
                 if (season >= start_year) and (end == ''): # current coach
