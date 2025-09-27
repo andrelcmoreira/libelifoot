@@ -9,12 +9,11 @@ from libelifoot.entity.player import Player
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.util.player_position import PlayerPosition
+from libelifoot.provider.base_provider import BaseProvider
 
 
-class RosterProvider(ABC):
+class RosterProvider(ABC, BaseProvider):
 
-    _USER_AGENT = 'libelifoot'
-    _REQUEST_TIMEOUT = 30
     _MAX_GK_PLAYERS = 3
     _MAX_DEF_PLAYERS = 6
     _MAX_MD_PLAYERS = 6
@@ -39,16 +38,8 @@ class RosterProvider(ABC):
         pass
 
     @property
-    def name(self) -> str:
-        return self._name
-
-    @property
     def teams(self) -> list[dict]:
         return self._teams
-
-    @property
-    def interval(self) -> int:
-        return self._interval
 
     def select_players(self, player_list: list[Player]) -> list[Player]:
         players = []
@@ -92,16 +83,6 @@ class RosterProvider(ABC):
             return self.parse_roster_data(reply.text)
         except (exceptions.ConnectionError, exceptions.ReadTimeout):
             return []
-
-    def _get_team_id(self, equipa_file: str) -> str:
-        with open(f'data/{self._name}.json', encoding='utf-8') as f:
-            mapping = load(f)
-
-            for entry in mapping:
-                if entry['file'] == equipa_file:
-                    return entry['id']
-
-            return ''
 
     def _get_teams(self) -> list[dict]:
         with open(f'data/{self._name}.json', encoding='utf-8') as f:
