@@ -39,8 +39,9 @@ class TransfermarktProvider(CoachProvider):
                 dates = entry.find_all('td', class_='zentriert')
                 start = dates[1].text
                 end = dates[2].text
+                start_year = int(start.split('/')[-1])
 
-                if (str(season) in start) and (end == ''):
+                if (season >= start_year) and (end == ''): # current coach
                     coach = name
                     break
 
