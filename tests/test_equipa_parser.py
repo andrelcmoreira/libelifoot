@@ -48,8 +48,8 @@ def test_parse_colors():
     file = 'tests/data/VALID_EQUIPA.EFT'
     ext_name = 'CR FLAMENGO'
     short_name = 'FLAMENGO'
-    bg_str = 'FF0000' # red
-    txt_str = '000000' # black
+    bg_str = '000000' # red
+    txt_str = 'FF0000' # black
 
     with open(file, 'rb') as f:
         data = f.read()
@@ -57,9 +57,9 @@ def test_parse_colors():
         ep = EquipaParser(file)
         colors = ep.parse_colors(data, len(ext_name), len(short_name))
 
-        assert str(colors) == f'#{txt_str}, #{bg_str}'
-        assert colors.text == bytes.fromhex(txt_str) # FIXME
-        assert colors.background == bytes.fromhex(bg_str) # FIXME
+        assert str(colors) == f'#{bg_str}, #{txt_str}'
+        assert colors.text == bytes.fromhex(txt_str)
+        assert colors.background == bytes.fromhex(bg_str)
 
 
 def test_parse_level():
