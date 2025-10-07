@@ -9,11 +9,6 @@ from libelifoot.provider.base_provider import BaseProvider
 
 class BaseCoachProvider(BaseProvider):
 
-    def __init__(self, provider_name: str, base_url: str, interval: int):
-        self._name = provider_name
-        self._base_url = base_url
-        self._interval = interval
-
     @abstractmethod
     def parse_coach_data(self, reply: str, season: int) -> str:
         pass

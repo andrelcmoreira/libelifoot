@@ -22,11 +22,10 @@ class BaseRosterProvider(BaseProvider):
 
     def __init__(self, provider_name: str, base_url: str, country_map: dict,
                  interval: int, sorting_fn: Callable[[Player], int]):
-        self._name = provider_name
-        self._base_url = base_url
         self._country_map = country_map
         self._sorting_fn = sorting_fn
-        self._interval = interval
+
+        super().__init__(provider_name, base_url, interval)
 
     @abstractmethod
     def parse_roster_data(self, reply: str) -> list[Player]:
