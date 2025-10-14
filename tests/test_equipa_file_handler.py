@@ -1,19 +1,15 @@
 from unittest.mock import patch
 
-from libelifoot.dto.color import Color
-from libelifoot.dto.equipa import Equipa
+from fixtures import mock_equipa
+
 from libelifoot.file.equipa import EquipaFileHandler
 
 
-@patch('libelifoot.parser.equipa.EquipaParser.parse')
-def test_read_equipa(mock_parse):
-    equipa = Equipa(ext_name='FORTALEZA EC', short_name='FORTALEZA',
-                    country='BRA', level=10,
-                    colors=Color(text=b'', background=b''),
-                    coach='Juan Pablo Vojvoda', players=[])
+def test_read_equipa(mock_equipa):
+    with patch(
+        'libelifoot.parser.equipa.EquipaParser.parse',
+        return_value=mock_equipa
+    ) as mock_parse:
+        assert EquipaFileHandler.read('FORTALEZA.EFT') == mock_equipa
 
-    mock_parse.return_value = equipa
-
-    assert EquipaFileHandler.read('FORTALEZA.EFT') == equipa
-
-    mock_parse.assert_called_once()
+        mock_parse.assert_called_once()
