@@ -15,3 +15,11 @@ def test_get_work_days_in_season_full_year():
 
 def test_get_work_days_in_season_end_year():
     assert get_work_days_in_season(2021, '15/03/2020', '20/06/2021') == 170
+
+
+def test_get_work_days_in_season_middle_year():
+    assert get_work_days_in_season(2021, '15/03/2020', '20/06/2022') == 365
+
+
+def test_get_work_days_in_season_with_no_working_days():
+    assert get_work_days_in_season(2019, '15/03/2020', '20/06/2022') == 0
