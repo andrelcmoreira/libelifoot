@@ -9,4 +9,4 @@ class BaseParser(ABC):
 
     @abstractmethod
     def parse(self) -> Any:
-        pass
+        pass # pragma: no cover

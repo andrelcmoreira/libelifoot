@@ -100,4 +100,3 @@ def test_add_coach_without_base_equipa():
     equipa = builder.build()
 
     assert equipa is None
-

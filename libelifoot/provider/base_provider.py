@@ -21,4 +21,4 @@ class BaseProvider(ABC):
 
     @abstractmethod
     def assemble_uri(self, team_id: str, season: int) -> str:
-        pass
+        pass # pragma: no cover
