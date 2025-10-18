@@ -29,7 +29,7 @@ class BaseRosterProvider(BaseProvider):
 
     @abstractmethod
     def parse_roster_data(self, reply: str) -> list[Player]:
-        pass
+        pass # pragma: no cover
 
     def select_players(self, player_list: list[Player]) -> list[Player]:
         players = []

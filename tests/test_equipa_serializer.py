@@ -25,6 +25,4 @@ def test_serialize_valid_equipa(mock_equipa):
 
     ret = EquipaSerializer.serialize(mock_equipa)
 
-    print(ret)
-
     assert ret == expected

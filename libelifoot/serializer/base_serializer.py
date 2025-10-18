@@ -7,4 +7,4 @@ class BaseSerializer(ABC):
     @staticmethod
     @abstractmethod
     def serialize(obj: Any) -> bytearray | None:
-        pass
+        pass # pragma: no cover

@@ -11,7 +11,7 @@ class BaseCoachProvider(BaseProvider):
 
     @abstractmethod
     def parse_coach_data(self, reply: str, season: int) -> str:
-        pass
+        pass # pragma: no cover
 
     def _fetch_coach_data(self, team_id: str, season: int) -> str:
         headers = { 'User-Agent': self._USER_AGENT }
