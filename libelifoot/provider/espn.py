@@ -1,6 +1,6 @@
 from json import loads
 
-from libelifoot.dto.player import Player
+from libelifoot.entity.player import Player
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
 
 

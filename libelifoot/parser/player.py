@@ -1,4 +1,4 @@
-from libelifoot.dto.player import Player
+from libelifoot.entity.player import Player
 from libelifoot.parser.base_parser import BaseParser
 from libelifoot.util.crypto import decrypt
 from libelifoot.util.player_position import PlayerPosition

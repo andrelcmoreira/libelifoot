@@ -1,6 +1,6 @@
 from typing import Any
 
-from libelifoot.dto.equipa import Equipa
+from libelifoot.entity.equipa import Equipa
 from libelifoot.serializer.base_serializer import BaseSerializer
 from libelifoot.serializer.coach import CoachSerializer
 from libelifoot.serializer.player import PlayerSerializer

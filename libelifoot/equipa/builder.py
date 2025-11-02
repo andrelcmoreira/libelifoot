@@ -1,7 +1,7 @@
 from typing import Self
 
-from libelifoot.dto.equipa import Equipa
-from libelifoot.dto.player import Player
+from libelifoot.entity.equipa import Equipa
+from libelifoot.entity.player import Player
 from libelifoot.file.equipa import EquipaFileHandler
 
 

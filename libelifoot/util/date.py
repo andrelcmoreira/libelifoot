@@ -1,5 +1,6 @@
 from datetime import datetime
-from time import localtime
+
+import time
 
 
 _DAYS_IN_YEAR = 365
@@ -12,7 +13,7 @@ def _get_work_days_in_session(start: str, end: str) -> int:
     if end:
         date_end = datetime.strptime(end, _DATE_FORMAT)
     else:
-        lt = localtime()
+        lt = time.localtime()
         date_end = datetime(year=lt.tm_year, month=lt.tm_mon, day=lt.tm_mday)
 
     diff = date_end - date_start
@@ -38,7 +39,7 @@ def _get_work_days_in_start_session(start: str, season: int) -> int:
 
 def get_work_days_in_season(season: int, start: str, end: str) -> int:
     start_season_year = int(start.split('/')[2])
-    end_season_year = int(end.split('/')[2]) if end else localtime().tm_year
+    end_season_year = int(end.split('/')[2]) if end else time.localtime().tm_year
 
     if start_season_year == season == end_season_year:
         return _get_work_days_in_session(start, end)

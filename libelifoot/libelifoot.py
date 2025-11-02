@@ -1,7 +1,7 @@
 from libelifoot.api.bulk_update import BulkUpdate
 from libelifoot.api.update_equipa import UpdateEquipa
 from libelifoot.api.view_equipa import view
-from libelifoot.dto.equipa import Equipa
+from libelifoot.entity.equipa import Equipa
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
 from libelifoot.provider import factory
 
