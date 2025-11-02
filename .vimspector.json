@@ -1,6 +1,6 @@
 {
   "configurations": {
-    "Python: Launch": {
+    "samples": {
       "adapter": "debugpy",
       "configuration": {
         "request": "launch",
@@ -9,6 +9,18 @@
         "program": "update.py",
         "args": ["$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/FLAMENGO.EFT", "transfermarkt", "2024"],
         "justMyCode": true
+      }
+    },
+    "unit tests": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "Run unit tests",
+        "type": "python",
+        "request": "launch",
+        "module": "pytest",
+        "args": [
+          "tests/"
+        ]
       }
     }
   }
