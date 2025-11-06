@@ -1,13 +1,45 @@
 {
   "configurations": {
-    "samples": {
+    "update sample": {
       "adapter": "debugpy",
       "configuration": {
-        "request": "launch",
+        "name": "Launch update sample",
         "type": "python",
-        "name": "Python: Launch",
+        "request": "launch",
         "program": "update.py",
-        "args": ["$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/FLAMENGO.EFT", "transfermarkt", "2024"],
+        "args": [
+          "$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/FLAMENGO.EFT",
+          "${provider}",
+          "${season}"
+        ],
+        "justMyCode": true
+      }
+    },
+    "bulk update sample": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "Launch bulk update sample",
+        "type": "python",
+        "request": "launch",
+        "program": "bulk_update.py",
+        "args": [
+          "$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/",
+          "${provider}",
+          "${season}"
+        ],
+        "justMyCode": true
+      }
+    },
+    "view sample": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "Launch view sample",
+        "type": "python",
+        "request": "launch",
+        "program": "view.py",
+        "args": [
+          "$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/FLAMENGO.EFT"
+        ],
         "justMyCode": true
       }
     },
