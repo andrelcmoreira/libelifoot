@@ -8,7 +8,7 @@ from libelifoot.util.player_position import PlayerPosition
 
 
 _PROVIDER_NAME = 'transfermarkt'
-_PROVIDER_URL = 'https://www.transfermarkt.com.br/'
+_PROVIDER_URL = f'https://www.{_PROVIDER_NAME}.com.br/'
 _REQUEST_INTERVAL = 10  # seconds
 
 
@@ -81,7 +81,7 @@ class RosterProvider(BaseRosterProvider):
         tid = team_id.format('startseite')
 
         return f'{self._base_url}{tid}/saison_id/{season}' if season else \
-            f'{self._base_url}{team_id}'
+            f'{self._base_url}{tid}'
 
     def parse_roster_data(self, reply: str) -> list[Player]:
         bs = BeautifulSoup(reply, 'html.parser')
@@ -184,7 +184,7 @@ class CoachProvider(BaseCoachProvider):
     def __init__(self):
         super().__init__(_PROVIDER_NAME, _PROVIDER_URL, _REQUEST_INTERVAL)
 
-    def assemble_uri(self, team_id: str, season: int) -> str:
+    def assemble_uri(self, team_id: str, _) -> str:
         tid = team_id.format('mitarbeiterhistorie')
 
         return f'{self._base_url}{tid}/personalie_id/1'
