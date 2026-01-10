@@ -2,6 +2,7 @@ from libelifoot.provider.transfermarkt import RosterProvider, CoachProvider
 
 
 ROSTER_PROV = RosterProvider()
+BASE_URL = 'https://www.transfermarkt.com.br'
 
 
 def test_assemble_roster_uri_with_season_year():
@@ -10,8 +11,7 @@ def test_assemble_roster_uri_with_season_year():
     season = 2022
 
     uri = ROSTER_PROV.assemble_uri(team_id, season)
-    assert f'https://www.transfermarkt.com.br/{expected_id}/saison_id/{season}'\
-        == uri
+    assert f'{BASE_URL}/{expected_id}/saison_id/{season}' == uri
 
 
 def test_assemble_roster_uri_with_no_season_year():
@@ -19,7 +19,7 @@ def test_assemble_roster_uri_with_no_season_year():
     expected_id = team_id.format('startseite')
 
     uri = ROSTER_PROV.assemble_uri(team_id, 0)
-    assert  f'https://www.transfermarkt.com.br/{expected_id}' == uri
+    assert  f'{BASE_URL}/{expected_id}' == uri
 
 
 def test_assemble_coach_uri():
@@ -29,5 +29,4 @@ def test_assemble_coach_uri():
     season = 2022
 
     uri = coach_prov.assemble_uri(team_id, season)
-    assert f'https://www.transfermarkt.com.br/{expected_id}/personalie_id/1' \
-        == uri
+    assert f'{BASE_URL}/{expected_id}/personalie_id/1' == uri
