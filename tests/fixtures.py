@@ -1,3 +1,4 @@
+from unittest import mock
 import pytest
 
 from libelifoot.entity.color import Color
@@ -349,3 +350,8 @@ def mock_equipa_bytes():
         b"\x13t\xe0V\xbb.\x03\x00\x03E\x97\xd8\tL\xad\x1f\x8b\xf4b\xca9\xac"
         b"\x03\x00\x0bQ\xba&\x8f\xffd\x84\xd0E2\xa5"
     )
+
+
+@pytest.fixture
+def mock_roster_provider():
+    yield mock.MagicMock(name='mock_provider', interval=0)

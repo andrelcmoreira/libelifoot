@@ -10,7 +10,7 @@ from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
 
 
-class UpdateEquipa(AsyncCommand):
+class Cmd(AsyncCommand):
 
     def __init__(self, equipa_file: str, roster_prov: BaseRosterProvider,
                  coach_prov: BaseCoachProvider, season: int,

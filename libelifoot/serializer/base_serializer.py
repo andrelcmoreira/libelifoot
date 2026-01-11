@@ -2,9 +2,9 @@ from abc import abstractmethod, ABC
 from typing import Any
 
 
-class BaseSerializer(ABC):
+class BaseSerializer(ABC): # pragma: no cover
 
     @staticmethod
     @abstractmethod
     def serialize(obj: Any) -> bytearray | None:
-        pass # pragma: no cover
+        pass
