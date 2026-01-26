@@ -2,6 +2,7 @@ from unittest import mock
 
 from fixtures import mock_equipa, mock_players
 from libelifoot.api import update_equipa
+from libelifoot.error.not_found import EquipaNotFound
 
 
 @mock.patch('libelifoot.provider.base_roster_provider')
@@ -68,3 +69,21 @@ def test_update_equipa(mock_listener, mock_coach_prov, mock_roster_prov,
             .build.assert_called_once()
         mock_listener.on_update_equipa.assert_called_once_with(equipa_file,
                                                                mock_equipa)
+
+
+@mock.patch('libelifoot.provider.base_roster_provider')
+@mock.patch('libelifoot.provider.base_coach_provider')
+@mock.patch('libelifoot.event.update_equipa_listener.UpdateEquipaListener')
+def test_update_equipa_with_error(mock_listener, mock_coach_prov,
+                                  mock_roster_prov):
+    equipa_file = 'NON_EXISTENT.EFT'
+    season = 2024
+    expected_error = f"Equipa '{equipa_file}' not found!"
+
+    mock_roster_prov.get_players.side_effect = EquipaNotFound(equipa_file)
+    cmd = update_equipa.Cmd(equipa_file, mock_roster_prov, mock_coach_prov,
+                            season, mock_listener)
+    cmd.run()
+
+    mock_roster_prov.get_players.assert_called_once_with(equipa_file, season)
+    mock_listener.on_update_equipa_error.assert_called_once_with(expected_error)

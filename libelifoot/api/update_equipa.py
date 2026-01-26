@@ -1,4 +1,4 @@
-from os.path import sep
+import os.path
 
 from libelifoot.api.async_command import AsyncCommand
 from libelifoot.equipa import builder
@@ -23,7 +23,7 @@ class Cmd(AsyncCommand):
 
     def run(self) -> None:
         equipa_builder = builder.EquipaBuilder()
-        equipa_file = self._equipa.split(sep)[-1]
+        equipa_file = self._equipa.split(os.path.sep)[-1]
 
         try:
             players = self._roster.get_players(equipa_file, self._season)
