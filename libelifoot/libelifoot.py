@@ -1,6 +1,6 @@
 from libelifoot.api import bulk_update as _bulk_update
 from libelifoot.api import update_equipa as _update_equipa
-from libelifoot.api.view_equipa import view
+from libelifoot.api import view_equipa as _view_equipa
 from libelifoot.entity.equipa import Equipa
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
 from libelifoot.provider import factory
@@ -47,4 +47,4 @@ def view_equipa(equipa_file: str) -> Equipa:
 
     :returns: The equipa data.
     """
-    return view(equipa_file)
+    return _view_equipa.view(equipa_file)
