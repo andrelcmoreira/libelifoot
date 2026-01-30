@@ -21,7 +21,7 @@ def test_create_roster_provider_with_transfermarkt():
 def test_create_roster_provider_with_invalid_entry():
     provider = 'invalid_provider'
 
-    with raises(UnknownProvider, match=f"unknown provider '{provider}'!"):
+    with raises(UnknownProvider, match=f"Unknown provider '{provider}'!"):
         factory.create_roster_provider(provider)
 
 
