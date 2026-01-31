@@ -5,7 +5,7 @@ from requests import exceptions, get
 from unidecode import unidecode
 
 from libelifoot.entity.player import Player
-from libelifoot.equipa.mapping import get_team_id
+from libelifoot.equipa import mapping
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.util.player_position import PlayerPosition
@@ -75,7 +75,7 @@ class BaseRosterProvider(BaseProvider):
             return []
 
     def get_players(self, equipa_file: str, season: int) -> list[Player]:
-        team_id = get_team_id(equipa_file, self._name)
+        team_id = mapping.get_team_id(equipa_file, self._name)
         if not team_id:
             raise EquipaNotProvided(equipa_file)
 

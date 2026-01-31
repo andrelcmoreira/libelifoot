@@ -164,7 +164,7 @@ def mock_equipa():
         short_name='FLAMENGO',
         country='BRA',
         level=14,
-        colors=Color(text=b'000000', background=b'FF0000'),
+        colors=Color(text=b'\xFF\x00\x00', background=b'\x00\x00\x00'),
         coach='Filipe Luís',
         players=player_list
     )

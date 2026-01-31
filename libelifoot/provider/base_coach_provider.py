@@ -2,7 +2,7 @@ from abc import abstractmethod
 
 from requests import exceptions, get
 
-from libelifoot.equipa.mapping import get_team_id
+from libelifoot.equipa import mapping
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.provider.base_provider import BaseProvider
 
@@ -28,7 +28,7 @@ class BaseCoachProvider(BaseProvider):
             return ''
 
     def get_coach(self, equipa_file: str, season: int) -> str:
-        team_id = get_team_id(equipa_file, self._name)
+        team_id = mapping.get_team_id(equipa_file, self._name)
         if not team_id:
             raise EquipaNotProvided(equipa_file)
 
