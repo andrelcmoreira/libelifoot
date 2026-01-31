@@ -4,8 +4,8 @@ from libelifoot.api.async_command import AsyncCommand
 from libelifoot.api import update_equipa
 from libelifoot.equipa import mapping
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
-from libelifoot.provider.base_roster_provider import BaseRosterProvider
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
+from libelifoot.provider.base_roster_provider import BaseRosterProvider
 
 
 class Cmd(AsyncCommand):

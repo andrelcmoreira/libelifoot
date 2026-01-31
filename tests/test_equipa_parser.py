@@ -1,3 +1,7 @@
+from unittest import mock
+
+from fixtures import mock_players, mock_equipa_bytes
+
 from libelifoot.parser.equipa import EquipaParser
 
 
@@ -86,3 +90,81 @@ def test_parse_country():
 
         ep = EquipaParser(file)
         assert ep.parse_country(data, len(ext_name), len(short_name)) == country
+
+
+def test_parse_players(mock_players, mock_equipa_bytes):
+    file = 'FORTALEZA.EFT'
+    ext_name = 'FORTALEZA ESPORTE CLUBE'
+    short_name = 'FORTALEZA'
+
+    with mock.patch(
+        'libelifoot.parser.player.PlayersParser.parse',
+        return_value=mock_players
+    ) as mock_parse:
+        ep = EquipaParser(file)
+
+        players = ep.parse_players(mock_equipa_bytes, len(ext_name),
+                                   len(short_name))
+
+        mock_parse.assert_called_once()
+        assert players == mock_players
+
+
+def test_parse_coach(mock_equipa_bytes):
+    file = 'FORTALEZA.EFT'
+    ext_name = 'FORTALEZA ESPORTE CLUBE'
+    short_name = 'FORTALEZA'
+    coach = 'Juan Pablo Vojvoda'
+
+    with (
+        mock.patch(
+            'libelifoot.parser.equipa.OffsetCalculator.get_coach',
+            return_value=len(mock_equipa_bytes) - 10
+        ) as mock_get_coach,
+        mock.patch(
+            'libelifoot.util.crypto.decrypt',
+            return_value=coach
+        ) as mock_decrypt,
+    ):
+        ep = EquipaParser(file)
+
+        ret = ep.parse_coach(mock_equipa_bytes, len(ext_name), len(short_name))
+
+        assert ret == coach
+
+        mock_get_coach.assert_called_once_with(
+            mock_equipa_bytes,
+            len(ext_name),
+            len(short_name)
+        )
+        mock_decrypt.assert_called_once()
+
+
+def test_parse_coach_with_no_info(mock_equipa_bytes):
+    file = 'FORTALEZA.EFT'
+    ext_name = 'FORTALEZA ESPORTE CLUBE'
+    short_name = 'FORTALEZA'
+    coach = 'Juan Pablo Vojvoda'
+
+    with (
+        mock.patch(
+            'libelifoot.parser.equipa.OffsetCalculator.get_coach',
+            return_value=len(mock_equipa_bytes) + 10
+        ) as mock_get_coach,
+        mock.patch(
+            'libelifoot.util.crypto.decrypt',
+            return_value=coach
+        ) as mock_decrypt,
+    ):
+        ep = EquipaParser(file)
+
+        ret = ep.parse_coach(mock_equipa_bytes, len(ext_name), len(short_name))
+
+        assert ret == ''
+
+        mock_get_coach.assert_called_once_with(
+            mock_equipa_bytes,
+            len(ext_name),
+            len(short_name)
+        )
+        mock_decrypt.assert_not_called()

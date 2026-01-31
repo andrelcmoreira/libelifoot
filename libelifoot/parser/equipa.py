@@ -4,8 +4,8 @@ from libelifoot.entity.player import Player
 from libelifoot.error.header_not_found import EquipaHeaderNotFound
 from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.parser.base_parser import BaseParser
-from libelifoot.parser.player import PlayersParser
-from libelifoot.util.crypto import decrypt
+from libelifoot.parser import player
+from libelifoot.util import crypto
 from libelifoot.util.offset import (Offsets, OffsetCalculator)
 from libelifoot.util.sizes import Sizes
 
@@ -25,12 +25,12 @@ class EquipaParser(BaseParser):
         offs = OffsetCalculator.get_extended_name()
         size = data[Sizes.HEADER.value]
 
-        return decrypt(data, offs, size)
+        return crypto.decrypt(data, offs, size)
 
     def parse_short_name(self, data: bytes, ext_len: int) -> str:
         offs = OffsetCalculator.get_short_name(ext_len)
 
-        return decrypt(data, offs + 1, data[offs])
+        return crypto.decrypt(data, offs + 1, data[offs])
 
     def parse_colors(self, data: bytes, ext_len: int, short_len: int) -> Color:
         offs = OffsetCalculator.get_colors(ext_len, short_len)
@@ -49,7 +49,7 @@ class EquipaParser(BaseParser):
     def parse_country(self, data: bytes, ext_len: int, short_len: int) -> str:
         offs = OffsetCalculator.get_country(ext_len, short_len)
 
-        return decrypt(data, offs, Sizes.COUNTRY.value - 1) # to skip the size byte
+        return crypto.decrypt(data, offs, Sizes.COUNTRY.value - 1) # to skip the size byte
 
     def parse_players(
         self,
@@ -59,7 +59,7 @@ class EquipaParser(BaseParser):
     ) -> list[Player]:
         players_offs = OffsetCalculator.get_players(ext_len, short_len)
         count_offs = OffsetCalculator.get_players_number(ext_len, short_len)
-        pp = PlayersParser(data, players_offs, count_offs)
+        pp = player.PlayersParser(data, players_offs, count_offs)
 
         return pp.parse()
 
@@ -68,7 +68,7 @@ class EquipaParser(BaseParser):
         if offs > len(data): # no coach information available
             return ''
 
-        return decrypt(data, offs + 1, data[offs])
+        return crypto.decrypt(data, offs + 1, data[offs])
 
     def parse(self) -> Equipa:
         try:
