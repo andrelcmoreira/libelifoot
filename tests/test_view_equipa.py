@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from fixtures import mock_equipa
 
-from libelifoot.api.view_equipa import view
+from libelifoot.api import view_equipa
 
 
 def test_view_equipa(mock_equipa):
@@ -12,6 +12,7 @@ def test_view_equipa(mock_equipa):
         'libelifoot.file.equipa.EquipaFileHandler.read',
         return_value=mock_equipa
     ) as mock_read:
-        assert view(file) == mock_equipa
+        cmd = view_equipa.Cmd(file)
 
+        assert cmd.run() == mock_equipa
         mock_read.assert_called_once_with(file)

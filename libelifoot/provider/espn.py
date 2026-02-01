@@ -85,7 +85,10 @@ class RosterProvider(BaseRosterProvider):
             others = groups[1]['athletes']
 
             return self._parse_players(goalkeepers + others)
-        except (IndexError, KeyError):
+        except (
+            IndexError,
+            KeyError
+        ):
             return []
 
     def _get_player_name(self, player: dict) -> str:

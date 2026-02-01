@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 
 from libelifoot.entity.equipa import Equipa
 
@@ -6,7 +7,11 @@ from libelifoot.entity.equipa import Equipa
 class UpdateEquipaListener(ABC): # pragma: no cover
 
     @abstractmethod
-    def on_update_equipa(self, equipa_name: str, equipa_data: Equipa) -> None:
+    def on_update_equipa(
+        self,
+        equipa_name: str,
+        equipa_data: Optional[Equipa]
+    ) -> None:
         """
         Invoked when an equipa is successfully updated.
 

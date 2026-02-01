@@ -24,7 +24,10 @@ class BaseCoachProvider(BaseProvider):
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
 
             return self.parse_coach_data(reply.text, season)
-        except (exceptions.ConnectionError, exceptions.ReadTimeout):
+        except (
+            exceptions.ConnectionError,
+            exceptions.ReadTimeout
+        ):
             return ''
 
     def get_coach(self, equipa_file: str, season: int) -> str:

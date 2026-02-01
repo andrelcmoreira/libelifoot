@@ -1,6 +1,7 @@
 import os.path
+from typing import Any
 
-from libelifoot.api.async_command import AsyncCommand
+from libelifoot.api.base_cmd import BaseCmd
 from libelifoot.equipa import builder
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_found import EquipaNotFound
@@ -10,32 +11,39 @@ from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
 
 
-class Cmd(AsyncCommand):
+class Cmd(BaseCmd):
 
-    def __init__(self, equipa_file: str, roster_prov: BaseRosterProvider,
-                 coach_prov: BaseCoachProvider, season: int,
-                 listener: UpdateEquipaListener):
+    def __init__(
+        self,
+        equipa_file: str,
+        roster_prov: BaseRosterProvider,
+        coach_prov: BaseCoachProvider,
+        season: int,
+        listener: UpdateEquipaListener
+    ):
         self._equipa = equipa_file
         self._roster = roster_prov
         self._coach = coach_prov
         self._season = season
         self._ev = listener
+        self._builder = builder.EquipaBuilder()
 
-    def run(self) -> None:
-        equipa_builder = builder.EquipaBuilder()
+    def run(self) -> Any:
         equipa_file = self._equipa.split(os.path.sep)[-1]
 
         try:
             players = self._roster.get_players(equipa_file, self._season)
             coach = self._coach.get_coach(equipa_file, self._season)
-            equipa = equipa_builder.create_base_equipa(self._equipa) \
+            equipa = self._builder.create_base_equipa(self._equipa) \
                 .add_players(players) \
                 .add_coach(coach) \
                 .build()
 
             self._ev.on_update_equipa(equipa_file, equipa)
-        except (EquipaNotProvided,
-                EquipaDataNotAvailable,
-                EquipaNotFound,
-                PermissionError) as e:
-            self._ev.on_update_equipa_error(str(e))
+        except (
+            EquipaNotProvided,
+            EquipaDataNotAvailable,
+            EquipaNotFound,
+            PermissionError
+        ) as err:
+            self._ev.on_update_equipa_error(str(err))

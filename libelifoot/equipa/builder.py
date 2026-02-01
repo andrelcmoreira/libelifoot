@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Self, Optional
 
 from libelifoot.entity.equipa import Equipa
 from libelifoot.entity.player import Player
@@ -29,5 +29,5 @@ class EquipaBuilder:
 
         return self
 
-    def build(self) -> Equipa | None:
+    def build(self) -> Optional[Equipa]:
         return self._equipa

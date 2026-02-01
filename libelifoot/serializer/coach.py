@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 from libelifoot.serializer.base_serializer import BaseSerializer
 from libelifoot.util.crypto import encrypt
@@ -7,7 +7,7 @@ from libelifoot.util.crypto import encrypt
 class CoachSerializer(BaseSerializer):
 
     @staticmethod
-    def serialize(obj: Any) -> bytearray | None:
+    def serialize(obj: Any) -> Optional[bytearray]:
         if not isinstance(obj, str):
             return None
 

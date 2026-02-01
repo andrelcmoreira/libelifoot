@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional
 
 from libelifoot.entity.equipa import Equipa
 from libelifoot.serializer.base_serializer import BaseSerializer
@@ -10,7 +10,7 @@ from libelifoot.util.crypto import encrypt
 class EquipaSerializer(BaseSerializer):
 
     @staticmethod
-    def serialize(obj: Any) -> bytearray | None:
+    def serialize(obj: Any) -> Optional[bytearray]:
         if not isinstance(obj, Equipa):
             return None
 

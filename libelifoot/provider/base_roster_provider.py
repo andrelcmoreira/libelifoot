@@ -71,7 +71,10 @@ class BaseRosterProvider(BaseProvider):
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
 
             return self.parse_roster_data(reply.text)
-        except (exceptions.ConnectionError, exceptions.ReadTimeout):
+        except (
+            exceptions.ConnectionError,
+            exceptions.ReadTimeout
+        ):
             return []
 
     def get_players(self, equipa_file: str, season: int) -> list[Player]:
