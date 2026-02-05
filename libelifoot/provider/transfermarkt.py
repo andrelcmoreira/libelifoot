@@ -129,19 +129,21 @@ class RosterProvider(BaseRosterProvider):
         players = []
 
         for player in data:
-            if not player.get('country'): # ignore players with unknown country
-                continue
+            try:
+                country = self.get_country(player['country'])
+                if not country:
+                    continue  # ignore players with unmapped country
 
-            # TODO: discard players with unmaped countries
-
-            players.append(
-                Player(
-                    name=self._get_name(player.get('name')),
-                    position=self._get_position(player.get('position')),
-                    country=self.get_country(player.get('country')),
-                    value=self._get_value(player.get('value'))
+                players.append(
+                    Player(
+                        name=self._get_name(player['name']),
+                        position=self._get_position(player['position']),
+                        country=country,
+                        value=self._get_value(player['value'])
+                    )
                 )
-            )
+            except KeyError:
+                pass
 
         return players
 

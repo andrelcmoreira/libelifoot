@@ -1,6 +1,6 @@
 from libelifoot.error.unknown_provider import UnknownProvider
-from libelifoot.provider import transfermarkt
 from libelifoot.provider import espn
+from libelifoot.provider import transfermarkt
 
 
 def create_coach_provider() -> transfermarkt.CoachProvider:
