@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+    push:
+      branches:
+        - develop
+
+env:
+  PYTEST_MINIMUM_COVERAGE: 75
+  PYLINT_MINIMUM_RATE: 9
+
+jobs:
+  lint:
+    name: Lint the code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: pip install -r requirements-test.txt
+
+      - name: Run pylint
+        run: pylint libelifoot/* --fail-under ${{ env.PYLINT_MINIMUM_RATE }}
+
+  unit_tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: pip install -r requirements-test.txt
+
+      - name: Run unit tests
+        run: pytest -v --cov=libelifoot --cov-report=term-missing --cov-fail-under=${{ env.PYTEST_MINIMUM_COVERAGE }} tests/
