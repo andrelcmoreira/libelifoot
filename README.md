@@ -1,5 +1,10 @@
 ## libelifoot
 
+[![CI](https://github.com/andrelcmoreira/libelifoot/actions/workflows/ci.yaml/badge.svg)](https://github.com/andrelcmoreira/libelifoot/actions/workflows/ci.yaml)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+
+### Overview
+
 Library to handle Elifoot 98 equipas. The main functionalities of the library are:
 
 - View data from a equipa file;
@@ -103,3 +108,14 @@ def main(equipa_dir: str, provider: str, season: int) -> None:
 if __name__ == "__main__":
     main(argv[1], argv[2], int(argv[3]))
 ```
+
+### Supported providers
+
+To generate patches, the library fetches data from football data providers. Currently, the library supports the following providers:
+
+- ESPN;
+- Transfermarkt.
+
+### Documentation
+
+For a more comprehensive and technical documentation about the equipa file format, please refer to the ``doc`` directory.
