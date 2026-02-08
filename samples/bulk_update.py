@@ -1,8 +1,12 @@
 from sys import argv
 from typing import Optional
 
-from libelifoot import bulk_update, Equipa, UpdateEquipaListener
-from libelifoot.file.equipa import EquipaFileHandler
+from libelifoot import (
+    bulk_update,
+    Equipa,
+    EquipaFileHandler,
+    UpdateEquipaListener
+)
 
 
 class EventHandler(UpdateEquipaListener):
