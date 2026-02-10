@@ -111,11 +111,11 @@ if __name__ == "__main__":
 
 ### Supported providers
 
-To generate patches, the library fetches data from football data providers. Currently, the library supports the following providers:
+To generate patches, the library fetches data from public football data providers. Currently, the library supports the following providers:
 
 - ESPN;
 - Transfermarkt.
 
 ### Documentation
 
-For a more comprehensive and technical documentation about the equipa file format, please refer to the ``doc`` directory.
+For a more comprehensive and technical documentation about the equipa file format, please refer to ```doc/equipa_format.txt```.
