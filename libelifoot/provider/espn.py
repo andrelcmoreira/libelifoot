@@ -58,7 +58,6 @@ class RosterProvider(BaseRosterProvider):
         'Zimbábue': 'ZBW'
     }
 
-    # TODO: considerar o torneio
     def __init__(self):
         super().__init__('espn',
                          'https://www.espn.com.br/futebol/time/elenco/_/id/',

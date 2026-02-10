@@ -14,14 +14,20 @@ from libelifoot.provider.base_provider import BaseProvider
 
 class BaseRosterProvider(BaseProvider):
 
-    _MAX_GK_PLAYERS = 3
+    _MAX_GK_PLAYERS = 2
     _MAX_DEF_PLAYERS = 6
     _MAX_MD_PLAYERS = 6
     _MAX_FW_PLAYERS = 6
     _MAX_NAME_SIZE = 18
 
-    def __init__(self, provider_name: str, base_url: str, country_map: dict,
-                 interval: int, sorting_fn: Callable[[Player], int]):
+    def __init__(
+        self,
+        provider_name: str,
+        base_url: str,
+        country_map: dict,
+        interval: int,
+        sorting_fn: Callable[[Player], int]
+    ):
         self._country_map = country_map
         self._sorting_fn = sorting_fn
 
@@ -50,7 +56,6 @@ class BaseRosterProvider(BaseProvider):
         mf.sort(key=self._sorting_fn, reverse=True)
         fw.sort(key=self._sorting_fn, reverse=True)
 
-        # TODO: check the maximum number of players allowed by the game
         players.extend(gk[0:self._MAX_GK_PLAYERS])
         players.extend(df[0:self._MAX_DEF_PLAYERS])
         players.extend(mf[0:self._MAX_MD_PLAYERS])
