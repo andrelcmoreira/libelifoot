@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling >= 1.26"]
+requires = ["hatchling >= 1.26", "hatch-vcs >= 0.3.0"]
 build-backend = "hatchling.build"
 
 [project]
 name = "libelifoot"
-version = "0.1.0"
+dynamic = ["version"]
 requires-python = ">=3.7"
 dependencies = [
     "requests",
@@ -28,8 +28,15 @@ dev = [
 [tool.hatch.build]
 include = [
     "libelifoot/*",
-    "data/*",
+    "data/*"
 ]
+
+[tool.hatch.version.raw-options]
+version_scheme = "python-simplified-semver"
+git_describe_command = ["git", "describe", "--tags"]
+
+[tool.hatch.version]
+source = "vcs"
 
 [project.urls]
 Repository = "https://github.com/andrelcmoreira/libelifoot.git"
