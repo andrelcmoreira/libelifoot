@@ -19,9 +19,16 @@ readme = { file = "README.md", content-type = "text/markdown" }
 
 [project.optional-dependencies]
 dev = [
+    "build",
     "pytest",
     "pytest-cov",
     "pylint"
+]
+
+[tool.hatch.build]
+include = [
+    "libelifoot/*",
+    "data/*",
 ]
 
 [project.urls]
