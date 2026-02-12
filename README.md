@@ -118,4 +118,4 @@ To generate patches, the library fetches data from public football data provider
 
 ### Documentation
 
-For a more comprehensive and technical documentation about the equipa file format, please refer to ```doc/equipa_format.txt```.
+For a more comprehensive and technical documentation about the equipa file format, please refer to ```docs/equipa_format.txt```.
