@@ -1,0 +1,34 @@
+name: Generate release
+
+on:
+  release:
+    types: published
+
+jobs:
+  build_package:
+    name: Build the package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y python3-build
+
+      - name: Build the package
+        run: python3 -m build
+
+#  publish_package:
+#    name: Publish the package
+#    runs-on: ubuntu-latest
+#    needs: build_package
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Install dependencies
+#        run: pip install .
+#
+#      - name: Publish the package to PyPI
+#        env:
+#          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+#          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+#        run: twine upload dist/*
