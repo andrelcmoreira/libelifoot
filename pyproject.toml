@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "libelifoot"
 dynamic = ["version"]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "requests",
     "Unidecode",
