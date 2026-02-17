@@ -11,24 +11,37 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache build artifact
+        uses: actions/cache@v3
+        with:
+          path: dist
+          key: ${{ runner.os }}-cache-${{ github.sha }}
+
       - name: Install dependencies
-        run: sudo apt update && sudo apt install -y python3-build
+        run: pip install build
 
       - name: Build the package
         run: python3 -m build
 
   publish_package:
     name: Publish the package
+    environment: pypi
     runs-on: ubuntu-latest
     needs: build_package
     steps:
       - uses: actions/checkout@v2
 
+      - name: Get build artifact
+        uses: actions/cache@v3
+        with:
+          path: dist
+          key: ${{ runner.os }}-cache-${{ github.sha }}
+
       - name: Install dependencies
-        run: sudo apt update && sudo apt install -y twine
+        run: pip install -U twine packaging
 
       - name: Publish the package to PyPI
         env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        run: twine upload -r pypi dist/*
+          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: TWINE_USERNAME=${{ env.PYPI_USERNAME }} TWINE_PASSWORD=${{ env.PYPI_TOKEN }} python3 -m twine upload -r pypi dist/*
