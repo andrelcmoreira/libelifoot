@@ -7,7 +7,7 @@
 
 Library to handle Elifoot 98 equipas. The main functionalities of the library are:
 
-- View data from a equipa file;
+- View data from an equipa file;
 - Generate patch files with upstream data from an equipa file;
 - Generate patches in batch from a directory of equipa files.
 
