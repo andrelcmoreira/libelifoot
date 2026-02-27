@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/andrelcmoreira/libelifoot/actions/workflows/ci.yaml/badge.svg)](https://github.com/andrelcmoreira/libelifoot/actions/workflows/ci.yaml)
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+[![pypi](https://img.shields.io/pypi/v/libelifoot)](https://pypi.org/project/libelifoot/)
 
 ### Overview
 
