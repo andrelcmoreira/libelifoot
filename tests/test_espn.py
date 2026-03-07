@@ -1,4 +1,4 @@
-from libelifoot.provider.espn import RosterProvider
+from libelifoot.provider.impl.espn import RosterProvider
 
 
 ROSTER_PROV = RosterProvider()

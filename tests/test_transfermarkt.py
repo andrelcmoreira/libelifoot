@@ -5,7 +5,7 @@ from fixtures import mock_players
 
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
-from libelifoot.provider.transfermarkt import RosterProvider, CoachProvider
+from libelifoot.provider.impl.transfermarkt import RosterProvider, CoachProvider
 
 
 ROSTER_PROV = RosterProvider()
@@ -47,7 +47,7 @@ def test_get_coach_with_provided_equipa():
 
     with (
         mock.patch(
-            'libelifoot.equipa.mapping.get_team_id',
+            'libelifoot.provider.mapping.get_team_id',
             return_value=team_id
         ) as mock_get_team_id,
         mock.patch.object(
@@ -70,7 +70,7 @@ def test_get_coach_with_no_provided_equipa():
     coach_prov = CoachProvider()
 
     with mock.patch(
-        'libelifoot.equipa.mapping.get_team_id',
+        'libelifoot.provider.mapping.get_team_id',
         return_value=''
     ) as mock_get_team_id:
         with raises(EquipaNotProvided):
@@ -84,7 +84,7 @@ def test_get_players_with_no_provided_equipa():
     season = 2022
 
     with mock.patch(
-        'libelifoot.equipa.mapping.get_team_id',
+        'libelifoot.provider.mapping.get_team_id',
         return_value=''
     ) as mock_get_team_id:
         with raises(EquipaNotProvided):
@@ -99,7 +99,7 @@ def test_get_players_with_no_data_available():
 
     with (
         mock.patch(
-            'libelifoot.equipa.mapping.get_team_id',
+            'libelifoot.provider.mapping.get_team_id',
             return_value=team_id
         ) as mock_get_team_id,
         mock.patch.object(
@@ -121,7 +121,7 @@ def test_get_players_with_data_available(mock_players):
 
     with (
         mock.patch(
-            'libelifoot.equipa.mapping.get_team_id',
+            'libelifoot.provider.mapping.get_team_id',
             return_value=team_id
         ) as mock_get_team_id,
         mock.patch.object(
@@ -130,7 +130,7 @@ def test_get_players_with_data_available(mock_players):
             return_value=mock_players
         ) as mock_fetch_team_data,
         mock.patch(
-            'libelifoot.provider.transfermarkt.RosterProvider.select_players',
+            'libelifoot.provider.impl.transfermarkt.RosterProvider.select_players',
             return_value=mock_players
         ) as mock_select_players,
     ):

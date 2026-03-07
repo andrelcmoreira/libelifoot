@@ -5,10 +5,10 @@ from requests import exceptions, get
 from unidecode import unidecode
 
 from libelifoot.entity.player import Player
-from libelifoot.equipa import mapping
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_provided import EquipaNotProvided
 from libelifoot.util.player_position import PlayerPosition
+from libelifoot.provider import mapping
 from libelifoot.provider.base_provider import BaseProvider
 
 

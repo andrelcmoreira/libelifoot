@@ -4,7 +4,7 @@ from libelifoot.api import bulk_update
 from fixtures import mock_roster_provider
 
 
-@mock.patch('libelifoot.equipa.mapping.get_teams')
+@mock.patch('libelifoot.provider.mapping.get_teams')
 def test_bulk_update(mock_get_teams, mock_roster_provider):
     equipa_dir = 'foo/bar/equipas'
     season = 2024
@@ -40,7 +40,7 @@ def test_bulk_update(mock_get_teams, mock_roster_provider):
         assert mock_update_equipa.call_count == len(teams)
 
 
-@mock.patch('libelifoot.equipa.mapping.get_teams')
+@mock.patch('libelifoot.provider.mapping.get_teams')
 def test_bulk_update_with_no_teams(mock_get_teams, mock_roster_provider):
     equipa_dir = 'foo/bar/equipas'
     season = 2024
