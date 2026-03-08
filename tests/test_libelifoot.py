@@ -2,7 +2,7 @@ from unittest import mock
 
 from fixtures import mock_equipa
 
-from libelifoot import bulk_update, update_equipa, view_equipa
+from libelifoot import bulk_update, get_equipa_data, update_equipa
 
 
 def test_update_equipa():
@@ -33,14 +33,14 @@ def test_bulk_update_equipa():
         cmd_mock.assert_called_once()
 
 
-def test_view_equipa(mock_equipa):
+def test_get_equipa_data(mock_equipa):
     equipa_file = 'FORTALEZA.EFT'
 
     with mock.patch(
-        'libelifoot.api.view_equipa.Cmd.run',
+        'libelifoot.api.get_equipa_data.Cmd.run',
         return_value=mock_equipa
     ) as cmd_mock:
-        equipa = view_equipa(equipa_file)
+        equipa = get_equipa_data(equipa_file)
 
         cmd_mock.assert_called_once()
         assert equipa == mock_equipa

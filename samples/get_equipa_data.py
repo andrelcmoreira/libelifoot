@@ -1,10 +1,10 @@
 from sys import argv
 
-from libelifoot import view_equipa
+from libelifoot import get_equipa_data
 
 
 def main(equipa: str) -> None:
-    print(view_equipa(equipa))
+    print(get_equipa_data(equipa))
 
 
 if __name__ == "__main__":
