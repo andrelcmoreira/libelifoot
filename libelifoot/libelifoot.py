@@ -1,7 +1,7 @@
 from libelifoot.api import (
     bulk_update as _bulk_update,
     update_equipa as _update_equipa,
-    view_equipa as _view_equipa
+    get_equipa_data as _get_equipa_data
 )
 from libelifoot.entity.equipa import Equipa
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
@@ -58,14 +58,14 @@ def bulk_update(
     cmd.run()
 
 
-def view_equipa(equipa_file: str) -> Equipa:
+def get_equipa_data(equipa_file: str) -> Equipa:
     """
-    View an equipa specified by 'equipa_file'.
+    Get the equipa data according to the supplied file 'equipa_file'.
 
     :equipa_file: The equipa file.
 
     :returns: The equipa data.
     """
-    cmd = _view_equipa.Cmd(equipa_file)
+    cmd = _get_equipa_data.Cmd(equipa_file)
 
     return cmd.run()

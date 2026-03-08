@@ -8,22 +8,22 @@
 
 Library to handle Elifoot 98 equipas. The main functionalities of the library are:
 
-- View data from an equipa file;
+- Get the equipa data from an equipa file;
 - Generate patch files with upstream data from an equipa file;
 - Generate patches in batch from a directory of equipa files.
 
 ### Usage
 
-View the content of an equipa file:
+Get the content of an equipa file:
 
 ```python
 from sys import argv
 
-from libelifoot import view_equipa
+from libelifoot import get_equipa_data
 
 
 def main(equipa: str) -> None:
-    print(view_equipa(equipa))
+    print(get_equipa_data(equipa))
 
 
 if __name__ == "__main__":
