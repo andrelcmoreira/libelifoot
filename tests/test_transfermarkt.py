@@ -47,7 +47,7 @@ def test_get_coach_with_provided_equipa():
 
     with (
         mock.patch(
-            'libelifoot.provider.mapping.get_team_id',
+            'libelifoot.provider.db.get_team_id',
             return_value=team_id
         ) as mock_get_team_id,
         mock.patch.object(
@@ -70,7 +70,7 @@ def test_get_coach_with_no_provided_equipa():
     coach_prov = CoachProvider()
 
     with mock.patch(
-        'libelifoot.provider.mapping.get_team_id',
+        'libelifoot.provider.db.get_team_id',
         return_value=''
     ) as mock_get_team_id:
         with raises(EquipaNotProvided):
@@ -84,7 +84,7 @@ def test_get_players_with_no_provided_equipa():
     season = 2022
 
     with mock.patch(
-        'libelifoot.provider.mapping.get_team_id',
+        'libelifoot.provider.db.get_team_id',
         return_value=''
     ) as mock_get_team_id:
         with raises(EquipaNotProvided):
@@ -99,7 +99,7 @@ def test_get_players_with_no_data_available():
 
     with (
         mock.patch(
-            'libelifoot.provider.mapping.get_team_id',
+            'libelifoot.provider.db.get_team_id',
             return_value=team_id
         ) as mock_get_team_id,
         mock.patch.object(
@@ -121,7 +121,7 @@ def test_get_players_with_data_available(mock_players):
 
     with (
         mock.patch(
-            'libelifoot.provider.mapping.get_team_id',
+            'libelifoot.provider.db.get_team_id',
             return_value=team_id
         ) as mock_get_team_id,
         mock.patch.object(
