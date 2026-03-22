@@ -2,7 +2,12 @@ from unittest import mock
 
 from fixtures import mock_equipa
 
-from libelifoot import bulk_update, get_equipa_data, update_equipa
+from libelifoot import (
+    bulk_update,
+    get_available_providers,
+    get_equipa_data,
+    update_equipa
+)
 
 
 def test_update_equipa():
@@ -44,3 +49,16 @@ def test_get_equipa_data(mock_equipa):
 
         cmd_mock.assert_called_once()
         assert equipa == mock_equipa
+
+
+def test_get_available_providers():
+    fake_providers = ['provider-1', 'provider-2', 'provider-3']
+
+    with mock.patch(
+        'libelifoot.api.get_available_providers.Cmd.run',
+        return_value=fake_providers
+    ) as cmd_mock:
+        providers = get_available_providers()
+
+        cmd_mock.assert_called_once()
+        assert providers == fake_providers
