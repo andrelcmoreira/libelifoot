@@ -6,7 +6,7 @@ from libelifoot.api import update_equipa
 from libelifoot.event.update_equipa_listener import UpdateEquipaListener
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
-from libelifoot.provider import mapping
+from libelifoot.provider import db
 
 
 class Cmd(BaseCmd):
@@ -26,7 +26,7 @@ class Cmd(BaseCmd):
         self._ev = listener
 
     def run(self) -> Any:
-        teams = mapping.get_teams(self._roster_prov.name)
+        teams = db.get_teams(self._roster_prov.name)
 
         for team in teams:
             cmd = update_equipa.Cmd(f"{self._dir}/{team['file']}",
