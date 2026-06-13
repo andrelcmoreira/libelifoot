@@ -16,17 +16,17 @@
 import os.path
 from typing import Any
 
-from libelifoot.api.base_cmd import BaseCmd
+from libelifoot.api.cmd import ICmd
 from libelifoot.equipa import builder
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.error.not_provided import EquipaNotProvided
-from libelifoot.event.update_equipa_listener import UpdateEquipaListener
+from libelifoot.event.update_equipa_listener import IUpdateEquipaListener
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
 
 
-class Cmd(BaseCmd):
+class Cmd(ICmd):
 
     def __init__(
         self,
@@ -34,7 +34,7 @@ class Cmd(BaseCmd):
         roster_prov: BaseRosterProvider,
         coach_prov: BaseCoachProvider,
         season: int,
-        listener: UpdateEquipaListener
+        listener: IUpdateEquipaListener
     ):
         self._equipa = equipa_file
         self._roster = roster_prov

@@ -9,7 +9,7 @@ from libelifoot.error.not_provided import EquipaNotProvided
 
 @mock.patch('libelifoot.provider.base_roster_provider')
 @mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.event.update_equipa_listener.UpdateEquipaListener')
+@mock.patch('libelifoot.event.update_equipa_listener.IUpdateEquipaListener')
 def test_update_equipa(
     mock_listener,
     mock_coach_prov,
@@ -85,7 +85,7 @@ def test_update_equipa(
 
 @mock.patch('libelifoot.provider.base_roster_provider')
 @mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.event.update_equipa_listener.UpdateEquipaListener')
+@mock.patch('libelifoot.event.update_equipa_listener.IUpdateEquipaListener')
 def test_update_equipa_not_found(
     mock_listener,
     mock_coach_prov,
@@ -111,7 +111,7 @@ def test_update_equipa_not_found(
 
 @mock.patch('libelifoot.provider.base_roster_provider')
 @mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.event.update_equipa_listener.UpdateEquipaListener')
+@mock.patch('libelifoot.event.update_equipa_listener.IUpdateEquipaListener')
 def test_update_equipa_with_no_data_available(
     mock_listener,
     mock_coach_prov,
@@ -137,7 +137,7 @@ def test_update_equipa_with_no_data_available(
 
 @mock.patch('libelifoot.provider.base_roster_provider')
 @mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.event.update_equipa_listener.UpdateEquipaListener')
+@mock.patch('libelifoot.event.update_equipa_listener.IUpdateEquipaListener')
 def test_update_equipa_with_no_header(
     mock_listener,
     mock_coach_prov,

@@ -20,7 +20,7 @@ from libelifoot.api import (
     get_equipa_data as _get_equipa_data
 )
 from libelifoot.entity.equipa import Equipa
-from libelifoot.event.update_equipa_listener import UpdateEquipaListener
+from libelifoot.event.update_equipa_listener import IUpdateEquipaListener
 from libelifoot.provider import factory
 
 
@@ -28,7 +28,7 @@ def update_equipa(
     equipa_file: str,
     provider: str,
     season: int,
-    listener: UpdateEquipaListener
+    listener: IUpdateEquipaListener
 ) -> None:
     """
     Update an equipa specified by 'equipa_file'.
@@ -53,7 +53,7 @@ def bulk_update(
     equipa_dir: str,
     provider: str,
     season: int,
-    listener: UpdateEquipaListener
+    listener: IUpdateEquipaListener
 ) -> None:
     """
     Update all equipas placed at 'equipa_dir'.

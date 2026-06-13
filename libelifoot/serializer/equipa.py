@@ -16,13 +16,13 @@
 from typing import Any, Optional
 
 from libelifoot.entity.equipa import Equipa
-from libelifoot.serializer.base_serializer import BaseSerializer
+from libelifoot.serializer.serializer import ISerializer
 from libelifoot.serializer.coach import CoachSerializer
 from libelifoot.serializer.player import PlayerSerializer
 from libelifoot.util.crypto import encrypt
 
 
-class EquipaSerializer(BaseSerializer):
+class EquipaSerializer(ISerializer):
 
     @staticmethod
     def serialize(obj: Any) -> Optional[bytearray]:

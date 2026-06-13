@@ -5,11 +5,11 @@ from libelifoot import (
     bulk_update,
     Equipa,
     EquipaFileHandler,
-    UpdateEquipaListener
+    IUpdateEquipaListener
 )
 
 
-class EventHandler(UpdateEquipaListener):
+class EventHandler(IUpdateEquipaListener):
 
     def on_update_equipa(
         self,

@@ -15,11 +15,11 @@
 
 from typing import Any, Optional
 
-from libelifoot.serializer.base_serializer import BaseSerializer
+from libelifoot.serializer.serializer import ISerializer
 from libelifoot.util.crypto import encrypt
 
 
-class CoachSerializer(BaseSerializer):
+class CoachSerializer(ISerializer):
 
     @staticmethod
     def serialize(obj: Any) -> Optional[bytearray]:

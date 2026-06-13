@@ -17,7 +17,7 @@ from abc import abstractmethod, ABC
 from typing import Any, Optional
 
 
-class BaseSerializer(ABC): # pragma: no cover
+class ISerializer(ABC): # pragma: no cover
 
     @staticmethod
     @abstractmethod

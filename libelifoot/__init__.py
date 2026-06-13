@@ -15,7 +15,7 @@
 
 from .file.equipa import EquipaFileHandler
 from .entity.equipa import Equipa
-from .event.update_equipa_listener import UpdateEquipaListener
+from .event.update_equipa_listener import IUpdateEquipaListener
 from .libelifoot import (
     bulk_update,
     get_available_providers,
@@ -30,6 +30,6 @@ __all__ = [
     'get_equipa_data',
     'update_equipa',
     'Equipa',
-    'UpdateEquipaListener',
+    'IUpdateEquipaListener',
     'EquipaFileHandler'
 ]

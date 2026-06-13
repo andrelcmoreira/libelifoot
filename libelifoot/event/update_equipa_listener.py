@@ -19,7 +19,7 @@ from typing import Optional
 from libelifoot.entity.equipa import Equipa
 
 
-class UpdateEquipaListener(ABC): # pragma: no cover
+class IUpdateEquipaListener(ABC): # pragma: no cover
 
     @abstractmethod
     def on_update_equipa(
