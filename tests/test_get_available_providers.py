@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from libelifoot.api import get_available_providers
+from libelifoot.use_case import get_available_providers
 
 
 def test_get_equipa_data():

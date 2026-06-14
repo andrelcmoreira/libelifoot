@@ -17,7 +17,7 @@ def test_update_equipa():
     listener = mock.MagicMock()
 
     with mock.patch(
-        'libelifoot.api.update_equipa.Cmd.run'
+        'libelifoot.use_case.update_equipa.Cmd.run'
     ) as cmd_mock:
         update_equipa(equipa_file, provider, season, listener)
 
@@ -31,7 +31,7 @@ def test_bulk_update_equipa():
     listener = mock.MagicMock()
 
     with mock.patch(
-        'libelifoot.api.bulk_update.Cmd.run'
+        'libelifoot.use_case.bulk_update.Cmd.run'
     ) as cmd_mock:
         bulk_update(equipa_dir, provider, season, listener)
 
@@ -42,7 +42,7 @@ def test_get_equipa_data(mock_equipa):
     equipa_file = 'FORTALEZA.EFT'
 
     with mock.patch(
-        'libelifoot.api.get_equipa_data.Cmd.run',
+        'libelifoot.use_case.get_equipa_data.Cmd.run',
         return_value=mock_equipa
     ) as cmd_mock:
         equipa = get_equipa_data(equipa_file)
@@ -55,7 +55,7 @@ def test_get_available_providers():
     fake_providers = ['provider-1', 'provider-2', 'provider-3']
 
     with mock.patch(
-        'libelifoot.api.get_available_providers.Cmd.run',
+        'libelifoot.use_case.get_available_providers.Cmd.run',
         return_value=fake_providers
     ) as cmd_mock:
         providers = get_available_providers()
