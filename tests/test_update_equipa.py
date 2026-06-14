@@ -25,7 +25,7 @@ def test_update_equipa(
     mock_coach_prov.get_coach.return_value = coach
 
     with mock.patch(
-        'libelifoot.equipa.builder.EquipaBuilder',
+        'libelifoot.domain.builder.EquipaBuilder',
         return_value=mock.MagicMock()
     ) as mock_builder:
         mock_builder \

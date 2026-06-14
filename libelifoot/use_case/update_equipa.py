@@ -16,8 +16,8 @@
 import os.path
 from typing import Any
 
-from libelifoot.use_case.cmd import ICmd
-from libelifoot.equipa import builder
+from libelifoot.domain.interface.cmd import ICmd
+from libelifoot.domain import builder
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.error.not_provided import EquipaNotProvided

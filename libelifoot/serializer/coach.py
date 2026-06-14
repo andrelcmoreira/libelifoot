@@ -15,7 +15,7 @@
 
 from typing import Any, Optional
 
-from libelifoot.serializer.serializer import ISerializer
+from libelifoot.domain.interface.serializer import ISerializer
 from libelifoot.util.crypto import encrypt
 
 

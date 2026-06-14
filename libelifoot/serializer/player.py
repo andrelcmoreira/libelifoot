@@ -15,9 +15,9 @@
 
 from typing import Any, Optional
 
-from libelifoot.entity.player import Player
-from libelifoot.serializer.serializer import ISerializer
-from libelifoot.util.player_position import PlayerPosition
+from libelifoot.domain.entity.player import Player
+from libelifoot.domain.interface.serializer import ISerializer
+from libelifoot.domain.player_position import PlayerPosition
 from libelifoot.util.crypto import encrypt
 
 

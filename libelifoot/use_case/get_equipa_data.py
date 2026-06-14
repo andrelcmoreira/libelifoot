@@ -15,7 +15,7 @@
 
 from typing import Any
 
-from libelifoot.use_case.cmd import ICmd
+from libelifoot.domain.interface.cmd import ICmd
 from libelifoot.file.equipa import EquipaFileHandler
 
 

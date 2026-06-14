@@ -15,8 +15,8 @@
 
 from typing import Self, Optional
 
-from libelifoot.entity.equipa import Equipa
-from libelifoot.entity.player import Player
+from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.domain.entity.player import Player
 from libelifoot.file.equipa import EquipaFileHandler
 
 

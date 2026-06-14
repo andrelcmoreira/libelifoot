@@ -1,6 +1,6 @@
-from libelifoot.entity.player import Player
+from libelifoot.domain.entity.player import Player
 from libelifoot.serializer.player import PlayerSerializer
-from libelifoot.util.player_position import PlayerPosition
+from libelifoot.domain.player_position import PlayerPosition
 
 
 def test_serialize_none_player():
