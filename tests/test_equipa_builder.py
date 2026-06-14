@@ -3,7 +3,7 @@ from pytest import raises
 
 from fixtures import mock_equipa, mock_players
 
-from libelifoot.equipa.builder import EquipaBuilder
+from libelifoot.domain.builder import EquipaBuilder
 from libelifoot.error.not_found import EquipaNotFound
 
 

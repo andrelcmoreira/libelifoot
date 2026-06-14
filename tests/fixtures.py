@@ -1,10 +1,10 @@
 from unittest import mock
 import pytest
 
-from libelifoot.entity.color import Color
-from libelifoot.entity.equipa import Equipa
-from libelifoot.entity.player import Player
-from libelifoot.util.player_position import PlayerPosition
+from libelifoot.domain.entity.color import Color
+from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.domain.entity.player import Player
+from libelifoot.domain.player_position import PlayerPosition
 
 
 @pytest.fixture

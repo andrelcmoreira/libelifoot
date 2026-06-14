@@ -16,7 +16,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from libelifoot.entity.equipa import Equipa
+from libelifoot.domain.entity.equipa import Equipa
 
 
 class IUpdateEquipaListener(ABC): # pragma: no cover

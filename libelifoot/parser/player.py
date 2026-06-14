@@ -13,10 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.entity.player import Player
+from libelifoot.domain.entity.player import Player
 from libelifoot.parser.base_parser import BaseParser
 from libelifoot.util.crypto import decrypt
-from libelifoot.util.player_position import PlayerPosition
+from libelifoot.domain.player_position import PlayerPosition
 from libelifoot.util.sizes import Sizes
 
 

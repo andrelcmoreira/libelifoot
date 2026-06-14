@@ -14,7 +14,7 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from .file.equipa import EquipaFileHandler
-from .entity.equipa import Equipa
+from .domain.entity.equipa import Equipa
 from .event.update_equipa_listener import IUpdateEquipaListener
 from .libelifoot import (
     bulk_update,

@@ -16,7 +16,7 @@
 import time
 from typing import Any
 
-from libelifoot.use_case.cmd import ICmd
+from libelifoot.domain.interface.cmd import ICmd
 from libelifoot.use_case import update_equipa
 from libelifoot.event.update_equipa_listener import IUpdateEquipaListener
 from libelifoot.provider.base_coach_provider import BaseCoachProvider

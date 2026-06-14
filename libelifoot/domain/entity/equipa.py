@@ -15,8 +15,8 @@
 
 from dataclasses import dataclass
 
-from libelifoot.entity.color import Color
-from libelifoot.entity.player import Player
+from libelifoot.domain.entity.color import Color
+from libelifoot.domain.entity.player import Player
 
 
 @dataclass
