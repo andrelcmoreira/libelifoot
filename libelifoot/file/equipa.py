@@ -14,6 +14,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.entity.equipa import Equipa
+from libelifoot.error.header_not_found import EquipaHeaderNotFound
+from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.parser.equipa import EquipaParser
 from libelifoot.serializer.equipa import EquipaSerializer
 
@@ -42,6 +44,14 @@ class EquipaFileHandler:
         :file_name: The file name to read the equipa from.
         :return: The equipa read from the file.
         """
-        ep = EquipaParser(file_name)
+        try:
+            with open(file_name, 'rb') as f:
+                data = f.read()
+                ep = EquipaParser(data)
 
-        return ep.parse()
+                if not ep.has_equipa_header(data):
+                    raise EquipaHeaderNotFound(file_name)
+
+                return ep.parse()
+        except FileNotFoundError as exc:
+            raise EquipaNotFound(file_name) from exc
