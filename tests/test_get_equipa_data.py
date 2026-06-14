@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from fixtures import mock_equipa
 
-from libelifoot.api import get_equipa_data
+from libelifoot.use_case import get_equipa_data
 
 
 def test_get_equipa_data(mock_equipa):

@@ -1,7 +1,7 @@
 from unittest import mock
 
 from fixtures import mock_equipa, mock_players
-from libelifoot.api import update_equipa
+from libelifoot.use_case import update_equipa
 from libelifoot.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.error.not_found import EquipaNotFound
 from libelifoot.error.not_provided import EquipaNotProvided

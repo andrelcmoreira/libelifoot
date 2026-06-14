@@ -15,7 +15,7 @@
 
 from typing import Any
 
-from libelifoot.api.cmd import ICmd
+from libelifoot.use_case.cmd import ICmd
 from libelifoot.provider import db
 
 

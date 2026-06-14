@@ -1,6 +1,6 @@
 from unittest import mock
 
-from libelifoot.api import bulk_update
+from libelifoot.use_case import bulk_update
 from fixtures import mock_roster_provider
 
 
@@ -19,7 +19,7 @@ def test_bulk_update(mock_get_teams, mock_roster_provider):
     mock_listener = mock.MagicMock()
 
     with mock.patch(
-        'libelifoot.api.update_equipa.Cmd'
+        'libelifoot.use_case.update_equipa.Cmd'
     ) as mock_update_equipa:
         cmd = bulk_update.Cmd(equipa_dir, mock_roster_provider,
                               mock_coach_provider, season, mock_listener)
@@ -50,7 +50,7 @@ def test_bulk_update_with_no_teams(mock_get_teams, mock_roster_provider):
     mock_listener = mock.MagicMock()
 
     with mock.patch(
-        'libelifoot.api.update_equipa.Cmd'
+        'libelifoot.use_case.update_equipa.Cmd'
     ) as mock_update_equipa:
         cmd = bulk_update.Cmd(equipa_dir, mock_roster_provider,
                               mock_coach_provider, season, mock_listener)

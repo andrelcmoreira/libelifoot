@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.api import (
+from libelifoot.use_case import (
     bulk_update as _bulk_update,
     update_equipa as _update_equipa,
     get_available_providers as _get_available_providers,
