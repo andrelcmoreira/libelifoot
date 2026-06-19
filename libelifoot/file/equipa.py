@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.use_case.dto.equipa import Equipa
 from libelifoot.domain.error.header_not_found import EquipaHeaderNotFound
 from libelifoot.domain.error.not_found import EquipaNotFound
 from libelifoot.parser.equipa import EquipaParser

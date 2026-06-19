@@ -15,7 +15,7 @@
 
 from json import loads
 
-from libelifoot.domain.entity.player import Player
+from libelifoot.use_case.dto.player import Player
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
 
 

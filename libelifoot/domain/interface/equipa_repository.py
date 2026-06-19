@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.use_case.dto.equipa import Equipa
 
 
 class IEquipaRepository(ABC): # pragma: no cover
