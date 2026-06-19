@@ -4,7 +4,7 @@ from pytest import raises
 from fixtures import mock_equipa, mock_players, mock_equipa_bytes
 
 from libelifoot.parser.equipa import EquipaParser
-from libelifoot.error.header_not_found import EquipaHeaderNotFound
+from libelifoot.domain.error.header_not_found import EquipaHeaderNotFound
 
 
 def test_has_equipa_header_with_valid_equipa():
@@ -173,29 +173,14 @@ def test_parse_coach_with_no_info(mock_equipa_bytes):
 
 
 def test_parse_equipa(mock_equipa, mock_equipa_bytes):
-    file = 'FORTALEZA.EFT'
+    ep = EquipaParser(mock_equipa_bytes)
 
-    with mock.patch(
-        'builtins.open',
-        mock.mock_open(read_data=bytes(mock_equipa_bytes))
-    ) as mock_file:
-        ep = EquipaParser(file)
-
-        equipa = ep.parse()
-
-        assert equipa == mock_equipa
-        mock_file.assert_called_once_with(file, 'rb')
-        mock_file.return_value.read.assert_called_once()
+    equipa = ep.parse()
+    assert equipa == mock_equipa
 
 
 def test_parse_invalid_equipa():
-    file = 'FORTALEZA.EFT'
+    with raises(ValueError):
+        ep = EquipaParser(bytes())
 
-    with mock.patch(
-        'builtins.open',
-        mock.mock_open(read_data=bytes())
-    ):
-        with raises(EquipaHeaderNotFound):
-            ep = EquipaParser(file)
-
-            ep.parse()
+        ep.parse()

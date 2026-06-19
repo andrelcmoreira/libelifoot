@@ -15,7 +15,7 @@
 
 from .file.equipa import EquipaFileHandler
 from .domain.entity.equipa import Equipa
-from .event.update_equipa_listener import IUpdateEquipaListener
+from .domain.interface.update_equipa_listener import IUpdateEquipaListener
 from .libelifoot import (
     bulk_update,
     get_available_providers,

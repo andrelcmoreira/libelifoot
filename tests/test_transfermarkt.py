@@ -3,8 +3,8 @@ from unittest import mock
 
 from fixtures import mock_players
 
-from libelifoot.error.not_provided import EquipaNotProvided
-from libelifoot.error.data_not_available import EquipaDataNotAvailable
+from libelifoot.domain.error.not_provided import EquipaNotProvided
+from libelifoot.domain.error.data_not_available import EquipaDataNotAvailable
 from libelifoot.provider.impl.transfermarkt import RosterProvider, CoachProvider
 
 
