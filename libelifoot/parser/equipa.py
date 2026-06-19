@@ -26,6 +26,9 @@ from libelifoot.util.sizes import Sizes
 class EquipaParser(BaseParser):
 
     def __init__(self, equipa_data: bytes):
+        if not equipa_data:
+            raise ValueError("equipa data cannot be empty.")
+
         self._data = equipa_data
 
     def has_equipa_header(self, data: bytes) -> bool:

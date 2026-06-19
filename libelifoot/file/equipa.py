@@ -14,8 +14,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.domain.entity.equipa import Equipa
-from libelifoot.error.header_not_found import EquipaHeaderNotFound
-from libelifoot.error.not_found import EquipaNotFound
+from libelifoot.domain.error.header_not_found import EquipaHeaderNotFound
+from libelifoot.domain.error.not_found import EquipaNotFound
 from libelifoot.parser.equipa import EquipaParser
 from libelifoot.serializer.equipa import EquipaSerializer
 

@@ -18,7 +18,7 @@ from typing import Any
 
 from libelifoot.domain.interface.cmd import ICmd
 from libelifoot.use_case import update_equipa
-from libelifoot.event.update_equipa_listener import IUpdateEquipaListener
+from libelifoot.domain.interface.update_equipa_listener import IUpdateEquipaListener
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
 from libelifoot.provider import db

@@ -17,7 +17,7 @@ from abc import abstractmethod
 
 from requests import exceptions, get
 
-from libelifoot.error.not_provided import EquipaNotProvided
+from libelifoot.domain.error.not_provided import EquipaNotProvided
 from libelifoot.provider import db
 from libelifoot.provider.base_provider import BaseProvider
 
