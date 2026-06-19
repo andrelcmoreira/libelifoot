@@ -13,9 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.domain.entity.color import Color
-from libelifoot.domain.entity.equipa import Equipa
-from libelifoot.domain.entity.player import Player
+from libelifoot.use_case.dto.color import Color
+from libelifoot.use_case.dto.equipa import Equipa
+from libelifoot.use_case.dto.player import Player
 from libelifoot.parser.base_parser import BaseParser
 from libelifoot.parser import player
 from libelifoot.util import crypto

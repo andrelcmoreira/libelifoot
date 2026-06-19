@@ -19,7 +19,7 @@ from libelifoot.use_case import (
     get_available_providers as _get_available_providers,
     get_equipa_data as _get_equipa_data
 )
-from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.use_case.dto.equipa import Equipa
 from libelifoot.domain.interface.update_equipa_listener import IUpdateEquipaListener
 from libelifoot.provider import factory
 

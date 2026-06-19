@@ -1,9 +1,9 @@
 from unittest import mock
 import pytest
 
-from libelifoot.domain.entity.color import Color
-from libelifoot.domain.entity.equipa import Equipa
-from libelifoot.domain.entity.player import Player
+from libelifoot.use_case.dto.color import Color
+from libelifoot.use_case.dto.equipa import Equipa
+from libelifoot.use_case.dto.player import Player
 from libelifoot.domain.player_position import PlayerPosition
 
 
