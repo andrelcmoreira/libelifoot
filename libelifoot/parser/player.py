@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.use_case.dto.player import Player
+from libelifoot.use_case.dto import Player
 from libelifoot.parser.base_parser import BaseParser
 from libelifoot.util.crypto import decrypt
 from libelifoot.domain.player_position import PlayerPosition

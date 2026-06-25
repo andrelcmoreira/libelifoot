@@ -4,7 +4,7 @@ from pytest import raises
 from fixtures import mock_equipa, mock_players
 
 from libelifoot.domain.builder import EquipaBuilder
-from libelifoot.domain.error.not_found import EquipaNotFound
+from libelifoot.domain.error import EquipaNotFound
 
 
 def test_create_base_equipa_with_not_existent_file():

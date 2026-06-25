@@ -1,9 +1,11 @@
 from unittest import mock
 import pytest
 
-from libelifoot.use_case.dto.color import Color
-from libelifoot.use_case.dto.equipa import Equipa
-from libelifoot.use_case.dto.player import Player
+from libelifoot.use_case.dto import (
+    Color,
+    Equipa,
+    Player
+)
 from libelifoot.domain.player_position import PlayerPosition
 
 

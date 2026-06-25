@@ -15,8 +15,8 @@
 
 from typing import Any, Optional
 
-from libelifoot.use_case.dto.player import Player
-from libelifoot.domain.interface.serializer import ISerializer
+from libelifoot.use_case.dto import Player
+from libelifoot.domain.interface import ISerializer
 from libelifoot.domain.player_position import PlayerPosition
 from libelifoot.util.crypto import encrypt
 

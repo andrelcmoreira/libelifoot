@@ -16,14 +16,16 @@
 import os.path
 from typing import Any
 
-from libelifoot.domain.interface.cmd import ICmd
+from libelifoot.domain.interface import ICmd
 from libelifoot.domain import builder
-from libelifoot.domain.error.data_not_available import EquipaDataNotAvailable
-from libelifoot.domain.error.not_found import EquipaNotFound
-from libelifoot.domain.error.not_provided import EquipaNotProvided
-from libelifoot.domain.interface.update_equipa_listener import IUpdateEquipaListener
+from libelifoot.domain.error import (
+    EquipaDataNotAvailable,
+    EquipaNotFound,
+    EquipaNotProvided
+)
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.use_case.event import IUpdateEquipaListener
 
 
 class Cmd(ICmd):

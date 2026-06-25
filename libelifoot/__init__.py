@@ -14,8 +14,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from .file.equipa import EquipaFileHandler
-from .use_case.dto.equipa import Equipa
-from .domain.interface.update_equipa_listener import IUpdateEquipaListener
+from .use_case.dto import Equipa
+from .use_case.event import IUpdateEquipaListener
 from .libelifoot import (
     bulk_update,
     get_available_providers,
