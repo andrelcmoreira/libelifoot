@@ -1,6 +1,6 @@
 from pytest import raises
 
-from libelifoot.domain.error.unknown_provider import UnknownProvider
+from libelifoot.domain.error import UnknownProvider
 from libelifoot.provider import factory
 from libelifoot.provider.impl import espn
 from libelifoot.provider.impl import transfermarkt

@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.domain.error.unknown_provider import UnknownProvider
+from libelifoot.domain.error import UnknownProvider
 from libelifoot.provider.impl import espn
 from libelifoot.provider.impl import transfermarkt
 

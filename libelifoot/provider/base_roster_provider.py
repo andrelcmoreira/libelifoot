@@ -19,9 +19,11 @@ from typing import Callable
 from requests import exceptions, get
 from unidecode import unidecode
 
-from libelifoot.use_case.dto.player import Player
-from libelifoot.domain.error.data_not_available import EquipaDataNotAvailable
-from libelifoot.domain.error.not_provided import EquipaNotProvided
+from libelifoot.use_case.dto import Player
+from libelifoot.domain.error import (
+    EquipaDataNotAvailable,
+    EquipaNotProvided
+)
 from libelifoot.domain.player_position import PlayerPosition
 from libelifoot.provider import db
 from libelifoot.provider.base_provider import BaseProvider

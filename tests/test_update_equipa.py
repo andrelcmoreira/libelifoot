@@ -2,14 +2,16 @@ from unittest import mock
 
 from fixtures import mock_equipa, mock_players
 from libelifoot.use_case import update_equipa
-from libelifoot.domain.error.data_not_available import EquipaDataNotAvailable
-from libelifoot.domain.error.not_found import EquipaNotFound
-from libelifoot.domain.error.not_provided import EquipaNotProvided
+from libelifoot.domain.error import (
+    EquipaDataNotAvailable,
+    EquipaNotFound,
+    EquipaNotProvided
+)
 
 
 @mock.patch('libelifoot.provider.base_roster_provider')
 @mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.domain.interface.update_equipa_listener.IUpdateEquipaListener')
+@mock.patch('libelifoot.use_case.event.IUpdateEquipaListener')
 def test_update_equipa(
     mock_listener,
     mock_coach_prov,
@@ -85,7 +87,7 @@ def test_update_equipa(
 
 @mock.patch('libelifoot.provider.base_roster_provider')
 @mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.domain.interface.update_equipa_listener.IUpdateEquipaListener')
+@mock.patch('libelifoot.use_case.event.IUpdateEquipaListener')
 def test_update_equipa_not_found(
     mock_listener,
     mock_coach_prov,
@@ -111,7 +113,7 @@ def test_update_equipa_not_found(
 
 @mock.patch('libelifoot.provider.base_roster_provider')
 @mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.domain.interface.update_equipa_listener.IUpdateEquipaListener')
+@mock.patch('libelifoot.use_case.event.IUpdateEquipaListener')
 def test_update_equipa_with_no_data_available(
     mock_listener,
     mock_coach_prov,
@@ -137,7 +139,7 @@ def test_update_equipa_with_no_data_available(
 
 @mock.patch('libelifoot.provider.base_roster_provider')
 @mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.domain.interface.update_equipa_listener.IUpdateEquipaListener')
+@mock.patch('libelifoot.use_case.event.IUpdateEquipaListener')
 def test_update_equipa_with_no_header(
     mock_listener,
     mock_coach_prov,

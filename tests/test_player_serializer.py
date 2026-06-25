@@ -1,4 +1,4 @@
-from libelifoot.use_case.dto.player import Player
+from libelifoot.use_case.dto import Player
 from libelifoot.serializer.player import PlayerSerializer
 from libelifoot.domain.player_position import PlayerPosition
 

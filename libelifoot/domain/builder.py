@@ -15,8 +15,10 @@
 
 from typing import Self, Optional
 
-from libelifoot.use_case.dto.equipa import Equipa
-from libelifoot.use_case.dto.player import Player
+from libelifoot.use_case.dto import (
+    Equipa,
+    Player
+)
 from libelifoot.file.equipa import EquipaFileHandler
 
 

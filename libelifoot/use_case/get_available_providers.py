@@ -15,7 +15,7 @@
 
 from typing import Any
 
-from libelifoot.domain.interface.cmd import ICmd
+from libelifoot.domain.interface import ICmd
 from libelifoot.provider import db
 
 

@@ -17,3 +17,27 @@ class EquipaDataNotAvailable(Exception):
 
     def __init__(self, equipa: str):
         super().__init__(f"The specified provider has no data for equipa '{equipa}'!")
+
+
+class EquipaHeaderNotFound(Exception):
+
+    def __init__(self, input_file: str):
+        super().__init__(f"Equipa header not found on '{input_file}'!")
+
+
+class EquipaNotFound(Exception):
+
+    def __init__(self, equipa_name: str):
+        super().__init__(f"Equipa '{equipa_name}' not found!")
+
+
+class EquipaNotProvided(Exception):
+
+    def __init__(self, input_file: str):
+        super().__init__(f"Equipa '{input_file}' not available by the specified provider!")
+
+
+class UnknownProvider(Exception):
+
+    def __init__(self, provider: str):
+        super().__init__(f"Unknown provider '{provider}'!")

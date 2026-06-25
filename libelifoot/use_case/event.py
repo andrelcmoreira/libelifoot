@@ -13,7 +13,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-class EquipaNotFound(Exception):
+from abc import ABC, abstractmethod
+from typing import Optional
 
-    def __init__(self, equipa_name: str):
-        super().__init__(f"Equipa '{equipa_name}' not found!")
+from libelifoot.use_case.dto import Equipa
+
+
+class IUpdateEquipaListener(ABC): # pragma: no cover
+
+    @abstractmethod
+    def on_update_equipa(
+        self,
+        equipa_name: str,
+        equipa_data: Optional[Equipa]
+    ) -> None:
+        """
+        Invoked when an equipa is successfully updated.
+
+        :equipa_name: The name of the equipa.
+        :equipa_data: The updated equipa data.
+        """
+
+    @abstractmethod
+    def on_update_equipa_error(self, error: str) -> None:
+        """
+        Invoked when there is an error updating an equipa.
+
+        :error: The error message.
+        """

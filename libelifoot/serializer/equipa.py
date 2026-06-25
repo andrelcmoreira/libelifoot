@@ -15,8 +15,8 @@
 
 from typing import Any, Optional
 
-from libelifoot.use_case.dto.equipa import Equipa
-from libelifoot.domain.interface.serializer import ISerializer
+from libelifoot.use_case.dto import Equipa
+from libelifoot.domain.interface import ISerializer
 from libelifoot.serializer.coach import CoachSerializer
 from libelifoot.serializer.player import PlayerSerializer
 from libelifoot.util.crypto import encrypt
