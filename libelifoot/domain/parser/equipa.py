@@ -18,8 +18,8 @@ from libelifoot.use_case.dto import (
     Equipa,
     Player
 )
-from libelifoot.parser.base_parser import BaseParser
-from libelifoot.parser import player
+from libelifoot.domain.parser.base_parser import BaseParser
+from libelifoot.domain.parser import player
 from libelifoot.util import crypto
 from libelifoot.util.offset import (Offsets, OffsetCalculator)
 from libelifoot.util.sizes import Sizes

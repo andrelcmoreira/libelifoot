@@ -16,10 +16,13 @@
 from typing import Any
 
 from libelifoot.domain.interface import ICmd
-from libelifoot.provider import db
+from libelifoot.domain.repository import ITeamMappingRepository
 
 
 class Cmd(ICmd):
 
+    def __init__(self, repository: ITeamMappingRepository):
+        self._repo = repository
+
     def run(self) -> Any:
-        return db.get_available_providers()
+        return self._repo.get_providers()

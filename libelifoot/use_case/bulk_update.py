@@ -17,11 +17,11 @@ import time
 from typing import Any
 
 from libelifoot.domain.interface import ICmd
+from libelifoot.domain.repository import ITeamMappingRepository
 from libelifoot.use_case import update_equipa
 from libelifoot.use_case.event import IUpdateEquipaListener
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
-from libelifoot.provider import db
 
 
 class Cmd(ICmd):
@@ -32,19 +32,21 @@ class Cmd(ICmd):
         roster_prov: BaseRosterProvider,
         coach_prov: BaseCoachProvider,
         season: int,
+        repository: ITeamMappingRepository,
         listener: IUpdateEquipaListener
     ):
         self._dir = equipa_dir
         self._roster_prov = roster_prov
         self._coach_prov = coach_prov
         self._season = season
+        self._repo = repository
         self._ev = listener
 
     def run(self) -> Any:
-        teams = db.get_teams(self._roster_prov.name)
+        teams = self._repo.get_teams(self._roster_prov.name)
 
         for team in teams:
-            cmd = update_equipa.Cmd(f"{self._dir}/{team['file']}",
+            cmd = update_equipa.Cmd(f"{self._dir}/{team.file}",
                                     self._roster_prov, self._coach_prov,
                                     self._season, self._ev)
 
