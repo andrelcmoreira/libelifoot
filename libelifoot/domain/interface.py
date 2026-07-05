@@ -16,8 +16,6 @@
 from abc import ABC, abstractmethod
 from typing import Any, Optional
 
-from libelifoot.domain.entity import Equipa
-
 
 class ICmd(ABC): # pragma: no cover
 
@@ -32,46 +30,3 @@ class ISerializer(ABC): # pragma: no cover
     @abstractmethod
     def serialize(obj: Any) -> Optional[bytearray]:
         pass
-
-
-class IEquipaRepository(ABC): # pragma: no cover
-
-    @abstractmethod
-    def get_equipa(self, equipa_file: str) -> Optional[Equipa]:
-        """
-        Retrieve an equipa by its file name.
-
-        :equipa_file: The equipa file name.
-        :return: The Equipa object if found, otherwise None.
-        """
-
-    @abstractmethod
-    def save_equipa(self, equipa_file: str, equipa: Equipa) -> None:
-        """
-        Save an equipa to the repository.
-
-        :equipa_file: The equipa file name.
-        :equipa: The Equipa object to save.
-        """
-
-
-class ITeamMappingRepository(ABC): # pragma: no cover
-
-    @abstractmethod
-    def get_team(self, equipa_file: str, provider: str) -> Optional[Equipa]:
-        """
-        Retrieve the mapped team related to a given equipa file path.
-
-        :equipa_file: The path to the equipa file.
-        :provider: The name of the provider.
-        :return: The mapped team ID if found, otherwise None.
-        """
-
-    @abstractmethod
-    def get_teams(self, provider: str) -> list[Equipa]:
-        """
-        Retrieve a list of team names for a given provider.
-
-        :provider: The name of the provider.
-        :return: A list of equipas.
-        """

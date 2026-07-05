@@ -18,7 +18,7 @@ from libelifoot.domain.error import (
     EquipaHeaderNotFound,
     EquipaNotFound
 )
-from libelifoot.parser.equipa import EquipaParser
+from libelifoot.domain.parser.equipa import EquipaParser
 from libelifoot.serializer.equipa import EquipaSerializer
 
 

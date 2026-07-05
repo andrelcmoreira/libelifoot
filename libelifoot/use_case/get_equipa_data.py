@@ -16,13 +16,28 @@
 from typing import Any
 
 from libelifoot.domain.interface import ICmd
-from libelifoot.file.equipa import EquipaFileHandler
+from libelifoot.domain.repository import IEquipaRepository
+from libelifoot.domain.parser.equipa import EquipaParser
+from libelifoot.domain.error import (
+    EquipaHeaderNotFound,
+    EquipaNotFound
+)
 
 
 class Cmd(ICmd):
 
-    def __init__(self, equipa: str):
+    def __init__(self, equipa: str, repository: IEquipaRepository):
         self._equipa = equipa
+        self._repo = repository
 
     def run(self) -> Any:
-        return EquipaFileHandler.read(self._equipa)
+        data = self._repo.get_equipa(self._equipa)
+        if not data:
+            raise EquipaNotFound(self._equipa)
+
+        ep = EquipaParser(data)
+
+        if not ep.has_equipa_header(data):
+            raise EquipaHeaderNotFound(self._equipa)
+
+        return ep.parse()

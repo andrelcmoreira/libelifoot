@@ -22,56 +22,65 @@ from libelifoot.use_case import (
 from libelifoot.use_case.dto import Equipa
 from libelifoot.use_case.event import IUpdateEquipaListener
 from libelifoot.provider import factory
+from libelifoot.infrastructure.repository import (
+    get_equipa_repository,
+    get_team_mapping_repository
+)
 
 
-def update_equipa(
-    equipa_file: str,
-    provider: str,
-    season: int,
-    listener: IUpdateEquipaListener
-) -> None:
-    """
-    Update an equipa specified by 'equipa_file'.
-
-    :equipa_file: The equipa file.
-    :provider: The data provider (espn or transfermarkt).
-    :season: Year's season to use as reference in update operation.
-    :listener: Event listener to handle the events.
-    """
-    cmd = _update_equipa.Cmd(
-        equipa_file,
-        factory.create_roster_provider(provider),
-        factory.create_coach_provider(),
-        season,
-        listener
-    )
-
-    cmd.run()
+_TEAM_MAPPING_REPO = get_team_mapping_repository()
+_EQUIPA_REPO = get_equipa_repository()
 
 
-def bulk_update(
-    equipa_dir: str,
-    provider: str,
-    season: int,
-    listener: IUpdateEquipaListener
-) -> None:
-    """
-    Update all equipas placed at 'equipa_dir'.
-
-    :equipa_dir: The equipas directory.
-    :provider: The data provider (espn or transfermarkt).
-    :season: Year's season to use as reference in update operation.
-    :listener: Event listener to handle the events.
-    """
-    cmd = _bulk_update.Cmd(
-        equipa_dir,
-        factory.create_roster_provider(provider),
-        factory.create_coach_provider(),
-        season,
-        listener
-    )
-
-    cmd.run()
+#def update_equipa(
+#    equipa_file: str,
+#    provider: str,
+#    season: int,
+#    listener: IUpdateEquipaListener
+#) -> None:
+#    """
+#    Update an equipa specified by 'equipa_file'.
+#
+#    :equipa_file: The equipa file.
+#    :provider: The data provider (espn or transfermarkt).
+#    :season: Year's season to use as reference in update operation.
+#    :listener: Event listener to handle the events.
+#    """
+#    cmd = _update_equipa.Cmd(
+#        equipa_file,
+#        factory.create_roster_provider(provider),
+#        factory.create_coach_provider(),
+#        season,
+#        listener
+#    )
+#
+#    cmd.run()
+#
+#
+#def bulk_update(
+#    equipa_dir: str,
+#    provider: str,
+#    season: int,
+#    listener: IUpdateEquipaListener
+#) -> None:
+#    """
+#    Update all equipas placed at 'equipa_dir'.
+#
+#    :equipa_dir: The equipas directory.
+#    :provider: The data provider (espn or transfermarkt).
+#    :season: Year's season to use as reference in update operation.
+#    :listener: Event listener to handle the events.
+#    """
+#    cmd = _bulk_update.Cmd(
+#        equipa_dir,
+#        factory.create_roster_provider(provider),
+#        factory.create_coach_provider(),
+#        season,
+#        _TEAM_MAPPING_REPO,
+#        listener
+#    )
+#
+#    cmd.run()
 
 
 def get_equipa_data(equipa_file: str) -> Equipa:
@@ -82,7 +91,7 @@ def get_equipa_data(equipa_file: str) -> Equipa:
 
     :returns: The equipa data.
     """
-    cmd = _get_equipa_data.Cmd(equipa_file)
+    cmd = _get_equipa_data.Cmd(equipa_file, _EQUIPA_REPO)
 
     return cmd.run()
 
@@ -93,6 +102,6 @@ def get_available_providers() -> list[str]:
 
     :returns: A list containing all available data providers.
     """
-    cmd = _get_available_providers.Cmd()
+    cmd = _get_available_providers.Cmd(_TEAM_MAPPING_REPO)
 
     return cmd.run()
