@@ -16,7 +16,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from libelifoot.domain.entity import Equipa
+from libelifoot.domain.entity import Equipa, Provider
 
 
 class IEquipaRepository(ABC): # pragma: no cover
@@ -62,7 +62,7 @@ class ITeamMappingRepository(ABC): # pragma: no cover
         """
 
     @abstractmethod
-    def get_providers(self) -> list[str]:
+    def get_providers(self) -> list[Provider]:
         """
         Retrieve a list of available providers.
 

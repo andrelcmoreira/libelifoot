@@ -16,7 +16,7 @@
 from libelifoot.use_case import (
     bulk_update as _bulk_update,
     update_equipa as _update_equipa,
-    get_available_providers as _get_available_providers,
+    get_providers as _get_providers,
     get_equipa_data as _get_equipa_data
 )
 from libelifoot.use_case.dto import Equipa
@@ -96,12 +96,12 @@ def get_equipa_data(equipa_file: str) -> Equipa:
     return cmd.run()
 
 
-def get_available_providers() -> list[str]:
+def get_providers() -> list[str]:
     """
     Get a list of the providers supported by the library.
 
     :returns: A list containing all available data providers.
     """
-    cmd = _get_available_providers.Cmd(_TEAM_MAPPING_REPO)
+    cmd = _get_providers.Cmd(_TEAM_MAPPING_REPO)
 
     return cmd.run()

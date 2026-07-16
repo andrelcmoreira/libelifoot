@@ -25,4 +25,6 @@ class Cmd(ICmd):
         self._repo = repository
 
     def run(self) -> Any:
-        return self._repo.get_providers()
+        providers = self._repo.get_providers()
+
+        return [p.name for p in providers]

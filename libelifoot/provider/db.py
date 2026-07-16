@@ -39,5 +39,5 @@ def get_teams(provider: str) -> list[dict]:
         return data
 
 
-def get_available_providers() -> list[str]:
+def get_providers() -> list[str]:
     return [i.split('.')[0] for i in os.listdir(_DATA_PATH)]
