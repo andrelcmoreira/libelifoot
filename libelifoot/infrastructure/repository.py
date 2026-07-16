@@ -45,7 +45,7 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
 
 class FileEquipaRepository(IEquipaRepository):
 
-    def get_equipa(self, equipa_file: str) -> Optional[bytearray]:
+    def get_equipa(self, equipa_file: str) -> Optional[bytes]:
         """
         Retrieve an equipa by its file name.
 
@@ -54,11 +54,11 @@ class FileEquipaRepository(IEquipaRepository):
         """
         try:
             with open(equipa_file, 'rb') as f:
-                return bytearray(f.read())
+                return f.read()
         except FileNotFoundError:
             return None
 
-    def save_equipa(self, equipa_file: str, data: bytearray) -> None:
+    def save_equipa(self, equipa_file: str, data: bytes) -> None:
         """
         Save an equipa to the repository.
 
