@@ -4,7 +4,7 @@ import pathlib
 
 from typing import Optional
 
-from libelifoot.domain.entity import Equipa
+from libelifoot.domain.entity import Equipa, Provider
 from libelifoot.domain.repository import (
     IEquipaRepository,
     ITeamMappingRepository
@@ -39,8 +39,12 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
 
             return [Equipa(**entry) for entry in data]
 
-    def get_providers(self) -> list[str]:
-        return [i.split('.')[0] for i in os.listdir(self._DATA_PATH)]
+    def get_providers(self) -> list[Provider]:
+        return [
+            Provider(
+                name=i.split('.')[0],
+                url=''
+            ) for i in os.listdir(self._DATA_PATH)]
 
 
 class FileEquipaRepository(IEquipaRepository):

@@ -33,11 +33,11 @@ if __name__ == "__main__":
 Get the list of available providers:
 
 ```python
-from libelifoot import get_available_providers
+from libelifoot import get_providers
 
 
 def main() -> None:
-    providers = get_available_providers()
+    providers = get_providers()
 
     print(f"available providers: {', '.join(providers)}")
 
