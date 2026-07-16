@@ -15,13 +15,13 @@
 
 from typing import Any
 
-from libelifoot.domain.interface import ICmd
-from libelifoot.domain.repository import IEquipaRepository
-from libelifoot.domain.parser.equipa import EquipaParser
 from libelifoot.domain.error import (
     EquipaHeaderNotFound,
     EquipaNotFound
 )
+from libelifoot.domain.interface import ICmd
+from libelifoot.domain.parser.equipa import EquipaParser
+from libelifoot.domain.repository import IEquipaRepository
 
 
 class Cmd(ICmd):

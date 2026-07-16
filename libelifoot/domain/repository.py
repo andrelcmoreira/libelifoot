@@ -22,7 +22,7 @@ from libelifoot.domain.entity import Equipa
 class IEquipaRepository(ABC): # pragma: no cover
 
     @abstractmethod
-    def get_equipa(self, equipa_file: str) -> Optional[bytearray]:
+    def get_equipa(self, equipa_file: str) -> Optional[bytes]:
         """
         Retrieve an equipa by its file name.
 
@@ -31,7 +31,7 @@ class IEquipaRepository(ABC): # pragma: no cover
         """
 
     @abstractmethod
-    def save_equipa(self, equipa_file: str, data: bytearray) -> None:
+    def save_equipa(self, equipa_file: str, data: bytes) -> None:
         """
         Save an equipa to the repository.
 
