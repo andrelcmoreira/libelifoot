@@ -4,7 +4,7 @@ from pytest import raises
 from fixtures import mock_equipa, mock_players, mock_equipa_bytes
 
 from libelifoot.parser.equipa import EquipaParser
-from libelifoot.domain.error import EquipaHeaderNotFound
+from libelifoot.core.error import EquipaHeaderNotFound
 
 
 def test_has_equipa_header_with_valid_equipa():

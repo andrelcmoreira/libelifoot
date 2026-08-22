@@ -13,18 +13,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
-
-from libelifoot.core.repository import ITeamMappingRepository
-from libelifoot.use_case.cmd import ICmd
+from abc import ABC, abstractmethod
+from typing import Any, Optional
 
 
-class GetProviders(ICmd):
+class ISerializer(ABC): # pragma: no cover
 
-    def __init__(self, repository: ITeamMappingRepository):
-        self._repo = repository
-
-    def run(self) -> Any:
-        providers = self._repo.get_providers()
-
-        return [p.name for p in providers]
+    @staticmethod
+    @abstractmethod
+    def serialize(obj: Any) -> Optional[bytearray]:
+        pass

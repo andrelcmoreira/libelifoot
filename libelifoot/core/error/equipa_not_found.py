@@ -13,18 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
+class EquipaNotFound(Exception):
 
-from libelifoot.core.repository import ITeamMappingRepository
-from libelifoot.use_case.cmd import ICmd
-
-
-class GetProviders(ICmd):
-
-    def __init__(self, repository: ITeamMappingRepository):
-        self._repo = repository
-
-    def run(self) -> Any:
-        providers = self._repo.get_providers()
-
-        return [p.name for p in providers]
+    def __init__(self, equipa_name: str):
+        super().__init__(f"Equipa '{equipa_name}' not found!")

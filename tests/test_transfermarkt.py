@@ -3,7 +3,7 @@ from unittest import mock
 
 from fixtures import mock_players
 
-from libelifoot.domain.error import (
+from libelifoot.core.error import (
     EquipaDataNotAvailable,
     EquipaNotProvided
 )

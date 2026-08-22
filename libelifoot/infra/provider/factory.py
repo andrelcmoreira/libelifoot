@@ -13,18 +13,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
+from libelifoot.core.error import UnknownProvider
+from libelifoot.provider.impl import espn
+from libelifoot.provider.impl import transfermarkt
 
-from libelifoot.core.repository import ITeamMappingRepository
-from libelifoot.use_case.cmd import ICmd
+
+def create_coach_provider() -> transfermarkt.CoachProvider:
+    return transfermarkt.CoachProvider()
 
 
-class GetProviders(ICmd):
+def create_roster_provider(
+    prov_name: str
+) -> espn.RosterProvider | transfermarkt.RosterProvider:
+    if prov_name == 'espn':
+        return espn.RosterProvider()
+    if prov_name == 'transfermarkt':
+        return transfermarkt.RosterProvider()
 
-    def __init__(self, repository: ITeamMappingRepository):
-        self._repo = repository
-
-    def run(self) -> Any:
-        providers = self._repo.get_providers()
-
-        return [p.name for p in providers]
+    raise UnknownProvider(prov_name)

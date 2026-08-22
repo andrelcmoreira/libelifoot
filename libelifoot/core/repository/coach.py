@@ -13,18 +13,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
-
-from libelifoot.core.repository import ITeamMappingRepository
-from libelifoot.use_case.cmd import ICmd
+from abc import ABC, abstractmethod
 
 
-class GetProviders(ICmd):
+class ICoachRepository(ABC): # pragma: no cover
 
-    def __init__(self, repository: ITeamMappingRepository):
-        self._repo = repository
+    @abstractmethod
+    def assemble_uri(self, team_id: str, season: int) -> str:
+        pass
 
-    def run(self) -> Any:
-        providers = self._repo.get_providers()
-
-        return [p.name for p in providers]
+    @abstractmethod
+    def parse_coach_data(self, reply: str, season: int) -> str:
+        pass

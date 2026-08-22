@@ -13,18 +13,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+from abc import ABC, abstractmethod
 from typing import Any
 
-from libelifoot.core.repository import ITeamMappingRepository
-from libelifoot.use_case.cmd import ICmd
 
+class ICmd(ABC): # pragma: no cover
 
-class GetProviders(ICmd):
-
-    def __init__(self, repository: ITeamMappingRepository):
-        self._repo = repository
-
+    @abstractmethod
     def run(self) -> Any:
-        providers = self._repo.get_providers()
-
-        return [p.name for p in providers]
+        pass

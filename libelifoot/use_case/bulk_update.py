@@ -16,15 +16,15 @@
 import time
 from typing import Any
 
-from libelifoot.domain.interface import ICmd
-from libelifoot.domain.repository import ITeamMappingRepository
+from libelifoot.core.repository import ITeamMappingRepository
 from libelifoot.use_case import update_equipa
 from libelifoot.use_case.event import IUpdateEquipaListener
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.use_case.cmd import ICmd
 
 
-class Cmd(ICmd):
+class BulkUpdate(ICmd):
 
     def __init__(
         self,
