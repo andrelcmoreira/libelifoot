@@ -13,18 +13,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
-
-from libelifoot.core.repository import ITeamMappingRepository
-from libelifoot.use_case.cmd import ICmd
+from abc import ABC, abstractmethod
+from typing import Optional
 
 
-class GetProviders(ICmd):
+class IEquipaRepository(ABC): # pragma: no cover
 
-    def __init__(self, repository: ITeamMappingRepository):
-        self._repo = repository
+    @abstractmethod
+    def get_equipa(self, equipa_file: str) -> Optional[bytes]:
+        """
+        Retrieve an equipa by its file name.
 
-    def run(self) -> Any:
-        providers = self._repo.get_providers()
+        :equipa_file: The equipa file name.
+        :return: The Equipa object if found, otherwise None.
+        """
 
-        return [p.name for p in providers]
+    @abstractmethod
+    def save_equipa(self, equipa_file: str, data: bytes) -> None:
+        """
+        Save an equipa to the repository.
+
+        :equipa_file: The equipa file name.
+        :equipa: The Equipa object to save.
+        """

@@ -14,11 +14,10 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import os.path
-from typing import Any
 
-from libelifoot.domain.interface import ICmd
-from libelifoot.domain import builder
-from libelifoot.domain.error import (
+from typing import Any, Optional, Self
+
+from libelifoot.core.error import (
     EquipaDataNotAvailable,
     EquipaNotFound,
     EquipaNotProvided
@@ -26,9 +25,42 @@ from libelifoot.domain.error import (
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
 from libelifoot.use_case.event import IUpdateEquipaListener
+from libelifoot.use_case.cmd import ICmd
+from libelifoot.use_case.dto import (
+    Equipa,
+    Player
+)
+from libelifoot.file.equipa import EquipaFileHandler
 
 
-class Cmd(ICmd):
+class UpdateEquipa(ICmd):
+
+    class Builder:
+
+        def __init__(self):
+            self._equipa = None
+
+        def create_base_equipa(self, equipa_file: str) -> Self:
+            self._equipa = EquipaFileHandler.read(equipa_file)
+            # we are not interested on the players to create the base equipa
+            self._equipa.players.clear()
+
+            return self
+
+        def add_players(self, players: list[Player]) -> Self:
+            if self._equipa:
+                self._equipa.players = players
+
+            return self
+
+        def add_coach(self, coach: str) -> Self:
+            if self._equipa and coach:
+                self._equipa.coach = coach
+
+            return self
+
+        def build(self) -> Optional[Equipa]:
+            return self._equipa
 
     def __init__(
         self,
@@ -43,7 +75,7 @@ class Cmd(ICmd):
         self._coach = coach_prov
         self._season = season
         self._ev = listener
-        self._builder = builder.EquipaBuilder()
+        self._builder = self.Builder()
 
     def run(self) -> Any:
         equipa_file = self._equipa.split(os.path.sep)[-1]

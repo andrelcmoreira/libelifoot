@@ -13,23 +13,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from .file.equipa import EquipaFileHandler
 from .use_case.dto import Equipa
 from .use_case.event import IUpdateEquipaListener
 from .libelifoot import (
 #    bulk_update,
     get_providers,
     get_equipa_data,
-#    update_equipa
+    update_equipa
 )
 
 
 __all__ = [
-    'bulk_update',
+#    'bulk_update',
     'get_providers',
     'get_equipa_data',
     'update_equipa',
     'Equipa',
-    'IUpdateEquipaListener',
-    'EquipaFileHandler'
+    'IUpdateEquipaListener'
 ]

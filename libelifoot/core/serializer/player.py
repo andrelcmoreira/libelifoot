@@ -13,18 +13,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
+from typing import Any, Optional
 
-from libelifoot.core.repository import ITeamMappingRepository
-from libelifoot.use_case.cmd import ICmd
+from libelifoot.use_case.dto import Player
+from libelifoot.core.serializer.interface import ISerializer
+from libelifoot.core.player_position import PlayerPosition
+from libelifoot.core.util.crypto import encrypt
 
 
-class GetProviders(ICmd):
+class PlayerSerializer(ISerializer):
 
-    def __init__(self, repository: ITeamMappingRepository):
-        self._repo = repository
+    @staticmethod
+    def serialize(obj: Any) -> Optional[bytearray]:
+        if not isinstance(obj, Player):
+            return None
 
-    def run(self) -> Any:
-        providers = self._repo.get_providers()
+        player = bytearray(b'\x00')
+        player += encrypt(obj.country)
+        player += encrypt(obj.name)
+        player.append(PlayerPosition.to_pos_code(obj.position))
 
-        return [p.name for p in providers]
+        return player

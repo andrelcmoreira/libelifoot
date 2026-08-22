@@ -15,16 +15,16 @@
 
 from typing import Any
 
-from libelifoot.domain.error import (
+from libelifoot.core.error import (
     EquipaHeaderNotFound,
     EquipaNotFound
 )
-from libelifoot.domain.interface import ICmd
-from libelifoot.domain.parser.equipa import EquipaParser
-from libelifoot.domain.repository import IEquipaRepository
+from libelifoot.core.parser.equipa import EquipaParser
+from libelifoot.core.repository import IEquipaRepository
+from libelifoot.use_case.cmd import ICmd
 
 
-class Cmd(ICmd):
+class GetEquipaData(ICmd):
 
     def __init__(self, equipa: str, repository: IEquipaRepository):
         self._equipa = equipa
