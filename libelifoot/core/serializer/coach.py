@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any, Optional
+from typing import Any
 
 from libelifoot.core.serializer.interface import ISerializer
 from libelifoot.core.util.crypto import encrypt
@@ -22,10 +22,7 @@ from libelifoot.core.util.crypto import encrypt
 class CoachSerializer(ISerializer):
 
     @staticmethod
-    def serialize(obj: Any) -> Optional[bytearray]:
-        if not isinstance(obj, str):
-            return None
-
+    def serialize(obj: Any) -> bytearray:
         coach = bytearray(b'\x00')
         coach += encrypt(obj)
 

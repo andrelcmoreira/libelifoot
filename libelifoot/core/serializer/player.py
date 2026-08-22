@@ -13,21 +13,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any, Optional
+from typing import Any
 
-from libelifoot.use_case.dto import Player
 from libelifoot.core.serializer.interface import ISerializer
-from libelifoot.core.player_position import PlayerPosition
+from libelifoot.core.util.player_position import PlayerPosition
 from libelifoot.core.util.crypto import encrypt
 
 
 class PlayerSerializer(ISerializer):
 
     @staticmethod
-    def serialize(obj: Any) -> Optional[bytearray]:
-        if not isinstance(obj, Player):
-            return None
-
+    def serialize(obj: Any) -> bytearray:
         player = bytearray(b'\x00')
         player += encrypt(obj.country)
         player += encrypt(obj.name)
