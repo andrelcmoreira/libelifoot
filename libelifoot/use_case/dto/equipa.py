@@ -15,7 +15,8 @@
 
 from dataclasses import dataclass
 
-from libelifoot.use_case.dto import Color, Player
+from libelifoot.use_case.dto.color import Color
+from libelifoot.use_case.dto.player import Player
 
 
 @dataclass

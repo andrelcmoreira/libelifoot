@@ -15,19 +15,21 @@
 
 #from libelifoot.infrastructure.provider import factory
 from libelifoot.infrastructure.repository.team_mapping import (
-#    get_equipa_repository,
     get_team_mapping_repository
 )
-#from libelifoot.use_case.dto import Equipa
+from libelifoot.infrastructure.repository.equipa import (
+    get_equipa_repository,
+)
+from libelifoot.use_case.dto.equipa import Equipa
 #from libelifoot.use_case.event import IUpdateEquipaListener
 #from libelifoot.use_case.bulk_update import BulkUpdate
-#from libelifoot.use_case.get_equipa_data import GetEquipaData
+from libelifoot.use_case.get_equipa_data import GetEquipaData
 from libelifoot.use_case.get_providers import GetProviders
 #from libelifoot.use_case.update_equipa import UpdateEquipa
 
 
 _TEAM_MAPPING_REPO = get_team_mapping_repository()
-#_EQUIPA_REPO = get_equipa_repository()
+_EQUIPA_REPO = get_equipa_repository()
 
 
 #def update_equipa(
@@ -81,17 +83,17 @@ _TEAM_MAPPING_REPO = get_team_mapping_repository()
 #    cmd.run()
 
 
-#def get_equipa_data(equipa_file: str) -> Equipa:
-#    """
-#    Get the equipa data according to the supplied file 'equipa_file'.
-#
-#    :equipa_file: The equipa file.
-#
-#    :returns: The equipa data.
-#    """
-#    cmd = GetEquipaData(equipa_file, _EQUIPA_REPO)
-#
-#    return cmd.run()
+def get_equipa_data(equipa_file: str) -> Equipa:
+    """
+    Get the equipa data according to the supplied file 'equipa_file'.
+
+    :equipa_file: The equipa file.
+
+    :returns: The equipa data.
+    """
+    cmd = GetEquipaData(equipa_file, _EQUIPA_REPO)
+
+    return cmd.run()
 
 
 def get_providers() -> list[str]:
