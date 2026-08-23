@@ -15,13 +15,12 @@
 
 from typing import Any
 
-from libelifoot.domain.error import (
-    EquipaHeaderNotFound,
-    EquipaNotFound
-)
-from libelifoot.domain.parser.equipa import EquipaParser
-from libelifoot.domain.repository import IEquipaRepository
+from libelifoot.domain.error.equipa_header_not_found import EquipaHeaderNotFound
+from libelifoot.domain.error.equipa_not_found import EquipaNotFound
+from libelifoot.domain.repository.equipa import IEquipaRepository
+from libelifoot.infrastructure.eft.parser.equipa import EquipaParser
 from libelifoot.use_case.cmd import ICmd
+from libelifoot.use_case.dto.equipa import Equipa
 
 
 class GetEquipaData(ICmd):
@@ -40,4 +39,8 @@ class GetEquipaData(ICmd):
         if not ep.has_equipa_header(data):
             raise EquipaHeaderNotFound(self._equipa)
 
-        return ep.parse()
+        ret = ep.parse()
+
+        return Equipa(ext_name=ret.ext_name, short_name=ret.short_name,
+                      country=ret.country, level=ret.level, colors=ret.colors,
+                      coach=ret.coach, players=ret.players)

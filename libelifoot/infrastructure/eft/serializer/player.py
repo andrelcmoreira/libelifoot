@@ -15,18 +15,22 @@
 
 from typing import Any, Optional
 
+from libelifoot.domain.entity.player import Player
+from libelifoot.domain.util.player_position import PlayerPosition
 from libelifoot.domain.util.crypto import encrypt
-from libelifoot.infrastructure.elifoot.serializer.interface import ISerializer
+from libelifoot.infrastructure.eft.serializer.interface import ISerializer
 
 
-class CoachSerializer(ISerializer):
+class PlayerSerializer(ISerializer):
 
     @staticmethod
     def serialize(obj: Any) -> Optional[bytearray]:
-        if not isinstance(obj, str):
+        if not isinstance(obj, Player):
             return None
 
-        coach = bytearray(b'\x00')
-        coach += encrypt(obj)
+        player = bytearray(b'\x00')
+        player += encrypt(obj.country)
+        player += encrypt(obj.name)
+        player.append(PlayerPosition.to_pos_code(obj.position))
 
-        return coach
+        return player

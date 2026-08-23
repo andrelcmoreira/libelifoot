@@ -19,8 +19,8 @@ from libelifoot.domain.entity.color import Color
 from libelifoot.domain.util import crypto
 from libelifoot.domain.util.offset import Offsets, OffsetCalculator
 from libelifoot.domain.util.sizes import Sizes
-from libelifoot.infrastructure.elifoot.parser.base_parser import BaseParser
-from libelifoot.infrastructure.elifoot.parser import player
+from libelifoot.infrastructure.eft.parser.base_parser import BaseParser
+from libelifoot.infrastructure.eft.parser import player
 
 
 class EquipaParser(BaseParser):
@@ -95,5 +95,6 @@ class EquipaParser(BaseParser):
         players = self.parse_players(self._data, len(ext_name), len(short_name))
         country = self.parse_country(self._data, len(ext_name), len(short_name))
 
-        return Equipa(ext_name=ext_name, short_name=short_name, country=country,
-                      level=level, colors=colors, coach=coach, players=players)
+        return Equipa(id='', file='', ext_name=ext_name, short_name=short_name,
+                      country=country, level=level, colors=colors, coach=coach,
+                      players=players)

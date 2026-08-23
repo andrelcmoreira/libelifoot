@@ -14,10 +14,10 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.domain.entity.player import Player
-from libelifoot.domain.parser.base_parser import BaseParser
 from libelifoot.domain.util.crypto import decrypt
 from libelifoot.domain.util.player_position import PlayerPosition
 from libelifoot.domain.util.sizes import Sizes
+from libelifoot.infrastructure.eft.parser.base_parser import BaseParser
 
 
 class PlayersParser(BaseParser):
