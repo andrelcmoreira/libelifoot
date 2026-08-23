@@ -13,20 +13,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
+from dataclasses import dataclass
 
-from libelifoot.core.serializer.interface import ISerializer
-from libelifoot.core.util.player_position import PlayerPosition
-from libelifoot.core.util.crypto import encrypt
+from libelifoot.use_case.dto import Color, Player
 
 
-class PlayerSerializer(ISerializer):
+@dataclass
+class Equipa:
+    ext_name: str
+    short_name: str
+    country: str
+    level: int
+    colors: Color
+    coach: str
+    players: list[Player]
 
-    @staticmethod
-    def serialize(obj: Any) -> bytearray:
-        player = bytearray(b'\x00')
-        player += encrypt(obj.country)
-        player += encrypt(obj.name)
-        player.append(PlayerPosition.to_pos_code(obj.position))
+    def __str__(self) -> str:
+        players = ', '.join([str(p) for p in self.players])
 
-        return player
+        return (
+            f'extended name:\t{self.ext_name}\n'
+            f'short name:\t{self.short_name}\n'
+            f'country:\t{self.country}\n'
+            f'colors:\t\t{self.colors} (background, text)\n'
+            f'level:\t\t{self.level}\n'
+            f'coach:\t\t{self.coach}\n'
+            f'players:\t{players}'
+        )

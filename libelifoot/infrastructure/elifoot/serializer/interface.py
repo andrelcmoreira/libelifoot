@@ -14,12 +14,12 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Optional
 
 
 class ISerializer(ABC): # pragma: no cover
 
     @staticmethod
     @abstractmethod
-    def serialize(obj: Any) -> bytearray:
+    def serialize(obj: Any) -> Optional[bytearray]:
         pass

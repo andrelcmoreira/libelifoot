@@ -13,21 +13,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-#from .use_case.dto import Equipa
-#from .use_case.event import IUpdateEquipaListener
-from .libelifoot import (
-#    bulk_update,
-    get_providers,
-#    get_equipa_data,
-#    update_equipa
-)
+from libelifoot.domain.error import UnknownProvider
+from libelifoot.provider.impl import espn
+from libelifoot.provider.impl import transfermarkt
 
 
-__all__ = [
-#    'bulk_update',
-    'get_providers',
-#   'get_equipa_data',
-#   'update_equipa',
-#   'Equipa',
-#   'IUpdateEquipaListener'
-]
+def create_coach_provider() -> transfermarkt.CoachProvider:
+    return transfermarkt.CoachProvider()
+
+
+def create_roster_provider(
+    prov_name: str
+) -> espn.RosterProvider | transfermarkt.RosterProvider:
+    if prov_name == 'espn':
+        return espn.RosterProvider()
+    if prov_name == 'transfermarkt':
+        return transfermarkt.RosterProvider()
+
+    raise UnknownProvider(prov_name)

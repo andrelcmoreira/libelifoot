@@ -13,11 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.use_case.dto import Player
-from libelifoot.core.parser.base_parser import BaseParser
-from libelifoot.util.crypto import decrypt
-from libelifoot.core.player_position import PlayerPosition
-from libelifoot.util.sizes import Sizes
+from libelifoot.domain.entity.player import Player
+from libelifoot.domain.parser.base_parser import BaseParser
+from libelifoot.domain.util.crypto import decrypt
+from libelifoot.domain.util.player_position import PlayerPosition
+from libelifoot.domain.util.sizes import Sizes
 
 
 class PlayersParser(BaseParser):

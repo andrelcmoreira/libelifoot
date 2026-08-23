@@ -13,17 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
-
-from libelifoot.core.serializer.interface import ISerializer
-from libelifoot.core.util.crypto import encrypt
+from dataclasses import dataclass
 
 
-class CoachSerializer(ISerializer):
+@dataclass
+class Color:
+    background: bytes
+    text: bytes
 
-    @staticmethod
-    def serialize(obj: Any) -> bytearray:
-        coach = bytearray(b'\x00')
-        coach += encrypt(obj)
-
-        return coach
+    def __str__(self) -> str:
+        return '#' + self.background.hex().upper() + ', #' \
+            + self.text.hex().upper()

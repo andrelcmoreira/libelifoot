@@ -20,11 +20,11 @@ from requests import exceptions, get
 from unidecode import unidecode
 
 from libelifoot.use_case.dto import Player
-from libelifoot.core.error import (
+from libelifoot.domain.error import (
     EquipaDataNotAvailable,
     EquipaNotProvided
 )
-from libelifoot.core.player_position import PlayerPosition
+from libelifoot.domain.player_position import PlayerPosition
 from libelifoot.provider import db
 from libelifoot.provider.base_provider import BaseProvider
 

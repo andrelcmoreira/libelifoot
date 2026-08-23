@@ -13,16 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.use_case.dto import (
-    Color,
-    Equipa,
-    Player
-)
-from libelifoot.core.parser.base_parser import BaseParser
-from libelifoot.core.parser import player
-from libelifoot.util import crypto
-from libelifoot.util.offset import (Offsets, OffsetCalculator)
-from libelifoot.util.sizes import Sizes
+from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.domain.entity.player import Player
+from libelifoot.domain.entity.color import Color
+from libelifoot.domain.util import crypto
+from libelifoot.domain.util.offset import Offsets, OffsetCalculator
+from libelifoot.domain.util.sizes import Sizes
+from libelifoot.infrastructure.elifoot.parser.base_parser import BaseParser
+from libelifoot.infrastructure.elifoot.parser import player
 
 
 class EquipaParser(BaseParser):

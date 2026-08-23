@@ -13,18 +13,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any
+from typing import Any, Optional
 
-from libelifoot.core.serializer.interface import ISerializer
-from libelifoot.core.serializer.coach import CoachSerializer
-from libelifoot.core.serializer.player import PlayerSerializer
-from libelifoot.core.util.crypto import encrypt
+from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.domain.util.crypto import encrypt
+from libelifoot.infrastructure.serializer.interface import ISerializer
+from libelifoot.infrastructure.serializer.coach import CoachSerializer
+from libelifoot.infrastructure.serializer.player import PlayerSerializer
 
 
 class EquipaSerializer(ISerializer):
 
     @staticmethod
-    def serialize(obj: Any) -> bytearray:
+    def serialize(obj: Any) -> Optional[bytearray]:
+        if not isinstance(obj, Equipa):
+            return None
+
         equipa = bytearray(b'EFa' + b'\x00' * 47)
         equipa += encrypt(obj.ext_name)
         equipa += encrypt(obj.short_name)

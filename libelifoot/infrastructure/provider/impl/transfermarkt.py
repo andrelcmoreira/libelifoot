@@ -19,7 +19,7 @@ from libelifoot.use_case.dto import Player
 from libelifoot.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.provider.base_roster_provider import BaseRosterProvider
 from libelifoot.util.date import get_work_days_in_season
-from libelifoot.core.player_position import PlayerPosition
+from libelifoot.domain.player_position import PlayerPosition
 
 
 _PROVIDER_NAME = 'transfermarkt'
