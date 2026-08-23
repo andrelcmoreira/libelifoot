@@ -17,7 +17,10 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Equipa:
+class Color:
+    background: bytes
+    text: bytes
 
-    id: str
-    file: str
+    def __str__(self) -> str:
+        return '#' + self.background.hex().upper() + ', #' \
+            + self.text.hex().upper()

@@ -17,19 +17,14 @@ import os.path
 
 from typing import Any, Optional, Self
 
-from libelifoot.core.error import (
-    EquipaDataNotAvailable,
-    EquipaNotFound,
-    EquipaNotProvided
-)
-from libelifoot.provider.base_coach_provider import BaseCoachProvider
-from libelifoot.provider.base_roster_provider import BaseRosterProvider
-from libelifoot.use_case.event import IUpdateEquipaListener
+from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
+from libelifoot.domain.error.equipa_not_found import EquipaNotFound
+from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
+from libelifoot.infrastructure .provider.base_coach_provider import BaseCoachProvider
+from libelifoot.infrastructure .provider.base_roster_provider import BaseRosterProvider
 from libelifoot.use_case.cmd import ICmd
-from libelifoot.use_case.dto import (
-    Equipa,
-    Player
-)
+from libelifoot.use_case.dto import Equipa, Player
+from libelifoot.use_case.event import IUpdateEquipaListener
 from libelifoot.file.equipa import EquipaFileHandler
 
 

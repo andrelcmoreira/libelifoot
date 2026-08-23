@@ -15,7 +15,7 @@
 
 from typing import Any
 
-from libelifoot.core.repository import ITeamMappingRepository
+from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 from libelifoot.use_case.cmd import ICmd
 
 

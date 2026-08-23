@@ -6,7 +6,7 @@ from libelifoot.use_case.dto import (
     Equipa,
     Player
 )
-from libelifoot.core.player_position import PlayerPosition
+from libelifoot.domain.player_position import PlayerPosition
 
 
 @pytest.fixture

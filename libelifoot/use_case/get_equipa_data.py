@@ -15,12 +15,12 @@
 
 from typing import Any
 
-from libelifoot.core.error import (
+from libelifoot.domain.error import (
     EquipaHeaderNotFound,
     EquipaNotFound
 )
-from libelifoot.core.parser.equipa import EquipaParser
-from libelifoot.core.repository import IEquipaRepository
+from libelifoot.domain.parser.equipa import EquipaParser
+from libelifoot.domain.repository import IEquipaRepository
 from libelifoot.use_case.cmd import ICmd
 
 

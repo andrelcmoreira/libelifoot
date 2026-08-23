@@ -16,7 +16,7 @@
 import time
 from typing import Any
 
-from libelifoot.core.repository import ITeamMappingRepository
+from libelifoot.domain.repository import ITeamMappingRepository
 from libelifoot.use_case import update_equipa
 from libelifoot.use_case.event import IUpdateEquipaListener
 from libelifoot.provider.base_coach_provider import BaseCoachProvider

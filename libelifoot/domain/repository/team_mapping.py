@@ -16,7 +16,8 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from libelifoot.core.entity import Equipa, Provider
+from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.domain.entity.provider import Provider
 
 
 class ITeamMappingRepository(ABC): # pragma: no cover

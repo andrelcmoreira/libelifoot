@@ -1,4 +1,4 @@
-from libelifoot.core.player_position import PlayerPosition
+from libelifoot.domain.player_position import PlayerPosition
 
 
 def test_to_pos_code_with_unknown_pos_str():

@@ -13,21 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.core.error import UnknownProvider
-from libelifoot.provider.impl import espn
-from libelifoot.provider.impl import transfermarkt
+from dataclasses import dataclass
 
 
-def create_coach_provider() -> transfermarkt.CoachProvider:
-    return transfermarkt.CoachProvider()
+@dataclass
+class Player:
+    name: str
+    position: str
+    country: str
+    appearances: int = 0
+    value: float = 0.0
 
-
-def create_roster_provider(
-    prov_name: str
-) -> espn.RosterProvider | transfermarkt.RosterProvider:
-    if prov_name == 'espn':
-        return espn.RosterProvider()
-    if prov_name == 'transfermarkt':
-        return transfermarkt.RosterProvider()
-
-    raise UnknownProvider(prov_name)
+    def __str__(self) -> str:
+        return f'{self.position}: {self.name} - {self.country}'

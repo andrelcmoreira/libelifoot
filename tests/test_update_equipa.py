@@ -2,7 +2,7 @@ from unittest import mock
 
 from fixtures import mock_equipa, mock_players
 from libelifoot.use_case import update_equipa
-from libelifoot.core.error import (
+from libelifoot.domain.error import (
     EquipaDataNotAvailable,
     EquipaNotFound,
     EquipaNotProvided
@@ -27,7 +27,7 @@ def test_update_equipa(
     mock_coach_prov.get_coach.return_value = coach
 
     with mock.patch(
-        'libelifoot.core.builder.EquipaBuilder',
+        'libelifoot.domain.builder.EquipaBuilder',
         return_value=mock.MagicMock()
     ) as mock_builder:
         mock_builder \

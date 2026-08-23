@@ -15,7 +15,7 @@
 
 from enum import Enum
 
-from libelifoot.core.util.sizes import Sizes
+from libelifoot.domain.util.sizes import Sizes
 
 
 class Offsets(Enum):

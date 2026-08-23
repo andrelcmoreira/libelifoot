@@ -13,21 +13,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-#from .use_case.dto import Equipa
-#from .use_case.event import IUpdateEquipaListener
-from .libelifoot import (
-#    bulk_update,
-    get_providers,
-#    get_equipa_data,
-#    update_equipa
-)
+from typing import Any, Optional
+
+from libelifoot.domain.entity.player import Player
+from libelifoot.domain.util.player_position import PlayerPosition
+from libelifoot.domain.util.crypto import encrypt
+from libelifoot.infrastructure.elifoot.serializer.interface import ISerializer
 
 
-__all__ = [
-#    'bulk_update',
-    'get_providers',
-#   'get_equipa_data',
-#   'update_equipa',
-#   'Equipa',
-#   'IUpdateEquipaListener'
-]
+class PlayerSerializer(ISerializer):
+
+    @staticmethod
+    def serialize(obj: Any) -> Optional[bytearray]:
+        if not isinstance(obj, Player):
+            return None
+
+        player = bytearray(b'\x00')
+        player += encrypt(obj.country)
+        player += encrypt(obj.name)
+        player.append(PlayerPosition.to_pos_code(obj.position))
+
+        return player
