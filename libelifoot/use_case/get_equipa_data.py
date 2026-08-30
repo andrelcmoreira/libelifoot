@@ -41,6 +41,4 @@ class GetEquipaData(ICmd):
 
         ret = ep.parse()
 
-        return Equipa(ext_name=ret.ext_name, short_name=ret.short_name,
-                      country=ret.country, level=ret.level, colors=ret.colors,
-                      coach=ret.coach, players=ret.players)
+        return Equipa.from_entity(ret)
