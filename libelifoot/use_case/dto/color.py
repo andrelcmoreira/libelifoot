@@ -15,6 +15,8 @@
 
 from dataclasses import dataclass
 
+from libelifoot.domain.entity.color import Color as ColorEntity
+
 
 @dataclass
 class Color:
@@ -24,3 +26,10 @@ class Color:
     def __str__(self) -> str:
         return '#' + self.background.hex().upper() + ', #' \
             + self.text.hex().upper()
+
+    @classmethod
+    def from_entity(cls, entity: ColorEntity):
+        return cls(
+            background=entity.background,
+            text=entity.text
+        )

@@ -15,6 +15,7 @@
 
 from dataclasses import dataclass
 
+from libelifoot.domain.entity.equipa import Equipa as EquipaEntity
 from libelifoot.use_case.dto.color import Color
 from libelifoot.use_case.dto.player import Player
 
@@ -40,4 +41,16 @@ class Equipa:
             f'level:\t\t{self.level}\n'
             f'coach:\t\t{self.coach}\n'
             f'players:\t{players}'
+       )
+
+    @classmethod
+    def from_entity(cls, entity: EquipaEntity):
+        return cls(
+            ext_name=entity.ext_name,
+            short_name=entity.short_name,
+            country=entity.country,
+            level=entity.level,
+            colors=Color.from_entity(entity.colors),
+            coach=entity.coach,
+            players=[Player.from_entity(p) for p in entity.players]
         )

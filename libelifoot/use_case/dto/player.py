@@ -15,6 +15,8 @@
 
 from dataclasses import dataclass
 
+from libelifoot.domain.entity.player import Player as PlayerEntity
+
 
 @dataclass
 class Player:
@@ -24,3 +26,11 @@ class Player:
 
     def __str__(self) -> str:
         return f'{self.position}: {self.name} - {self.country}'
+
+    @classmethod
+    def from_entity(cls, entity: PlayerEntity):
+        return cls(
+            name=entity.name,
+            position=entity.position,
+            country=entity.country
+        )

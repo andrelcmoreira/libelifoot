@@ -23,6 +23,3 @@ class Player:
     country: str
     appearances: int = 0
     value: float = 0.0
-
-    def __str__(self) -> str:
-        return f'{self.position}: {self.name} - {self.country}'
