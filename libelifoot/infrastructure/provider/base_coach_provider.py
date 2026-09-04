@@ -17,12 +17,22 @@ from abc import abstractmethod
 
 from requests import exceptions, get
 
-from libelifoot.domain.error import EquipaNotProvided
-from libelifoot.provider import db
-from libelifoot.provider.base_provider import BaseProvider
+from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
+from libelifoot.infrastructure.provider.base_provider import BaseProvider
+from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 
 
 class BaseCoachProvider(BaseProvider):
+
+    def __init__(
+        self,
+        provider_name: str,
+        base_url: str,
+        interval: int,
+        repo: ITeamMappingRepository
+    ):
+        self._repo = repo
+        super().__init__(provider_name, base_url, interval)
 
     @abstractmethod
     def parse_coach_data(self, reply: str, season: int) -> str:
@@ -46,8 +56,8 @@ class BaseCoachProvider(BaseProvider):
             return ''
 
     def get_coach(self, equipa_file: str, season: int) -> str:
-        team_id = db.get_team_id(equipa_file, self._name)
-        if not team_id:
+        team = self._repo.get_team(equipa_file, self._name)
+        if not team:
             raise EquipaNotProvided(equipa_file)
 
-        return self._fetch_coach_data(team_id, season)
+        return self._fetch_coach_data(team.id, season)

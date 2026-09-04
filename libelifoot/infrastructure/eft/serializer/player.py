@@ -15,7 +15,6 @@
 
 from typing import Any, Optional
 
-from libelifoot.domain.entity.player import Player
 from libelifoot.domain.util.player_position import PlayerPosition
 from libelifoot.domain.util.crypto import encrypt
 from libelifoot.infrastructure.eft.serializer.interface import ISerializer
@@ -25,9 +24,6 @@ class PlayerSerializer(ISerializer):
 
     @staticmethod
     def serialize(obj: Any) -> Optional[bytearray]:
-        if not isinstance(obj, Player):
-            return None
-
         player = bytearray(b'\x00')
         player += encrypt(obj.country)
         player += encrypt(obj.name)

@@ -15,8 +15,9 @@
 
 from json import loads
 
-from libelifoot.use_case.dto import Player
-from libelifoot.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
+from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.use_case.dto.player import Player
 
 
 class RosterProvider(BaseRosterProvider):
@@ -73,12 +74,15 @@ class RosterProvider(BaseRosterProvider):
         'Zimbábue': 'ZBW'
     }
 
-    def __init__(self):
-        super().__init__('espn',
-                         'https://www.espn.com.br/futebol/time/elenco/_/id/',
-                         self._COUNTRIES,
-                         0,
-                         lambda p: int(p.appearances))
+    def __init__(self, team_mapping_repo: ITeamMappingRepository):
+        super().__init__(
+            'espn',
+            'https://www.espn.com.br/futebol/time/elenco/_/id/',
+            self._COUNTRIES,
+            0,
+            lambda p: int(p.appearances),
+            team_mapping_repo
+        )
 
     def assemble_uri(self, team_id: str, season: int) -> str:
         return f'{self._base_url}{team_id}/season/{season}' if season else \

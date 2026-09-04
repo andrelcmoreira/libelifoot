@@ -19,14 +19,12 @@ from typing import Callable
 from requests import exceptions, get
 from unidecode import unidecode
 
-from libelifoot.use_case.dto import Player
-from libelifoot.domain.error import (
-    EquipaDataNotAvailable,
-    EquipaNotProvided
-)
-from libelifoot.domain.player_position import PlayerPosition
-from libelifoot.provider import db
-from libelifoot.provider.base_provider import BaseProvider
+from libelifoot.use_case.dto.player import Player
+from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
+from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
+from libelifoot.domain.util.player_position import PlayerPosition
+from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
+from libelifoot.infrastructure.provider.base_provider import BaseProvider
 
 
 class BaseRosterProvider(BaseProvider):
@@ -43,10 +41,12 @@ class BaseRosterProvider(BaseProvider):
         base_url: str,
         country_map: dict,
         interval: int,
-        sorting_fn: Callable[[Player], int]
+        sorting_fn: Callable[[Player], int],
+        repo: ITeamMappingRepository
     ):
         self._country_map = country_map
         self._sorting_fn = sorting_fn
+        self._repo = repo
 
         super().__init__(provider_name, base_url, interval)
 
@@ -100,11 +100,11 @@ class BaseRosterProvider(BaseProvider):
             return []
 
     def get_players(self, equipa_file: str, season: int) -> list[Player]:
-        team_id = db.get_team_id(equipa_file, self._name)
-        if not team_id:
+        team = self._repo.get_team(equipa_file, self._name)
+        if not team:
             raise EquipaNotProvided(equipa_file)
 
-        players = self._fetch_team_data(team_id, season)
+        players = self._fetch_team_data(team.id, season)
         if not players:
             raise EquipaDataNotAvailable(equipa_file)
 

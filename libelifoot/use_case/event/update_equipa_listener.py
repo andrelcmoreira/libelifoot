@@ -13,31 +13,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import json
-import os
-import pathlib
+from abc import ABC, abstractmethod
+from typing import Optional
+
+from libelifoot.use_case.dto.equipa import Equipa
 
 
-_DATA_PATH = pathlib.Path(__file__).parent / 'data'
+class IUpdateEquipaListener(ABC): # pragma: no cover
 
+    @abstractmethod
+    def on_update_equipa(
+        self,
+        equipa_name: str,
+        equipa_data: Optional[Equipa]
+    ) -> None:
+        """
+        Invoked when an equipa is successfully updated.
 
-def get_team_id(equipa_file: str, provider: str) -> str:
-    with open(f'{_DATA_PATH}/{provider}.json', encoding='utf-8') as f:
-        data = json.load(f)
+        :equipa_name: The name of the equipa.
+        :equipa_data: The updated equipa data.
+        """
 
-        for entry in data:
-            if entry['file'] == equipa_file:
-                return entry['id']
+    @abstractmethod
+    def on_update_equipa_error(self, error: str) -> None:
+        """
+        Invoked when there is an error updating an equipa.
 
-        return ''
-
-
-def get_teams(provider: str) -> list[dict]:
-    with open(f'{_DATA_PATH}/{provider}.json', encoding='utf-8') as f:
-        data = json.load(f)
-
-        return data
-
-
-def get_providers() -> list[str]:
-    return [i.split('.')[0] for i in os.listdir(_DATA_PATH)]
+        :error: The error message.
+        """

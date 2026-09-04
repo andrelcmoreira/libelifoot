@@ -15,20 +15,16 @@
 
 from typing import Any, Optional
 
-from libelifoot.domain.entity.equipa import Equipa
 from libelifoot.domain.util.crypto import encrypt
-from libelifoot.infrastructure.serializer.interface import ISerializer
-from libelifoot.infrastructure.serializer.coach import CoachSerializer
-from libelifoot.infrastructure.serializer.player import PlayerSerializer
+from libelifoot.infrastructure.eft.serializer.interface import ISerializer
+from libelifoot.infrastructure.eft.serializer.coach import CoachSerializer
+from libelifoot.infrastructure.eft.serializer.player import PlayerSerializer
 
 
 class EquipaSerializer(ISerializer):
 
     @staticmethod
     def serialize(obj: Any) -> Optional[bytearray]:
-        if not isinstance(obj, Equipa):
-            return None
-
         equipa = bytearray(b'EFa' + b'\x00' * 47)
         equipa += encrypt(obj.ext_name)
         equipa += encrypt(obj.short_name)
