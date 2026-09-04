@@ -22,7 +22,7 @@ from libelifoot.infrastructure.repository.equipa import (
 )
 from libelifoot.use_case.dto.equipa import Equipa
 from libelifoot.use_case.event.update_equipa_listener import IUpdateEquipaListener
-#from libelifoot.use_case.bulk_update import BulkUpdate
+from libelifoot.use_case.bulk_update import BulkUpdate
 from libelifoot.use_case.get_equipa_data import GetEquipaData
 from libelifoot.use_case.get_providers import GetProviders
 from libelifoot.use_case.update_equipa import UpdateEquipa
@@ -73,16 +73,17 @@ def bulk_update(
     :season: Year's season to use as reference in update operation.
     :listener: Event listener to handle the events.
     """
-#    cmd = _bulk_update.Cmd(
-#        equipa_dir,
-#        factory.create_roster_provider(provider),
-#        factory.create_coach_provider(),
-#        season,
-#        _TEAM_MAPPING_REPO,
-#        listener
-#    )
-#
-#    cmd.run()
+    cmd = BulkUpdate(
+        equipa_dir,
+        factory.create_roster_provider(provider, _TEAM_MAPPING_REPO),
+        factory.create_coach_provider(_TEAM_MAPPING_REPO),
+        season,
+        _TEAM_MAPPING_REPO,
+        _EQUIPA_REPO,
+        listener
+    )
+
+    cmd.run()
 
 
 def get_equipa_data(equipa_file: str) -> Equipa:

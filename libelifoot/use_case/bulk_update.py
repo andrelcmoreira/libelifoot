@@ -16,11 +16,12 @@
 import time
 from typing import Any
 
-from libelifoot.domain.repository import ITeamMappingRepository
-from libelifoot.use_case import update_equipa
-from libelifoot.use_case.event import IUpdateEquipaListener
-from libelifoot.provider.base_coach_provider import BaseCoachProvider
-from libelifoot.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.domain.repository.equipa import IEquipaRepository
+from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
+from libelifoot.infrastructure.provider.base_coach_provider import BaseCoachProvider
+from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.use_case.update_equipa import UpdateEquipa
+from libelifoot.use_case.event.update_equipa_listener import IUpdateEquipaListener
 from libelifoot.use_case.cmd import ICmd
 
 
@@ -32,23 +33,30 @@ class BulkUpdate(ICmd):
         roster_prov: BaseRosterProvider,
         coach_prov: BaseCoachProvider,
         season: int,
-        repository: ITeamMappingRepository,
+        team_repo: ITeamMappingRepository,
+        equipa_repo: IEquipaRepository,
         listener: IUpdateEquipaListener
     ):
         self._dir = equipa_dir
         self._roster_prov = roster_prov
         self._coach_prov = coach_prov
         self._season = season
-        self._repo = repository
+        self._team_repo = team_repo
+        self._equipa_repo = equipa_repo
         self._ev = listener
 
     def run(self) -> Any:
-        teams = self._repo.get_teams(self._roster_prov.name)
+        teams = self._team_repo.get_teams(self._roster_prov.name)
 
         for team in teams:
-            cmd = update_equipa.Cmd(f"{self._dir}/{team.file}",
-                                    self._roster_prov, self._coach_prov,
-                                    self._season, self._ev)
+            cmd = UpdateEquipa(
+                f"{self._dir}/{team.file}",
+                self._roster_prov,
+                self._coach_prov,
+                self._season,
+                self._equipa_repo,
+                self._ev
+            )
 
             cmd.run()
 
