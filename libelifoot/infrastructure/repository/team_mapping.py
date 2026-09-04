@@ -15,7 +15,7 @@ def get_team_mapping_repository() -> ITeamMappingRepository:
 
 class JsonTeamMappingRepository(ITeamMappingRepository):
 
-    _DATA_PATH = pathlib.Path(__file__).parent.parent / 'data'
+    _DATA_PATH = pathlib.Path(__file__).parent.parent / 'static'
 
     def get_team(self, equipa_file: str, provider: str) -> Optional[Equipa]:
         with open(f'{self._DATA_PATH}/{provider}.json', encoding='utf-8') as f:
@@ -23,7 +23,17 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
 
             for entry in data:
                 if entry['file'] == equipa_file:
-                    return Equipa(**entry)
+                    return Equipa(
+                        id=entry['id'],
+                        file=entry['file'],
+                        ext_name='',
+                        short_name='',
+                        country='',
+                        players=[],
+                        coach='',
+                        level=0,
+                        colors=None
+                    )
 
             return None
 

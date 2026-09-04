@@ -23,9 +23,6 @@ class CoachSerializer(ISerializer):
 
     @staticmethod
     def serialize(obj: Any) -> Optional[bytearray]:
-        if not isinstance(obj, str):
-            return None
-
         coach = bytearray(b'\x00')
         coach += encrypt(obj)
 

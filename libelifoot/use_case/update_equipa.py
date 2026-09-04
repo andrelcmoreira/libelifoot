@@ -20,23 +20,35 @@ from typing import Any, Optional, Self
 from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
 from libelifoot.domain.error.equipa_not_found import EquipaNotFound
 from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
-from libelifoot.infrastructure .provider.base_coach_provider import BaseCoachProvider
-from libelifoot.infrastructure .provider.base_roster_provider import BaseRosterProvider
+from libelifoot.infrastructure.eft.parser.equipa import EquipaParser
+from libelifoot.infrastructure.provider.base_coach_provider import BaseCoachProvider
+from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.infrastructure.repository.equipa import IEquipaRepository
 from libelifoot.use_case.cmd import ICmd
-from libelifoot.use_case.dto import Equipa, Player
-from libelifoot.use_case.event import IUpdateEquipaListener
-from libelifoot.file.equipa import EquipaFileHandler
+from libelifoot.use_case.dto.equipa import Equipa
+from libelifoot.use_case.dto.player import Player
+from libelifoot.use_case.event.update_equipa_listener import IUpdateEquipaListener
 
 
 class UpdateEquipa(ICmd):
 
     class Builder:
 
-        def __init__(self):
+        def __init__(self, equipa_repo: IEquipaRepository):
+            self._repo = equipa_repo
             self._equipa = None
 
         def create_base_equipa(self, equipa_file: str) -> Self:
-            self._equipa = EquipaFileHandler.read(equipa_file)
+            equipa_raw = self._repo.get_equipa(equipa_file)
+
+            if not equipa_raw:
+                raise EquipaNotFound(equipa_file)
+
+            ep = EquipaParser(equipa_raw)
+            if not ep.has_equipa_header(equipa_raw):
+                raise EquipaDataNotAvailable(equipa_file)
+
+            self._equipa = Equipa.from_entity(ep.parse())
             # we are not interested on the players to create the base equipa
             self._equipa.players.clear()
 
@@ -63,6 +75,7 @@ class UpdateEquipa(ICmd):
         roster_prov: BaseRosterProvider,
         coach_prov: BaseCoachProvider,
         season: int,
+        equipa_repo: IEquipaRepository,
         listener: IUpdateEquipaListener
     ):
         self._equipa = equipa_file
@@ -70,7 +83,7 @@ class UpdateEquipa(ICmd):
         self._coach = coach_prov
         self._season = season
         self._ev = listener
-        self._builder = self.Builder()
+        self._builder = self.Builder(equipa_repo)
 
     def run(self) -> Any:
         equipa_file = self._equipa.split(os.path.sep)[-1]

@@ -15,11 +15,12 @@
 
 from bs4 import BeautifulSoup
 
-from libelifoot.use_case.dto import Player
-from libelifoot.provider.base_coach_provider import BaseCoachProvider
-from libelifoot.provider.base_roster_provider import BaseRosterProvider
-from libelifoot.util.date import get_work_days_in_season
-from libelifoot.domain.player_position import PlayerPosition
+from libelifoot.use_case.dto.player import Player
+from libelifoot.domain.util.date import get_work_days_in_season
+from libelifoot.domain.util.player_position import PlayerPosition
+from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
+from libelifoot.infrastructure.provider.base_coach_provider import BaseCoachProvider
+from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
 
 
 _PROVIDER_NAME = 'transfermarkt'
@@ -88,9 +89,15 @@ class RosterProvider(BaseRosterProvider):
         'Zimbabué': 'ZBW'
     }
 
-    def __init__(self):
-        super().__init__(_PROVIDER_NAME, _PROVIDER_URL, self._COUNTRIES,
-                         _REQUEST_INTERVAL, lambda p: int(p.value))
+    def __init__(self, team_mapping_repo: ITeamMappingRepository):
+        super().__init__(
+            _PROVIDER_NAME,
+            _PROVIDER_URL,
+            self._COUNTRIES,
+            _REQUEST_INTERVAL,
+            lambda p: int(p.value),
+            team_mapping_repo
+        )
 
     def assemble_uri(self, team_id: str, season: int) -> str:
         tid = team_id.format('startseite')
@@ -198,8 +205,13 @@ class RosterProvider(BaseRosterProvider):
 
 class CoachProvider(BaseCoachProvider):
 
-    def __init__(self):
-        super().__init__(_PROVIDER_NAME, _PROVIDER_URL, _REQUEST_INTERVAL)
+    def __init__(self, team_mapping_repo: ITeamMappingRepository):
+        super().__init__(
+            _PROVIDER_NAME,
+            _PROVIDER_URL,
+            _REQUEST_INTERVAL,
+            team_mapping_repo
+        )
 
     def assemble_uri(self, team_id: str, _) -> str:
         tid = team_id.format('mitarbeiterhistorie')

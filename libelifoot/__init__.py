@@ -14,20 +14,22 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from .use_case.dto.equipa import Equipa
-#from .use_case.event import IUpdateEquipaListener
+from .use_case.event.update_equipa_listener import IUpdateEquipaListener
 from .libelifoot import (
 #    bulk_update,
     get_providers,
     get_equipa_data,
-#    update_equipa
+    update_equipa,
+    save_equipa
 )
 
 
 __all__ = [
 #    'bulk_update',
-    'get_providers',
+   'get_providers',
    'get_equipa_data',
-#   'update_equipa',
+   'update_equipa',
    'Equipa',
-#   'IUpdateEquipaListener'
+   'IUpdateEquipaListener',
+   'save_equipa'
 ]

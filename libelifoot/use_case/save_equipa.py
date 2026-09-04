@@ -13,31 +13,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Any
 
-from libelifoot.use_case.dto import Equipa
+from libelifoot.domain.repository.equipa import IEquipaRepository
+from libelifoot.infrastructure.eft.serializer.equipa import EquipaSerializer
+from libelifoot.use_case.dto.equipa import Equipa
+from libelifoot.use_case.cmd import ICmd
 
 
-class IUpdateEquipaListener(ABC): # pragma: no cover
+class SaveEquipa(ICmd):
 
-    @abstractmethod
-    def on_update_equipa(
+    def __init__(
         self,
-        equipa_name: str,
-        equipa_data: Optional[Equipa]
-    ) -> None:
-        """
-        Invoked when an equipa is successfully updated.
+        file_name: str,
+        equipa: Equipa,
+        repository: IEquipaRepository
+    ):
+        self._file_name = file_name
+        self._equipa = equipa
+        self._repo = repository
 
-        :equipa_name: The name of the equipa.
-        :equipa_data: The updated equipa data.
-        """
+    def run(self) -> Any:
+        data = EquipaSerializer.serialize(self._equipa)
 
-    @abstractmethod
-    def on_update_equipa_error(self, error: str) -> None:
-        """
-        Invoked when there is an error updating an equipa.
-
-        :error: The error message.
-        """
+        if data:
+            self._repo.save_equipa(self._file_name, data)

@@ -13,21 +13,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.domain.error import UnknownProvider
-from libelifoot.provider.impl import espn
-from libelifoot.provider.impl import transfermarkt
+from libelifoot.domain.error.unknown_provider import UnknownProvider
+from libelifoot.infrastructure.provider.impl import espn, transfermarkt
+from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 
 
-def create_coach_provider() -> transfermarkt.CoachProvider:
-    return transfermarkt.CoachProvider()
+def create_coach_provider(
+    team_mapping_repo: ITeamMappingRepository
+) -> transfermarkt.CoachProvider:
+    return transfermarkt.CoachProvider(team_mapping_repo)
 
 
 def create_roster_provider(
-    prov_name: str
+    prov_name: str,
+    team_mapping_repo: ITeamMappingRepository
 ) -> espn.RosterProvider | transfermarkt.RosterProvider:
     if prov_name == 'espn':
-        return espn.RosterProvider()
+        return espn.RosterProvider(team_mapping_repo)
     if prov_name == 'transfermarkt':
-        return transfermarkt.RosterProvider()
+        return transfermarkt.RosterProvider(team_mapping_repo)
 
     raise UnknownProvider(prov_name)
