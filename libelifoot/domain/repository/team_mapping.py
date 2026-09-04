@@ -16,14 +16,18 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from libelifoot.domain.entity.equipa import Equipa
+from libelifoot.domain.entity.equipa_db_entry import EquipaDbEntry
 from libelifoot.domain.entity.provider import Provider
 
 
 class ITeamMappingRepository(ABC): # pragma: no cover
 
     @abstractmethod
-    def get_team(self, equipa_file: str, provider: str) -> Optional[Equipa]:
+    def get_team(
+        self,
+        equipa_file: str,
+        provider: str
+    ) -> Optional[EquipaDbEntry]:
         """
         Retrieve the mapped team related to a given equipa file path.
 
@@ -33,7 +37,7 @@ class ITeamMappingRepository(ABC): # pragma: no cover
         """
 
     @abstractmethod
-    def get_teams(self, provider: str) -> list[Equipa]:
+    def get_teams(self, provider: str) -> list[EquipaDbEntry]:
         """
         Retrieve a list of team names for a given provider.
 

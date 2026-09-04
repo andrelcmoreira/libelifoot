@@ -35,10 +35,10 @@ class BaseCoachProvider(BaseProvider):
         super().__init__(provider_name, base_url, interval)
 
     @abstractmethod
-    def parse_coach_data(self, reply: str, season: int) -> str:
+    def parse_data(self, reply: str, season: int) -> str:
         pass # pragma: no cover
 
-    def _fetch_coach_data(self, team_id: str, season: int) -> str:
+    def _fetch_data(self, team_id: str, season: int) -> str:
         headers = { 'User-Agent': self._USER_AGENT }
         uri = self.assemble_uri(team_id, season)
 
@@ -48,7 +48,7 @@ class BaseCoachProvider(BaseProvider):
         try:
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
 
-            return self.parse_coach_data(reply.text, season)
+            return self.parse_data(reply.text, season)
         except (
             exceptions.ConnectionError,
             exceptions.ReadTimeout
@@ -60,4 +60,4 @@ class BaseCoachProvider(BaseProvider):
         if not team:
             raise EquipaNotProvided(equipa_file)
 
-        return self._fetch_coach_data(team.id, season)
+        return self._fetch_data(team.id, season)

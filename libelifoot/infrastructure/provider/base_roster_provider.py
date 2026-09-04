@@ -19,7 +19,7 @@ from typing import Callable
 from requests import exceptions, get
 from unidecode import unidecode
 
-from libelifoot.use_case.dto.player import Player
+from libelifoot.domain.entity.player import Player
 from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
 from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
 from libelifoot.domain.util.player_position import PlayerPosition
@@ -51,7 +51,7 @@ class BaseRosterProvider(BaseProvider):
         super().__init__(provider_name, base_url, interval)
 
     @abstractmethod
-    def parse_roster_data(self, reply: str) -> list[Player]:
+    def parse_data(self, reply: str) -> list[Player]:
         pass # pragma: no cover
 
     def select_players(self, player_list: list[Player]) -> list[Player]:
@@ -85,14 +85,14 @@ class BaseRosterProvider(BaseProvider):
             if country in self._country_map \
             else unidecode(country[0:3]).upper()
 
-    def _fetch_team_data(self, team_id: str, season: int) -> list[Player]:
+    def _fetch_data(self, team_id: str, season: int) -> list[Player]:
         headers = { 'User-Agent': self._USER_AGENT }
         uri = self.assemble_uri(team_id, season)
 
         try:
             reply = get(uri, headers=headers, timeout=self._REQUEST_TIMEOUT)
 
-            return self.parse_roster_data(reply.text)
+            return self.parse_data(reply.text)
         except (
             exceptions.ConnectionError,
             exceptions.ReadTimeout
@@ -104,7 +104,7 @@ class BaseRosterProvider(BaseProvider):
         if not team:
             raise EquipaNotProvided(equipa_file)
 
-        players = self._fetch_team_data(team.id, season)
+        players = self._fetch_data(team.id, season)
         if not players:
             raise EquipaDataNotAvailable(equipa_file)
 

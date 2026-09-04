@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any, Optional
+from typing import Any
 
 from libelifoot.domain.util.player_position import PlayerPosition
 from libelifoot.domain.util.crypto import encrypt
@@ -23,7 +23,7 @@ from libelifoot.infrastructure.eft.serializer.interface import ISerializer
 class PlayerSerializer(ISerializer):
 
     @staticmethod
-    def serialize(obj: Any) -> Optional[bytearray]:
+    def serialize(obj: Any) -> bytearray:
         player = bytearray(b'\x00')
         player += encrypt(obj.country)
         player += encrypt(obj.name)

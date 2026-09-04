@@ -37,4 +37,4 @@ class SaveEquipa(ICmd):
         data = EquipaSerializer.serialize(self._equipa)
 
         if data:
-            self._repo.save_equipa(self._file_name, data)
+            self._repo.save(self._file_name, bytes(data))

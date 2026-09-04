@@ -20,7 +20,7 @@ from typing import Optional
 class IEquipaRepository(ABC): # pragma: no cover
 
     @abstractmethod
-    def get_equipa(self, equipa_file: str) -> Optional[bytes]:
+    def get(self, equipa_file: str) -> Optional[bytes]:
         """
         Retrieve an equipa by its file name.
 
@@ -29,7 +29,7 @@ class IEquipaRepository(ABC): # pragma: no cover
         """
 
     @abstractmethod
-    def save_equipa(self, equipa_file: str, data: bytes) -> None:
+    def save(self, equipa_file: str, data: bytes) -> None:
         """
         Save an equipa to the repository.
 

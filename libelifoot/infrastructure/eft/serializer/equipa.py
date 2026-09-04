@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any, Optional
+from typing import Any
 
 from libelifoot.domain.util.crypto import encrypt
 from libelifoot.infrastructure.eft.serializer.interface import ISerializer
@@ -24,7 +24,7 @@ from libelifoot.infrastructure.eft.serializer.player import PlayerSerializer
 class EquipaSerializer(ISerializer):
 
     @staticmethod
-    def serialize(obj: Any) -> Optional[bytearray]:
+    def serialize(obj: Any) -> bytearray:
         equipa = bytearray(b'EFa' + b'\x00' * 47)
         equipa += encrypt(obj.ext_name)
         equipa += encrypt(obj.short_name)
@@ -33,6 +33,7 @@ class EquipaSerializer(ISerializer):
         equipa += encrypt(obj.country)
         equipa += bytearray(obj.level.to_bytes())
         equipa += bytearray(len(obj.players).to_bytes())
+
         for p in obj.players:
             equipa += PlayerSerializer.serialize(p)
 

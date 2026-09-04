@@ -21,8 +21,6 @@ from libelifoot.domain.entity.player import Player
 
 @dataclass
 class Equipa:
-    id: str
-    file: str
     ext_name: str
     short_name: str
     country: str

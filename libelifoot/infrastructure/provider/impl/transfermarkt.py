@@ -15,7 +15,7 @@
 
 from bs4 import BeautifulSoup
 
-from libelifoot.use_case.dto.player import Player
+from libelifoot.domain.entity.player import Player
 from libelifoot.domain.util.date import get_work_days_in_season
 from libelifoot.domain.util.player_position import PlayerPosition
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
@@ -105,7 +105,7 @@ class RosterProvider(BaseRosterProvider):
         return f'{self._base_url}{tid}/saison_id/{season}' if season else \
             f'{self._base_url}{tid}'
 
-    def parse_roster_data(self, reply: str) -> list[Player]:
+    def parse_data(self, reply: str) -> list[Player]:
         bs = BeautifulSoup(reply, 'html.parser')
         players = []
 
@@ -218,7 +218,7 @@ class CoachProvider(BaseCoachProvider):
 
         return f'{self._base_url}{tid}/personalie_id/1'
 
-    def parse_coach_data(self, reply: str, season: int) -> str:
+    def parse_data(self, reply: str, season: int) -> str:
         bs = BeautifulSoup(reply, 'html.parser')
 
         ret = bs.find_all('tbody')
