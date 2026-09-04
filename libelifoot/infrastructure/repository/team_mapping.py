@@ -41,7 +41,19 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
         with open(f'{self._DATA_PATH}/{provider}.json', encoding='utf-8') as f:
             data = json.load(f)
 
-            return [Equipa(**entry) for entry in data]
+            return [
+                Equipa(
+                    id=entry['id'],
+                    file=entry['file'],
+                    ext_name='',
+                    short_name='',
+                    country='',
+                    players=[],
+                    coach='',
+                    level=0,
+                    colors=None
+                ) for entry in data
+            ]
 
     def get_providers(self) -> list[Provider]:
         return [

@@ -3,8 +3,8 @@ from typing import Optional
 
 from libelifoot import (
     bulk_update,
+    save_equipa,
     Equipa,
-    EquipaFileHandler,
     IUpdateEquipaListener
 )
 
@@ -19,7 +19,7 @@ class EventHandler(IUpdateEquipaListener):
         print(f'{equipa_name}\n{equipa_data}')
 
         if equipa_data:
-            EquipaFileHandler.write(f'{equipa_name}.patch', equipa_data)
+            save_equipa(f'{equipa_name}.patch', equipa_data)
 
     def on_update_equipa_error(self, error: str) -> None:
         print(f'ERROR: {error}')

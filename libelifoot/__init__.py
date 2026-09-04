@@ -16,7 +16,7 @@
 from .use_case.dto.equipa import Equipa
 from .use_case.event.update_equipa_listener import IUpdateEquipaListener
 from .libelifoot import (
-#    bulk_update,
+    bulk_update,
     get_providers,
     get_equipa_data,
     update_equipa,
@@ -25,7 +25,7 @@ from .libelifoot import (
 
 
 __all__ = [
-#    'bulk_update',
+   'bulk_update',
    'get_providers',
    'get_equipa_data',
    'update_equipa',
