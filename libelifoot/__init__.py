@@ -17,19 +17,19 @@ from .use_case.dto.equipa import Equipa
 from .use_case.event.update_equipa_listener import IUpdateEquipaListener
 from .libelifoot import (
     bulk_update,
-    get_providers,
     get_equipa_data,
-    update_equipa,
-    save_equipa
+    get_providers,
+    save_equipa,
+    update_equipa
 )
 
 
 __all__ = [
    'bulk_update',
-   'get_providers',
    'get_equipa_data',
+   'get_providers',
+   'save_equipa',
    'update_equipa',
    'Equipa',
-   'IUpdateEquipaListener',
-   'save_equipa'
+   'IUpdateEquipaListener'
 ]

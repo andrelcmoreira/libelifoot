@@ -95,6 +95,5 @@ class EquipaParser(BaseParser):
         players = self.parse_players(self._data, len(ext_name), len(short_name))
         country = self.parse_country(self._data, len(ext_name), len(short_name))
 
-        return Equipa(id='', file='', ext_name=ext_name, short_name=short_name,
-                      country=country, level=level, colors=colors, coach=coach,
-                      players=players)
+        return Equipa(ext_name=ext_name, short_name=short_name, country=country,
+                      level=level, colors=colors, coach=coach, players=players)

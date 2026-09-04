@@ -23,5 +23,5 @@ class ICoachRepository(ABC): # pragma: no cover
         pass
 
     @abstractmethod
-    def parse_coach_data(self, reply: str, season: int) -> str:
+    def parse_data(self, reply: str, season: int) -> str:
         pass

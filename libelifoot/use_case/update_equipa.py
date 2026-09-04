@@ -39,7 +39,7 @@ class UpdateEquipa(ICmd):
             self._equipa = None
 
         def create_base_equipa(self, equipa_file: str) -> Self:
-            equipa_raw = self._repo.get_equipa(equipa_file)
+            equipa_raw = self._repo.get(equipa_file)
 
             if not equipa_raw:
                 raise EquipaNotFound(equipa_file)
@@ -89,7 +89,11 @@ class UpdateEquipa(ICmd):
         equipa_file = self._equipa.split(os.path.sep)[-1]
 
         try:
-            players = self._roster.get_players(equipa_file, self._season)
+            players = [
+                Player.from_entity(p)
+                for p in self._roster.get_players(equipa_file, self._season)
+            ]
+
             coach = self._coach.get_coach(equipa_file, self._season)
             equipa = self._builder.create_base_equipa(self._equipa) \
                 .add_players(players) \

@@ -13,17 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from abc import ABC, abstractmethod
-
-from libelifoot.domain.entity.player import Player
+from dataclasses import dataclass
 
 
-class IRosterRepository(ABC): # pragma: no cover
-
-    @abstractmethod
-    def assemble_uri(self, team_id: str, season: int) -> str:
-        pass
-
-    @abstractmethod
-    def parse_data(self, reply: str) -> list[Player]:
-        pass
+@dataclass
+class EquipaDbEntry:
+    id: str
+    file: str

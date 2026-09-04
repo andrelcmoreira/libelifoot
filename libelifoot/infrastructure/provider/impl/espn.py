@@ -15,9 +15,9 @@
 
 from json import loads
 
+from libelifoot.domain.entity.player import Player
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
-from libelifoot.use_case.dto.player import Player
 
 
 class RosterProvider(BaseRosterProvider):
@@ -88,7 +88,7 @@ class RosterProvider(BaseRosterProvider):
         return f'{self._base_url}{team_id}/season/{season}' if season else \
             f'{self._base_url}{team_id}'
 
-    def parse_roster_data(self, reply: str) -> list[Player]:
+    def parse_data(self, reply: str) -> list[Player]:
         start_str = ";window['__espnfitt__']="
         end_str = ";</script>"
 

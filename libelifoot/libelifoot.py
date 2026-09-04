@@ -14,19 +14,15 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.infrastructure.provider import factory
-from libelifoot.infrastructure.repository.team_mapping import (
-    get_team_mapping_repository
-)
-from libelifoot.infrastructure.repository.equipa import (
-    get_equipa_repository
-)
+from libelifoot.infrastructure.repository.equipa import get_equipa_repository
+from libelifoot.infrastructure.repository.team_mapping import get_team_mapping_repository
+from libelifoot.use_case.bulk_update import BulkUpdate
 from libelifoot.use_case.dto.equipa import Equipa
 from libelifoot.use_case.event.update_equipa_listener import IUpdateEquipaListener
-from libelifoot.use_case.bulk_update import BulkUpdate
 from libelifoot.use_case.get_equipa_data import GetEquipaData
 from libelifoot.use_case.get_providers import GetProviders
-from libelifoot.use_case.update_equipa import UpdateEquipa
 from libelifoot.use_case.save_equipa import SaveEquipa
+from libelifoot.use_case.update_equipa import UpdateEquipa
 
 
 _TEAM_MAPPING_REPO = get_team_mapping_repository()
@@ -119,4 +115,4 @@ def save_equipa(file_name: str, equipa: Equipa) -> None:
     """
     cmd = SaveEquipa(file_name, equipa, _EQUIPA_REPO)
 
-    return cmd.run()
+    cmd.run()

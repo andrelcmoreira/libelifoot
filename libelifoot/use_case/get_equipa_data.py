@@ -30,7 +30,7 @@ class GetEquipaData(ICmd):
         self._repo = repository
 
     def run(self) -> Any:
-        data = self._repo.get_equipa(self._equipa)
+        data = self._repo.get(self._equipa)
         if not data:
             raise EquipaNotFound(self._equipa)
 
