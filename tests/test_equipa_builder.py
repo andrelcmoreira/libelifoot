@@ -1,15 +1,15 @@
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from pytest import raises
 
 from fixtures import mock_equipa, mock_players
 
-from libelifoot.domain.builder import EquipaBuilder
-from libelifoot.domain.error import EquipaNotFound
+from libelifoot.domain.error.equipa_not_found import EquipaNotFound
+from libelifoot.use_case.update_equipa import UpdateEquipa
 
 
 def test_create_base_equipa_with_not_existent_file():
     equipa_file = 'NOT_EXISTENT.eft'
-    builder = EquipaBuilder()
+    builder = UpdateEquipa.Builder(MagicMock())
 
     with raises(EquipaNotFound, match=f"Equipa '{equipa_file}' not found!"):
         builder.create_base_equipa(equipa_file)
@@ -17,7 +17,7 @@ def test_create_base_equipa_with_not_existent_file():
 
 def test_create_base_equipa_with_existent_file(mock_equipa):
     equipa_file = 'FORTALEZA.eft'
-    builder = EquipaBuilder()
+    builder = UpdateEquipa.Builder(MagicMock())
 
     with patch(
         'libelifoot.file.equipa.EquipaFileHandler.read',
@@ -30,7 +30,7 @@ def test_create_base_equipa_with_existent_file(mock_equipa):
 
 def test_add_players_to_equipa(mock_equipa, mock_players):
     equipa_file = 'FORTALEZA.eft'
-    builder = EquipaBuilder()
+    builder = UpdateEquipa.Builder(MagicMock())
 
     with patch(
         'libelifoot.file.equipa.EquipaFileHandler.read',
@@ -49,7 +49,7 @@ def test_add_players_to_equipa(mock_equipa, mock_players):
 def test_add_coach_to_equipa(mock_equipa):
     equipa_file = 'FORTALEZA.eft'
     coach = 'Juan Pablo Vojvoda'
-    builder = EquipaBuilder()
+    builder = UpdateEquipa.Builder(MagicMock())
 
     with patch(
         'libelifoot.file.equipa.EquipaFileHandler.read',
@@ -67,7 +67,7 @@ def test_add_coach_to_equipa(mock_equipa):
 
 def test_add_coach_with_empty_name(mock_equipa):
     equipa_file = 'FORTALEZA.eft'
-    builder = EquipaBuilder()
+    builder = UpdateEquipa.Builder(MagicMock())
 
     with patch(
         'libelifoot.file.equipa.EquipaFileHandler.read',
@@ -84,7 +84,7 @@ def test_add_coach_with_empty_name(mock_equipa):
 
 
 def test_add_players_without_base_equipa(mock_players):
-    builder = EquipaBuilder()
+    builder = UpdateEquipa.Builder(MagicMock())
 
     builder.add_players(mock_players)
     equipa = builder.build()
@@ -94,7 +94,7 @@ def test_add_players_without_base_equipa(mock_players):
 
 def test_add_coach_without_base_equipa():
     coach = 'Juan Pablo Vojvoda'
-    builder = EquipaBuilder()
+    builder = UpdateEquipa.Builder(MagicMock())
 
     builder.add_coach(coach)
     equipa = builder.build()

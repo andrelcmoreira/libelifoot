@@ -1,7 +1,9 @@
-from libelifoot.provider.impl.espn import RosterProvider
+from unittest.mock import MagicMock
+
+from libelifoot.infrastructure.provider.impl.espn import RosterProvider
 
 
-ROSTER_PROV = RosterProvider()
+ROSTER_PROV = RosterProvider(MagicMock())
 BASE_URL = 'https://www.espn.com.br/futebol/time/elenco/_/id'
 
 

@@ -1,16 +1,18 @@
 from pytest import raises
 from unittest import mock
+from unittest.mock import MagicMock
 
 from fixtures import mock_players
 
-from libelifoot.domain.error import (
-    EquipaDataNotAvailable,
-    EquipaNotProvided
+from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
+from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
+from libelifoot.infrastructure.provider.impl.transfermarkt import (
+    RosterProvider,
+    CoachProvider
 )
-from libelifoot.provider.impl.transfermarkt import RosterProvider, CoachProvider
 
 
-ROSTER_PROV = RosterProvider()
+ROSTER_PROV = RosterProvider(MagicMock())
 BASE_URL = 'https://www.transfermarkt.com.br'
 
 
@@ -132,7 +134,7 @@ def test_get_players_with_data_available(mock_players):
             return_value=mock_players
         ) as mock_fetch_team_data,
         mock.patch(
-            'libelifoot.provider.impl.transfermarkt.RosterProvider.select_players',
+            'libelifoot.infrastructure.provider.impl.transfermarkt.RosterProvider.select_players',
             return_value=mock_players
         ) as mock_select_players,
     ):

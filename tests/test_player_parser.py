@@ -1,7 +1,7 @@
 from fixtures import mock_equipa, mock_players, mock_equipa_bytes
 
-from libelifoot.parser.player import PlayersParser
-from libelifoot.util.offset import OffsetCalculator
+from libelifoot.infrastructure.eft.parser.player import PlayersParser
+from libelifoot.domain.util.offset import OffsetCalculator
 
 
 def test_parse_players(mock_equipa, mock_players, mock_equipa_bytes):

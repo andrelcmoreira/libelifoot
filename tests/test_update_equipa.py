@@ -1,12 +1,11 @@
 from unittest import mock
 
 from fixtures import mock_equipa, mock_players
-from libelifoot.use_case import update_equipa
-from libelifoot.domain.error import (
-    EquipaDataNotAvailable,
-    EquipaNotFound,
-    EquipaNotProvided
-)
+
+from libelifoot.use_case.update_equipa import UpdateEquipa
+from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
+from libelifoot.domain.error.equipa_not_found import EquipaNotFound
+from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
 
 
 @mock.patch('libelifoot.provider.base_roster_provider')
