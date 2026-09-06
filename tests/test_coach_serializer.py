@@ -1,4 +1,4 @@
-from libelifoot.serializer.coach import CoachSerializer
+from libelifoot.infrastructure.eft.serializer.coach import CoachSerializer
 
 
 def test_serialize_none_coach():

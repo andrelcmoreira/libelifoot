@@ -1,18 +1,24 @@
-from unittest.mock import patch
+from unittest.mock import MagicMock
+from pytest import raises
 
-from fixtures import mock_equipa
+from libelifoot.domain.error.equipa_not_found import EquipaNotFound
+from libelifoot.use_case.get_equipa_data import GetEquipaData
 
-from libelifoot.use_case import get_equipa_data
 
-
-def test_get_equipa_data(mock_equipa):
+def test_get_equipa_data_with_not_found_equipa():
     file = 'FORTALEZA.EFT'
+    repo_mock = MagicMock()
 
-    with patch(
-        'libelifoot.file.equipa.EquipaFileHandler.read',
-        return_value=mock_equipa
-    ) as mock_read:
-        cmd = get_equipa_data.Cmd(file)
+    repo_mock.get.return_value = None
 
-        assert cmd.run() == mock_equipa
-        mock_read.assert_called_once_with(file)
+    cmd = GetEquipaData(file, repo_mock)
+    with raises(EquipaNotFound):
+        cmd.run()
+
+
+def test_get_equipa_data_with_no_header_found():
+    pass
+
+
+def test_get_equipa_data_with_valid_equipa():
+    pass

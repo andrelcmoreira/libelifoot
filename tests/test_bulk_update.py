@@ -1,7 +1,8 @@
 from unittest import mock
 
-from libelifoot.use_case import bulk_update
 from fixtures import mock_roster_provider
+
+from libelifoot.use_case.bulk_update import BulkUpdate
 
 
 @mock.patch('libelifoot.provider.db.get_teams')

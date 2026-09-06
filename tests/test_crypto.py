@@ -1,4 +1,4 @@
-from libelifoot.util.crypto import encrypt, decrypt
+from libelifoot.domain.util.crypto import encrypt, decrypt
 
 
 def test_encrypt_from_valid_string():

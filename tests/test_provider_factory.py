@@ -1,9 +1,9 @@
 from pytest import raises
 
-from libelifoot.domain.error import UnknownProvider
-from libelifoot.provider import factory
-from libelifoot.provider.impl import espn
-from libelifoot.provider.impl import transfermarkt
+from libelifoot.domain.error.unknown_provider import UnknownProvider
+from libelifoot.infrastructure.provider import factory
+from libelifoot.infrastructure.provider.impl import espn
+from libelifoot.infrastructure.provider.impl import transfermarkt
 
 
 def test_create_roster_provider_with_espn():
