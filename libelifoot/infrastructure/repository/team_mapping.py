@@ -61,5 +61,5 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
         return [
             Provider(
                 name=i.split('.')[0],
-                url=''
+                url='' # TODO: fill it
             ) for i in os.listdir(self._DATA_PATH)]
