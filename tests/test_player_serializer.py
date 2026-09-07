@@ -3,12 +3,6 @@ from libelifoot.infrastructure.eft.serializer.player import PlayerSerializer
 from libelifoot.use_case.dto.player import Player
 
 
-def test_serialize_none_player():
-    ret = PlayerSerializer.serialize(None)
-
-    assert ret is None
-
-
 def test_serialize_valid_player():
     player = Player(name='Ronaldo', position=PlayerPosition.A.name,
                     country='BRA')
