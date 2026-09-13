@@ -1,4 +1,5 @@
 from unittest import mock
+from unittest.mock import MagicMock
 
 from fixtures import mock_equipa, mock_players
 
@@ -8,9 +9,9 @@ from libelifoot.domain.error.equipa_not_found import EquipaNotFound
 from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
 
 
-@mock.patch('libelifoot.provider.base_roster_provider')
-@mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.use_case.event.IUpdateEquipaListener')
+@mock.patch('libelifoot.infrastructure.provider.base_roster_provider')
+@mock.patch('libelifoot.infrastructure.provider.base_coach_provider')
+@mock.patch('libelifoot.use_case.event.update_equipa_listener.IUpdateEquipaListener')
 def test_update_equipa(
     mock_listener,
     mock_coach_prov,
@@ -26,7 +27,7 @@ def test_update_equipa(
     mock_coach_prov.get_coach.return_value = coach
 
     with mock.patch(
-        'libelifoot.domain.builder.EquipaBuilder',
+        'libelifoot.use_case.update_equipa.UpdateEquipa.Builder',
         return_value=mock.MagicMock()
     ) as mock_builder:
         mock_builder \
@@ -40,11 +41,12 @@ def test_update_equipa(
             .build \
             .return_value = mock_equipa
 
-        cmd = update_equipa.Cmd(
+        cmd = UpdateEquipa(
             equipa_file,
             mock_roster_prov,
             mock_coach_prov,
             season,
+            MagicMock(),
             mock_listener
         )
         cmd.run()
@@ -84,9 +86,9 @@ def test_update_equipa(
                                                                mock_equipa)
 
 
-@mock.patch('libelifoot.provider.base_roster_provider')
-@mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.use_case.event.IUpdateEquipaListener')
+@mock.patch('libelifoot.infrastructure.provider.base_roster_provider')
+@mock.patch('libelifoot.infrastructure.provider.base_coach_provider')
+@mock.patch('libelifoot.use_case.event.update_equipa_listener.IUpdateEquipaListener')
 def test_update_equipa_not_found(
     mock_listener,
     mock_coach_prov,
@@ -97,11 +99,12 @@ def test_update_equipa_not_found(
     expected_error = f"Equipa '{equipa_file}' not found!"
 
     mock_roster_prov.get_players.side_effect = EquipaNotFound(equipa_file)
-    cmd = update_equipa.Cmd(
+    cmd = UpdateEquipa(
         equipa_file,
         mock_roster_prov,
         mock_coach_prov,
         season,
+        MagicMock(),
         mock_listener
     )
     cmd.run()
@@ -110,9 +113,9 @@ def test_update_equipa_not_found(
     mock_listener.on_update_equipa_error.assert_called_once_with(expected_error)
 
 
-@mock.patch('libelifoot.provider.base_roster_provider')
-@mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.use_case.event.IUpdateEquipaListener')
+@mock.patch('libelifoot.infrastructure.provider.base_roster_provider')
+@mock.patch('libelifoot.infrastructure.provider.base_coach_provider')
+@mock.patch('libelifoot.use_case.event.update_equipa_listener.IUpdateEquipaListener')
 def test_update_equipa_with_no_data_available(
     mock_listener,
     mock_coach_prov,
@@ -123,11 +126,12 @@ def test_update_equipa_with_no_data_available(
     expected_error = f"The specified provider has no data for equipa '{equipa_file}'!"
 
     mock_roster_prov.get_players.side_effect = EquipaDataNotAvailable(equipa_file)
-    cmd = update_equipa.Cmd(
+    cmd = UpdateEquipa(
         equipa_file,
         mock_roster_prov,
         mock_coach_prov,
         season,
+        MagicMock(),
         mock_listener
     )
     cmd.run()
@@ -136,9 +140,9 @@ def test_update_equipa_with_no_data_available(
     mock_listener.on_update_equipa_error.assert_called_once_with(expected_error)
 
 
-@mock.patch('libelifoot.provider.base_roster_provider')
-@mock.patch('libelifoot.provider.base_coach_provider')
-@mock.patch('libelifoot.use_case.event.IUpdateEquipaListener')
+@mock.patch('libelifoot.infrastructure.provider.base_roster_provider')
+@mock.patch('libelifoot.infrastructure.provider.base_coach_provider')
+@mock.patch('libelifoot.use_case.event.update_equipa_listener.IUpdateEquipaListener')
 def test_update_equipa_with_no_header(
     mock_listener,
     mock_coach_prov,
@@ -149,11 +153,12 @@ def test_update_equipa_with_no_header(
     expected_error = f"Equipa '{equipa_file}' not available by the specified provider!"
 
     mock_roster_prov.get_players.side_effect = EquipaNotProvided(equipa_file)
-    cmd = update_equipa.Cmd(
+    cmd = UpdateEquipa(
         equipa_file,
         mock_roster_prov,
         mock_coach_prov,
         season,
+        MagicMock(),
         mock_listener
     )
     cmd.run()
