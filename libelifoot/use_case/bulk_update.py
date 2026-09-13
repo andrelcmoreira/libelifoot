@@ -20,7 +20,7 @@ from libelifoot.domain.repository.equipa import IEquipaRepository
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 from libelifoot.infrastructure.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
-from libelifoot.use_case.update_equipa import UpdateEquipa
+from libelifoot.use_case import update_equipa
 from libelifoot.use_case.event.update_equipa_listener import IUpdateEquipaListener
 from libelifoot.use_case.cmd import ICmd
 
@@ -49,7 +49,7 @@ class BulkUpdate(ICmd):
         teams = self._team_repo.get_teams(self._roster_prov.name)
 
         for team in teams:
-            cmd = UpdateEquipa(
+            cmd = update_equipa.UpdateEquipa(
                 f"{self._dir}/{team.file}",
                 self._roster_prov,
                 self._coach_prov,
