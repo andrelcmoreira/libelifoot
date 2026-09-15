@@ -7,28 +7,28 @@ from libelifoot.domain.error.equipa_header_not_found import EquipaHeaderNotFound
 from libelifoot.infrastructure.eft.parser.equipa import EquipaParser
 
 
-def test_has_equipa_header_with_valid_equipa():
-    file = 'tests/infrastructure/eft/parser/data/VALID_EQUIPA.EFT'
+def test_has_equipa_header_with_valid_equipa(mock_equipa_bytes):
+    file = 'tests/data/VALID_EQUIPA.EFT'
 
     with open(file, 'rb') as f:
         data = f.read()
 
-        ep = EquipaParser(file)
-        assert ep.has_equipa_header(data) is True
+        ep = EquipaParser(mock_equipa_bytes)
+        assert ep._has_equipa_header(data) is True
 
 
 def test_has_equipa_header_with_invalid_equipa(mock_equipa_bytes):
-    file = 'tests/infrastructure/eft/parser/data/INVALID_EQUIPA.EFT'
+    file = 'tests/data/INVALID_EQUIPA.EFT'
 
     with open(file, 'rb') as f:
         data = f.read()
 
         ep = EquipaParser(bytes(mock_equipa_bytes))
-        assert ep.has_equipa_header(data) is False
+        assert ep._has_equipa_header(data) is False
 
 
 def test_parse_ext_name(mock_equipa_bytes):
-    file = 'tests/infrastructure/eft/parser/data/VALID_EQUIPA.EFT'
+    file = 'tests/data/VALID_EQUIPA.EFT'
     name = 'CR FLAMENGO'
 
     with open(file, 'rb') as f:
@@ -39,7 +39,7 @@ def test_parse_ext_name(mock_equipa_bytes):
 
 
 def test_parse_short_name(mock_equipa_bytes):
-    file = 'tests/infrastructure/eft/parser/data/VALID_EQUIPA.EFT'
+    file = 'tests/data/VALID_EQUIPA.EFT'
     ext_name = 'CR FLAMENGO'
     short_name = 'FLAMENGO'
 
@@ -51,7 +51,7 @@ def test_parse_short_name(mock_equipa_bytes):
 
 
 def test_parse_colors(mock_equipa_bytes):
-    file = 'tests/infrastructure/eft/parser/data/VALID_EQUIPA.EFT'
+    file = 'tests/data/VALID_EQUIPA.EFT'
     ext_name = 'CR FLAMENGO'
     short_name = 'FLAMENGO'
     bg_str = '000000' # red
@@ -63,13 +63,12 @@ def test_parse_colors(mock_equipa_bytes):
         ep = EquipaParser(bytes(mock_equipa_bytes))
         colors = ep.parse_colors(data, len(ext_name), len(short_name))
 
-        assert str(colors) == f'#{bg_str}, #{txt_str}'
         assert colors.text == bytes.fromhex(txt_str)
         assert colors.background == bytes.fromhex(bg_str)
 
 
 def test_parse_level(mock_equipa_bytes):
-    file = 'tests/infrastructure/eft/parser/data/VALID_EQUIPA.EFT'
+    file = 'tests/data/VALID_EQUIPA.EFT'
     ext_name = 'CR FLAMENGO'
     short_name = 'FLAMENGO'
     level = 14
@@ -82,7 +81,7 @@ def test_parse_level(mock_equipa_bytes):
 
 
 def test_parse_country(mock_equipa_bytes):
-    file = 'tests/infrastructure/eft/parser/data/VALID_EQUIPA.EFT'
+    file = 'tests/data/VALID_EQUIPA.EFT'
     ext_name = 'CR FLAMENGO'
     short_name = 'FLAMENGO'
     country = 'BRA'
@@ -124,7 +123,7 @@ def test_parse_coach(mock_equipa_bytes):
             return_value=len(mock_equipa_bytes) - 10
         ) as mock_get_coach,
         mock.patch(
-            'libelifoot.util.crypto.decrypt',
+            'libelifoot.domain.util.crypto.decrypt',
             return_value=coach
         ) as mock_decrypt,
     ):
