@@ -3,6 +3,7 @@ from unittest.mock import MagicMock
 
 from fixtures import mock_equipa, mock_players
 
+from libelifoot.use_case.dto.player import Player
 from libelifoot.use_case.update_equipa import UpdateEquipa
 from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
 from libelifoot.domain.error.equipa_not_found import EquipaNotFound
@@ -22,6 +23,7 @@ def test_update_equipa(
     equipa_file = 'FORTALEZA.EFT'
     coach = 'Juan Pablo Vojvoda'
     season = 2024
+    mock_players_dto = [Player.from_entity(p) for p in mock_players]
 
     mock_roster_prov.get_players.return_value = mock_players
     mock_coach_prov.get_coach.return_value = coach
@@ -64,7 +66,7 @@ def test_update_equipa(
             .create_base_equipa \
             .return_value \
             .add_players \
-            .assert_called_once_with(mock_players)
+            .assert_called_once_with(mock_players_dto)
         mock_builder \
             .return_value \
             .create_base_equipa \
