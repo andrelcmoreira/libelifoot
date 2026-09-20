@@ -16,6 +16,7 @@
 from libelifoot.domain.entity.equipa import Equipa
 from libelifoot.domain.entity.player import Player
 from libelifoot.domain.entity.color import Color
+from libelifoot.domain.error.equipa_header_not_found import EquipaHeaderNotFound
 from libelifoot.domain.util import crypto
 from libelifoot.domain.util.offset import Offsets, OffsetCalculator
 from libelifoot.domain.util.sizes import Sizes
@@ -27,11 +28,11 @@ class EquipaParser(BaseParser):
 
     def __init__(self, equipa_data: bytes):
         if not equipa_data:
-            raise ValueError("equipa data cannot be empty.")
+            raise ValueError("Equipa data cannot be empty.")
 
         self._data = equipa_data
 
-    def has_equipa_header(self, data: bytes) -> bool:
+    def _has_equipa_header(self, data: bytes) -> bool:
         start_offs = Offsets.HEADER_START.value
         end_offs = Offsets.HEADER_END.value + 1
 
@@ -87,6 +88,9 @@ class EquipaParser(BaseParser):
         return crypto.decrypt(data, offs + 1, data[offs])
 
     def parse(self) -> Equipa:
+        if not self._has_equipa_header(self._data):
+            raise EquipaHeaderNotFound
+
         ext_name = self.parse_ext_name(self._data)
         short_name = self.parse_short_name(self._data, len(ext_name))
         colors = self.parse_colors(self._data, len(ext_name), len(short_name))

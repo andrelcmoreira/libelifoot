@@ -45,9 +45,6 @@ class UpdateEquipa(ICmd):
                 raise EquipaNotFound(equipa_file)
 
             ep = EquipaParser(equipa_raw)
-            if not ep.has_equipa_header(equipa_raw):
-                raise EquipaDataNotAvailable(equipa_file)
-
             self._equipa = Equipa.from_entity(ep.parse())
             # we are not interested on the players to create the base equipa
             self._equipa.players.clear()

@@ -15,7 +15,6 @@
 
 from typing import Any
 
-from libelifoot.domain.error.equipa_header_not_found import EquipaHeaderNotFound
 from libelifoot.domain.error.equipa_not_found import EquipaNotFound
 from libelifoot.domain.repository.equipa import IEquipaRepository
 from libelifoot.infrastructure.eft.parser.equipa import EquipaParser
@@ -35,10 +34,6 @@ class GetEquipaData(ICmd):
             raise EquipaNotFound(self._equipa)
 
         ep = EquipaParser(data)
-
-        if not ep.has_equipa_header(data):
-            raise EquipaHeaderNotFound(self._equipa)
-
         ret = ep.parse()
 
         return Equipa.from_entity(ret)
