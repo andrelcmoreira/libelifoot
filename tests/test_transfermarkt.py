@@ -1,6 +1,5 @@
 from pytest import raises
-from unittest import mock
-from unittest.mock import MagicMock
+from unittest.mock import patch, MagicMock
 
 from fixtures import mock_players
 
@@ -57,7 +56,7 @@ def test_get_coach_with_provided_equipa():
 
     repo_mock.get_team.return_value = equipa_entry
 
-    with mock.patch.object(
+    with patch.object(
         CoachProvider,
         '_fetch_data',
         return_value=coach_name
@@ -123,7 +122,7 @@ def test_get_players_with_no_data_available():
 
     repo_mock.get_team.return_value = equipa_entry
 
-    with mock.patch.object(
+    with patch.object(
         roster_prov,
         '_fetch_data',
         return_value=[]
@@ -150,12 +149,12 @@ def test_get_players_with_data_available(mock_players):
     repo_mock.get_team.return_value = equipa_entry
 
     with (
-        mock.patch.object(
+        patch.object(
             roster_prov,
             '_fetch_data',
             return_value=mock_players
         ) as mock_fetch_data,
-        mock.patch(
+        patch(
             'libelifoot.infrastructure.provider.transfermarkt.RosterProvider.select_players',
             return_value=mock_players
         ) as mock_select_players,
