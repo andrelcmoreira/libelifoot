@@ -16,7 +16,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional
 
-from libelifoot.domain.entity.equipa_db_entry import EquipaDbEntry
+from libelifoot.domain.entity.equipa_db_entry import Equipa
 from libelifoot.domain.entity.provider import Provider
 
 
@@ -27,22 +27,22 @@ class ITeamMappingRepository(ABC): # pragma: no cover
         self,
         equipa_file: str,
         provider: str
-    ) -> Optional[EquipaDbEntry]:
+    ) -> Optional[Equipa]:
         """
-        Retrieve the mapped team related to a given equipa file path.
+        Retrieve the team entry related to a given equipa file path.
 
         :equipa_file: The path to the equipa file.
         :provider: The name of the provider.
-        :return: The mapped team ID if found, otherwise None.
+        :return: The team entry if found, otherwise None.
         """
 
     @abstractmethod
-    def get_teams(self, provider: str) -> list[EquipaDbEntry]:
+    def get_teams(self, provider: str) -> list[Equipa]:
         """
-        Retrieve a list of team names for a given provider.
+        Retrieve a list of teams bound to a given provider.
 
         :provider: The name of the provider.
-        :return: A list of equipas.
+        :return: A list of teams.
         """
 
     @abstractmethod

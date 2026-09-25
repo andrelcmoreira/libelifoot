@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-from libelifoot.infrastructure.provider.impl.espn import RosterProvider
+from libelifoot.infrastructure.provider.espn import RosterProvider
 
 
 ROSTER_PROV = RosterProvider(MagicMock())

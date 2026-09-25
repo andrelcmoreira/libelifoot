@@ -23,7 +23,7 @@ from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
 from libelifoot.infrastructure.eft.parser.equipa import EquipaParser
 from libelifoot.infrastructure.provider.base_coach_provider import BaseCoachProvider
 from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
-from libelifoot.infrastructure.repository.equipa import IEquipaRepository
+from libelifoot.infrastructure.repository.file_equipa import IEquipaRepository
 from libelifoot.use_case.cmd import ICmd
 from libelifoot.use_case.dto.equipa import Equipa
 from libelifoot.use_case.dto.player import Player

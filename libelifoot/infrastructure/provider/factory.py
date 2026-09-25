@@ -14,7 +14,7 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.domain.error.unknown_provider import UnknownProvider
-from libelifoot.infrastructure.provider.impl import espn, transfermarkt
+from libelifoot.infrastructure.provider import espn, transfermarkt
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 
 

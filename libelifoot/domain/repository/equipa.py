@@ -20,19 +20,19 @@ from typing import Optional
 class IEquipaRepository(ABC): # pragma: no cover
 
     @abstractmethod
-    def get(self, equipa_file: str) -> Optional[bytes]:
+    def get(self, equipa_id: str) -> Optional[bytes]:
         """
-        Retrieve an equipa by its file name.
+        Retrieve an equipa.
 
-        :equipa_file: The equipa file name.
-        :return: The Equipa object if found, otherwise None.
+        :equipa_id: The equipa ID.
+        :return: The Equipa's raw data if it exists, otherwise None.
         """
 
     @abstractmethod
-    def save(self, equipa_file: str, data: bytes) -> None:
+    def save(self, equipa_id: str, data: bytes) -> None:
         """
-        Save an equipa to the repository.
+        Save an equipa.
 
-        :equipa_file: The equipa file name.
-        :equipa: The Equipa object to save.
+        :equipa_id: The equipa ID.
+        :data: The Equipa's raw data to be saved.
         """

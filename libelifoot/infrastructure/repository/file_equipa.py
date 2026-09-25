@@ -24,26 +24,25 @@ def get_equipa_repository() -> IEquipaRepository:
 
 class FileEquipaRepository(IEquipaRepository):
 
-    def get(self, equipa_file: str) -> Optional[bytes]:
+    def get(self, equipa_id: str) -> Optional[bytes]:
         """
-        Retrieve an equipa by its file name.
+        Retrieve an equipa by its file name from disk.
 
-        :equipa_file: The equipa file name.
-        :return: The Equipa object if found, otherwise None.
+        :equipa_id: The equipa file name.
+        :return: The Equipa's raw data if the file exists, otherwise None.
         """
         try:
-            with open(equipa_file, 'rb') as f:
+            with open(equipa_id, 'rb') as f:
                 return f.read()
         except FileNotFoundError:
             return None
 
-    def save(self, equipa_file: str, data: bytes) -> None:
+    def save(self, equipa_id: str, data: bytes) -> None:
         """
-        Save an equipa to the repository.
+        Save an equipa to the disk.
 
-        :equipa_file: The equipa file name.
-        :equipa: The Equipa object to save.
+        :equipa_id: The equipa file name.
+        :data: The Equipa's raw data to save.
         """
-        with open(equipa_file, 'wb') as f:
-            if data:
-                f.write(data)
+        with open(equipa_id, 'wb') as f:
+            f.write(data)
