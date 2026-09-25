@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 
 from fixtures import mock_roster_provider
 
-from libelifoot.domain.entity.equipa_db_entry import EquipaDbEntry
+from libelifoot.domain.entity.equipa_db_entry import Equipa
 from libelifoot.use_case.bulk_update import BulkUpdate
 
 
@@ -11,9 +11,9 @@ def test_bulk_update(mock_roster_provider):
     equipa_dir = 'foo/bar/equipas'
     season = 2024
     teams = [
-        EquipaDbEntry(id='1', file='TEAM1.EFT'),
-        EquipaDbEntry(id='2', file='TEAM2.EFT'),
-        EquipaDbEntry(id='3', file='TEAM3.EFT')
+        Equipa(id='1', file='TEAM1.EFT'),
+        Equipa(id='2', file='TEAM2.EFT'),
+        Equipa(id='3', file='TEAM3.EFT')
     ]
 
     mock_team_repo = MagicMock()

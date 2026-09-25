@@ -14,11 +14,14 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.infrastructure.provider import factory
-from libelifoot.infrastructure.repository.equipa import get_equipa_repository
-from libelifoot.infrastructure.repository.team_mapping import get_team_mapping_repository
+from libelifoot.infrastructure.repository.file_equipa import \
+    get_equipa_repository
+from libelifoot.infrastructure.repository.json_team_mapping import \
+    get_team_mapping_repository
 from libelifoot.use_case.bulk_update import BulkUpdate
 from libelifoot.use_case.dto.equipa import Equipa
-from libelifoot.use_case.event.update_equipa_listener import IUpdateEquipaListener
+from libelifoot.use_case.event.update_equipa_listener import \
+    IUpdateEquipaListener
 from libelifoot.use_case.get_equipa_data import GetEquipaData
 from libelifoot.use_case.get_providers import GetProviders
 from libelifoot.use_case.save_equipa import SaveEquipa
@@ -108,9 +111,9 @@ def get_providers() -> list[str]:
 
 def save_equipa(file_name: str, equipa: Equipa) -> None:
     """
-    Save the supplied 'equipa' data.
+    Save the supplied 'equipa' data to disk.
 
-    :file_name: The file name to save the equipa data.
+    :file_name: The file name of the output file containing the equipa data.
     :equipa: The equipa data to be saved.
     """
     cmd = SaveEquipa(file_name, equipa, _EQUIPA_REPO)

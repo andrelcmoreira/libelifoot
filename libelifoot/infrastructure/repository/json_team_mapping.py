@@ -19,7 +19,7 @@ import pathlib
 
 from typing import Optional
 
-from libelifoot.domain.entity.equipa_db_entry import EquipaDbEntry
+from libelifoot.domain.entity.equipa_db_entry import Equipa
 from libelifoot.domain.entity.provider import Provider
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 
@@ -36,28 +36,46 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
         self,
         equipa_file: str,
         provider: str
-    ) -> Optional[EquipaDbEntry]:
+    ) -> Optional[Equipa]:
+        """
+        Retrieve the team related to a given equipa file from a JSON database.
+
+        :equipa_file: The path to the equipa file.
+        :provider: The name of the provider.
+        :return: The team entry if found, otherwise None.
+        """
         with open(f'{self._DATA_PATH}/{provider}.json', encoding='utf-8') as f:
             data = json.load(f)
 
             for entry in data:
                 if entry['file'] == equipa_file:
-                    return EquipaDbEntry(id=entry['id'], file=entry['file'])
+                    return Equipa(id=entry['id'], file=entry['file'])
 
             return None
 
-    def get_teams(self, provider: str) -> list[EquipaDbEntry]:
+    def get_teams(self, provider: str) -> list[Equipa]:
+        """
+        Retrieve a list of teams for a given provider from a JSON database.
+
+        :provider: The name of the provider.
+        :return: A list of equipas entries.
+        """
         with open(f'{self._DATA_PATH}/{provider}.json', encoding='utf-8') as f:
             data = json.load(f)
 
             return [
-                EquipaDbEntry(
+                Equipa(
                     id=entry['id'],
                     file=entry['file']
                 ) for entry in data
             ]
 
     def get_providers(self) -> list[Provider]:
+        """
+        Retrieve a list of available providers from a JSON database.
+
+        :return: A list of providers.
+        """
         return [
             Provider(
                 name=i.split('.')[0],

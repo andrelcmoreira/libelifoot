@@ -3,8 +3,7 @@ from unittest.mock import MagicMock
 
 from libelifoot.domain.error.unknown_provider import UnknownProvider
 from libelifoot.infrastructure.provider import factory
-from libelifoot.infrastructure.provider.impl import espn
-from libelifoot.infrastructure.provider.impl import transfermarkt
+from libelifoot.infrastructure.provider import espn, transfermarkt
 
 
 def test_create_roster_provider_with_espn():

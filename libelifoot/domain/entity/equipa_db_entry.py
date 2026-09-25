@@ -17,6 +17,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-class EquipaDbEntry:
+class Equipa:
     id: str
     file: str
