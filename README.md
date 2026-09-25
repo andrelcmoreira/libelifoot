@@ -30,22 +30,6 @@ if __name__ == "__main__":
     main(argv[1])
 ```
 
-Get the list of available providers:
-
-```python
-from libelifoot import get_providers
-
-
-def main() -> None:
-    providers = get_providers()
-
-    print(f"available providers: {', '.join(providers)}")
-
-
-if __name__ == "__main__":
-    main()
-```
-
 Generate a patch file with upstream data from an equipa file:
 
 ```python
@@ -54,8 +38,8 @@ from typing import Optional
 
 from libelifoot import (
     update_equipa,
+    save_equipa,
     Equipa,
-    EquipaFileHandler,
     IUpdateEquipaListener
 )
 
@@ -70,7 +54,7 @@ class EventHandler(IUpdateEquipaListener):
         print(f'{equipa_name}\n{equipa_data}')
 
         if equipa_data:
-            EquipaFileHandler.write(f'{equipa_name}.patch', equipa_data)
+            save_equipa(f'{equipa_name}.patch', equipa_data)
 
     def on_update_equipa_error(self, error: str) -> None:
         print(f'ERROR: {error}')
@@ -86,45 +70,7 @@ if __name__ == "__main__":
     main(argv[1], argv[2], int(argv[3]))
 ```
 
-Generate patches in batch based on a directory of equipa files:
-
-```python
-from sys import argv
-from typing import Optional
-
-from libelifoot import (
-    bulk_update,
-    Equipa,
-    EquipaFileHandler,
-    IUpdateEquipaListener,
-)
-
-
-class EventHandler(IUpdateEquipaListener):
-
-    def on_update_equipa(
-        self,
-        equipa_name: str,
-        equipa_data: Optional[Equipa]
-    ) -> None:
-        print(f'{equipa_name}\n{equipa_data}')
-
-        if equipa_data:
-            EquipaFileHandler.write(f'{equipa_name}.patch', equipa_data)
-
-    def on_update_equipa_error(self, error: str) -> None:
-        print(f'ERROR: {error}')
-
-
-def main(equipa_dir: str, provider: str, season: int) -> None:
-    ev = EventHandler()
-
-    bulk_update(equipa_dir, provider, season, ev)
-
-
-if __name__ == "__main__":
-    main(argv[1], argv[2], int(argv[3]))
-```
+See [samples](https://github.com/andrelcmoreira/libelifoot/tree/develop/samples) for more samples of the library.
 
 ### Supported providers
 
