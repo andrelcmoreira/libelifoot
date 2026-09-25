@@ -21,5 +21,6 @@ class Player:
     name: str
     position: str
     country: str
+    # depending on the used provider, the data below may not be available
     appearances: int = 0
     value: float = 0.0

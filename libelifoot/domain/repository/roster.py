@@ -22,8 +22,19 @@ class IRosterRepository(ABC): # pragma: no cover
 
     @abstractmethod
     def assemble_uri(self, team_id: str, season: int) -> str:
-        pass
+        """
+        Assemble the URI to fetch the roster data for a given team and season.
+
+        :team_id: The team ID.
+        :season: The season year.
+        :return: The assembled URI as a string.
+        """
 
     @abstractmethod
     def parse_data(self, reply: str) -> list[Player]:
-        pass
+        """
+        Parse the roster data from the given reply.
+
+        :reply: The reply string containing the roster data.
+        :return: A list of Player objects parsed from the reply.
+        """

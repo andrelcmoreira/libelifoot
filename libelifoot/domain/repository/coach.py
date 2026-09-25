@@ -20,8 +20,20 @@ class ICoachRepository(ABC): # pragma: no cover
 
     @abstractmethod
     def assemble_uri(self, team_id: str, season: int) -> str:
-        pass
+        """
+        Assemble the URI to fetch the coach data for a given team and season.
+
+        :team_id: The team ID.
+        :season: The season year.
+        :return: The assembled URI as a string.
+        """
 
     @abstractmethod
     def parse_data(self, reply: str, season: int) -> str:
-        pass
+        """
+        Parse the coach data from the given reply.
+
+        :reply: The reply string containing the coach data.
+        :season: The season year.
+        :return: The coach name as a string.
+        """

@@ -16,9 +16,5 @@ def test_get_equipa_data_with_not_found_equipa():
         cmd.run()
 
 
-def test_get_equipa_data_with_no_header_found():
-    pass
-
-
 def test_get_equipa_data_with_valid_equipa():
-    pass
+    pass # TODO
