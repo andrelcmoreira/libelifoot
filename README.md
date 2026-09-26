@@ -70,14 +70,14 @@ if __name__ == "__main__":
     main(argv[1], argv[2], int(argv[3]))
 ```
 
-See [samples](https://github.com/andrelcmoreira/libelifoot/tree/develop/samples) for more samples of the library.
+See [samples](https://github.com/andrelcmoreira/libelifoot/tree/develop/samples) folder for more examples.
 
 ### Supported providers
 
 To generate patches, the library fetches data from public football data providers. Currently, the library supports the following providers:
 
-- ESPN;
-- Transfermarkt.
+- **ESPN**: Good for fresh data, but it may not have historical data for all seasons.
+- **Transfermarkt**: Good for historical data, but it may not have the latest data for all teams.
 
 ### Documentation
 
