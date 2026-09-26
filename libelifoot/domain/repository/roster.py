@@ -1,0 +1,40 @@
+# Copyright (C) 2025 André L. C. Moreira <andrelcmoreira@proton.me>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+from abc import ABC, abstractmethod
+
+from libelifoot.domain.entity.player import Player
+
+
+class IRosterRepository(ABC): # pragma: no cover
+
+    @abstractmethod
+    def assemble_uri(self, team_id: str, season: int) -> str:
+        """
+        Assemble the URI to fetch the roster data for a given team and season.
+
+        :team_id: The team ID.
+        :season: The season year.
+        :return: The assembled URI as a string.
+        """
+
+    @abstractmethod
+    def parse_data(self, reply: str) -> list[Player]:
+        """
+        Parse the roster data from the given reply.
+
+        :reply: The reply string containing the roster data.
+        :return: A list of Player objects parsed from the reply.
+        """

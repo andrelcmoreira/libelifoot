@@ -1,0 +1,39 @@
+# Copyright (C) 2025 André L. C. Moreira <andrelcmoreira@proton.me>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+from typing import Any
+
+from libelifoot.domain.error.equipa_not_found import EquipaNotFound
+from libelifoot.domain.repository.equipa import IEquipaRepository
+from libelifoot.infrastructure.eft.parser.equipa import EquipaParser
+from libelifoot.use_case.cmd import ICmd
+from libelifoot.use_case.dto.equipa import Equipa
+
+
+class GetEquipaData(ICmd):
+
+    def __init__(self, equipa: str, repository: IEquipaRepository):
+        self._equipa = equipa
+        self._repo = repository
+
+    def run(self) -> Any:
+        data = self._repo.get(self._equipa)
+        if not data:
+            raise EquipaNotFound(self._equipa)
+
+        ep = EquipaParser(data)
+        ret = ep.parse()
+
+        return Equipa.from_entity(ret)

@@ -1,7 +1,7 @@
 from unittest.mock import patch
 from time import struct_time
 
-from libelifoot.util.date import get_work_days_in_season
+from libelifoot.domain.util.date import get_work_days_in_season
 
 
 def test_get_work_days_in_season_less_than_one_year():

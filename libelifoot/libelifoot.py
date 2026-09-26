@@ -13,22 +13,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.api import (
-    bulk_update as _bulk_update,
-    update_equipa as _update_equipa,
-    get_available_providers as _get_available_providers,
-    get_equipa_data as _get_equipa_data
-)
-from libelifoot.entity.equipa import Equipa
-from libelifoot.event.update_equipa_listener import UpdateEquipaListener
-from libelifoot.provider import factory
+from libelifoot.infrastructure.provider import factory
+from libelifoot.infrastructure.repository.file_equipa import \
+    get_equipa_repository
+from libelifoot.infrastructure.repository.json_team_mapping import \
+    get_team_mapping_repository
+from libelifoot.use_case.bulk_update import BulkUpdate
+from libelifoot.use_case.dto.equipa import Equipa
+from libelifoot.use_case.event.update_equipa_listener import \
+    IUpdateEquipaListener
+from libelifoot.use_case.get_equipa_data import GetEquipaData
+from libelifoot.use_case.get_providers import GetProviders
+from libelifoot.use_case.save_equipa import SaveEquipa
+from libelifoot.use_case.update_equipa import UpdateEquipa
+
+
+_TEAM_MAPPING_REPO = get_team_mapping_repository()
+_EQUIPA_REPO = get_equipa_repository()
 
 
 def update_equipa(
     equipa_file: str,
     provider: str,
     season: int,
-    listener: UpdateEquipaListener
+    listener: IUpdateEquipaListener
 ) -> None:
     """
     Update an equipa specified by 'equipa_file'.
@@ -38,11 +46,12 @@ def update_equipa(
     :season: Year's season to use as reference in update operation.
     :listener: Event listener to handle the events.
     """
-    cmd = _update_equipa.Cmd(
+    cmd = UpdateEquipa(
         equipa_file,
-        factory.create_roster_provider(provider),
-        factory.create_coach_provider(),
+        factory.create_roster_provider(provider, _TEAM_MAPPING_REPO),
+        factory.create_coach_provider(_TEAM_MAPPING_REPO),
         season,
+        _EQUIPA_REPO,
         listener
     )
 
@@ -53,7 +62,7 @@ def bulk_update(
     equipa_dir: str,
     provider: str,
     season: int,
-    listener: UpdateEquipaListener
+    listener: IUpdateEquipaListener
 ) -> None:
     """
     Update all equipas placed at 'equipa_dir'.
@@ -63,11 +72,13 @@ def bulk_update(
     :season: Year's season to use as reference in update operation.
     :listener: Event listener to handle the events.
     """
-    cmd = _bulk_update.Cmd(
+    cmd = BulkUpdate(
         equipa_dir,
-        factory.create_roster_provider(provider),
-        factory.create_coach_provider(),
+        factory.create_roster_provider(provider, _TEAM_MAPPING_REPO),
+        factory.create_coach_provider(_TEAM_MAPPING_REPO),
         season,
+        _TEAM_MAPPING_REPO,
+        _EQUIPA_REPO,
         listener
     )
 
@@ -82,17 +93,29 @@ def get_equipa_data(equipa_file: str) -> Equipa:
 
     :returns: The equipa data.
     """
-    cmd = _get_equipa_data.Cmd(equipa_file)
+    cmd = GetEquipaData(equipa_file, _EQUIPA_REPO)
 
     return cmd.run()
 
 
-def get_available_providers() -> list[str]:
+def get_providers() -> list[str]:
     """
     Get a list of the providers supported by the library.
 
     :returns: A list containing all available data providers.
     """
-    cmd = _get_available_providers.Cmd()
+    cmd = GetProviders(_TEAM_MAPPING_REPO)
 
     return cmd.run()
+
+
+def save_equipa(file_name: str, equipa: Equipa) -> None:
+    """
+    Save the supplied 'equipa' data to disk.
+
+    :file_name: The file name of the output file containing the equipa data.
+    :equipa: The equipa data to be saved.
+    """
+    cmd = SaveEquipa(file_name, equipa, _EQUIPA_REPO)
+
+    cmd.run()

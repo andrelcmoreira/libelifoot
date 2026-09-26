@@ -1,10 +1,4 @@
-from libelifoot.serializer.coach import CoachSerializer
-
-
-def test_serialize_none_coach():
-    ret = CoachSerializer.serialize(None)
-
-    assert ret is None
+from libelifoot.infrastructure.eft.serializer.coach import CoachSerializer
 
 
 def test_serialize_empty_coach():

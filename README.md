@@ -30,22 +30,6 @@ if __name__ == "__main__":
     main(argv[1])
 ```
 
-Get the list of available providers:
-
-```python
-from libelifoot import get_available_providers
-
-
-def main() -> None:
-    providers = get_available_providers()
-
-    print(f"available providers: {', '.join(providers)}")
-
-
-if __name__ == "__main__":
-    main()
-```
-
 Generate a patch file with upstream data from an equipa file:
 
 ```python
@@ -54,13 +38,13 @@ from typing import Optional
 
 from libelifoot import (
     update_equipa,
+    save_equipa,
     Equipa,
-    EquipaFileHandler,
-    UpdateEquipaListener
+    IUpdateEquipaListener
 )
 
 
-class EventHandler(UpdateEquipaListener):
+class EventHandler(IUpdateEquipaListener):
 
     def on_update_equipa(
         self,
@@ -70,7 +54,7 @@ class EventHandler(UpdateEquipaListener):
         print(f'{equipa_name}\n{equipa_data}')
 
         if equipa_data:
-            EquipaFileHandler.write(f'{equipa_name}.patch', equipa_data)
+            save_equipa(f'{equipa_name}.patch', equipa_data)
 
     def on_update_equipa_error(self, error: str) -> None:
         print(f'ERROR: {error}')
@@ -86,52 +70,14 @@ if __name__ == "__main__":
     main(argv[1], argv[2], int(argv[3]))
 ```
 
-Generate patches in batch based on a directory of equipa files:
-
-```python
-from sys import argv
-from typing import Optional
-
-from libelifoot import (
-    bulk_update,
-    Equipa,
-    EquipaFileHandler,
-    UpdateEquipaListener,
-)
-
-
-class EventHandler(UpdateEquipaListener):
-
-    def on_update_equipa(
-        self,
-        equipa_name: str,
-        equipa_data: Optional[Equipa]
-    ) -> None:
-        print(f'{equipa_name}\n{equipa_data}')
-
-        if equipa_data:
-            EquipaFileHandler.write(f'{equipa_name}.patch', equipa_data)
-
-    def on_update_equipa_error(self, error: str) -> None:
-        print(f'ERROR: {error}')
-
-
-def main(equipa_dir: str, provider: str, season: int) -> None:
-    ev = EventHandler()
-
-    bulk_update(equipa_dir, provider, season, ev)
-
-
-if __name__ == "__main__":
-    main(argv[1], argv[2], int(argv[3]))
-```
+See [samples](https://github.com/andrelcmoreira/libelifoot/tree/develop/samples) folder for more examples.
 
 ### Supported providers
 
 To generate patches, the library fetches data from public football data providers. Currently, the library supports the following providers:
 
-- ESPN;
-- Transfermarkt.
+- **ESPN**: Good for fresh data, but it may not have historical data for all seasons.
+- **Transfermarkt**: Good for historical data, but it may not have the latest data for all teams.
 
 ### Documentation
 
