@@ -3,7 +3,7 @@ from unittest.mock import patch, MagicMock
 
 from fixtures import mock_players
 
-from libelifoot.domain.entity.equipa_db_entry import Equipa
+from libelifoot.domain.entity.equipa_metadata import EquipaMetadata
 from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
 from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
 from libelifoot.infrastructure.provider.transfermarkt import (
@@ -46,7 +46,7 @@ def test_assemble_coach_uri():
 
 def test_get_coach_with_provided_equipa():
     coach_name = 'Ralf Rangnick'
-    equipa_entry = Equipa(
+    equipa_entry = EquipaMetadata(
         id='manchester-united/mitarbeiterhistorie/verein/985',
         file='MANCITY.EFT'
     )
@@ -73,7 +73,7 @@ def test_get_coach_with_provided_equipa():
 
 
 def test_get_coach_with_no_provided_equipa():
-    equipa_entry = Equipa(
+    equipa_entry = EquipaMetadata(
         id='manchester-united/mitarbeiterhistorie/verein/985',
         file='MANCITY.EFT'
     )
@@ -92,7 +92,7 @@ def test_get_coach_with_no_provided_equipa():
 
 
 def test_get_players_with_no_provided_equipa():
-    equipa_entry = Equipa(
+    equipa_entry = EquipaMetadata(
         id='manchester-united/mitarbeiterhistorie/verein/985',
         file='MANCITY.EFT'
     )
@@ -112,7 +112,7 @@ def test_get_players_with_no_provided_equipa():
 
 
 def test_get_players_with_no_data_available():
-    equipa_entry = Equipa(
+    equipa_entry = EquipaMetadata(
         id='manchester-united/mitarbeiterhistorie/verein/985',
         file='MANCITY.EFT'
     )
@@ -138,7 +138,7 @@ def test_get_players_with_no_data_available():
 
 
 def test_get_players_with_data_available(mock_players):
-    equipa_entry = Equipa(
+    equipa_entry = EquipaMetadata(
         id='manchester-united/mitarbeiterhistorie/verein/985',
         file='MANCITY.EFT'
     )

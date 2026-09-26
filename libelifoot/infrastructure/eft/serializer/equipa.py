@@ -16,9 +16,9 @@
 from typing import Any
 
 from libelifoot.domain.util.crypto import encrypt
-from libelifoot.infrastructure.eft.serializer.interface import ISerializer
 from libelifoot.infrastructure.eft.serializer.coach import CoachSerializer
 from libelifoot.infrastructure.eft.serializer.player import PlayerSerializer
+from libelifoot.infrastructure.eft.serializer.serializer import ISerializer
 
 
 class EquipaSerializer(ISerializer):

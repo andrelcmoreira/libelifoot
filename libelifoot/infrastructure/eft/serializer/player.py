@@ -17,7 +17,7 @@ from typing import Any
 
 from libelifoot.domain.util.player_position import PlayerPosition
 from libelifoot.domain.util.crypto import encrypt
-from libelifoot.infrastructure.eft.serializer.interface import ISerializer
+from libelifoot.infrastructure.eft.serializer.serializer import ISerializer
 
 
 class PlayerSerializer(ISerializer):
