@@ -14,8 +14,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.domain.entity.equipa import Equipa
-from libelifoot.domain.entity.player import Player
 from libelifoot.domain.entity.color import Color
+from libelifoot.domain.entity.player import Player
 from libelifoot.domain.error.equipa_header_not_found import EquipaHeaderNotFound
 from libelifoot.domain.util import crypto
 from libelifoot.domain.util.offset import Offsets, OffsetCalculator
@@ -27,9 +27,6 @@ from libelifoot.infrastructure.eft.parser import player
 class EquipaParser(BaseParser):
 
     def __init__(self, equipa_data: bytes):
-        if not equipa_data:
-            raise ValueError("Equipa data cannot be empty.")
-
         self._data = equipa_data
 
     def _has_equipa_header(self, data: bytes) -> bool:
@@ -99,5 +96,12 @@ class EquipaParser(BaseParser):
         players = self.parse_players(self._data, len(ext_name), len(short_name))
         country = self.parse_country(self._data, len(ext_name), len(short_name))
 
-        return Equipa(ext_name=ext_name, short_name=short_name, country=country,
-                      level=level, colors=colors, coach=coach, players=players)
+        return Equipa(
+            ext_name=ext_name,
+            short_name=short_name,
+            country=country,
+            level=level,
+            colors=colors,
+            coach=coach,
+            players=players
+        )

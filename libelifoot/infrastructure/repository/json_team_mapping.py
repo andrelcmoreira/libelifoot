@@ -19,7 +19,7 @@ import pathlib
 
 from typing import Optional
 
-from libelifoot.domain.entity.equipa_db_entry import Equipa
+from libelifoot.domain.entity.equipa_metadata import EquipaMetadata
 from libelifoot.domain.entity.provider import Provider
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 
@@ -36,7 +36,7 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
         self,
         equipa_file: str,
         provider: str
-    ) -> Optional[Equipa]:
+    ) -> Optional[EquipaMetadata]:
         """
         Retrieve the team related to a given equipa file from a JSON database.
 
@@ -49,11 +49,11 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
 
             for entry in data:
                 if entry['file'] == equipa_file:
-                    return Equipa(id=entry['id'], file=entry['file'])
+                    return EquipaMetadata(id=entry['id'], file=entry['file'])
 
             return None
 
-    def get_teams(self, provider: str) -> list[Equipa]:
+    def get_teams(self, provider: str) -> list[EquipaMetadata]:
         """
         Retrieve a list of teams for a given provider from a JSON database.
 
@@ -64,7 +64,7 @@ class JsonTeamMappingRepository(ITeamMappingRepository):
             data = json.load(f)
 
             return [
-                Equipa(
+                EquipaMetadata(
                     id=entry['id'],
                     file=entry['file']
                 ) for entry in data

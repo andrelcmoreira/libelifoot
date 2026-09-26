@@ -17,6 +17,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Equipa:
+class EquipaMetadata:
     id: str
     file: str
