@@ -183,3 +183,11 @@ def test_parse_invalid_equipa():
         ep = EquipaParser(bytes())
 
         ep.parse()
+
+
+def test_parse_equipa_with_no_header():
+    raw_data = b'\x01\x02\x03\x04\x05\x06\x07\x08\x09\x00'
+
+    ep = EquipaParser(raw_data)
+    with raises(EquipaHeaderNotFound):
+        ep.parse()

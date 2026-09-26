@@ -16,4 +16,4 @@
 class EquipaHeaderNotFound(Exception):
 
     def __init__(self):
-        super().__init__(f"Equipa header not found on supplied byte stream!")
+        super().__init__("Equipa header not found on supplied byte stream!")
