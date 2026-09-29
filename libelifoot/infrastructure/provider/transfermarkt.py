@@ -19,8 +19,10 @@ from libelifoot.domain.entity.player import Player
 from libelifoot.domain.util.date import get_work_days_in_season
 from libelifoot.domain.util.player_position import PlayerPosition
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
-from libelifoot.infrastructure.provider.base_coach_provider import BaseCoachProvider
-from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.infrastructure.provider.base_coach_provider import \
+    BaseCoachProvider
+from libelifoot.infrastructure.provider.base_roster_provider import \
+    BaseRosterProvider
 
 
 _PROVIDER_NAME = 'transfermarkt'

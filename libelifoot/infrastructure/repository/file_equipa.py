@@ -18,10 +18,6 @@ from typing import Optional
 from libelifoot.domain.repository.equipa import IEquipaRepository
 
 
-def get_equipa_repository() -> IEquipaRepository:
-    return FileEquipaRepository()
-
-
 class FileEquipaRepository(IEquipaRepository):
 
     def get(self, equipa_id: str) -> Optional[bytes]:

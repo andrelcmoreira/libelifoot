@@ -14,8 +14,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.domain.error.unknown_provider import UnknownProvider
-from libelifoot.infrastructure.provider import espn, transfermarkt
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
+from libelifoot.infrastructure.provider import espn, transfermarkt
 
 
 def create_coach_provider(

@@ -17,7 +17,8 @@ from json import loads
 
 from libelifoot.domain.entity.player import Player
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
-from libelifoot.infrastructure.provider.base_roster_provider import BaseRosterProvider
+from libelifoot.infrastructure.provider.base_roster_provider import \
+    BaseRosterProvider
 
 
 class RosterProvider(BaseRosterProvider):

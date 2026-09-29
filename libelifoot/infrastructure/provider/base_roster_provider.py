@@ -20,7 +20,8 @@ from requests import exceptions, get
 from unidecode import unidecode
 
 from libelifoot.domain.entity.player import Player
-from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
+from libelifoot.domain.error.equipa_data_not_available import \
+    EquipaDataNotAvailable
 from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided
 from libelifoot.domain.util.player_position import PlayerPosition
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository

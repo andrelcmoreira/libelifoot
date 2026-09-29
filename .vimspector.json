@@ -6,7 +6,7 @@
         "name": "Launch update sample",
         "type": "python",
         "request": "launch",
-        "program": "update.py",
+        "program": "samples/update.py",
         "args": [
           "$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/FLAMENGO.EFT",
           "${provider}",
@@ -21,7 +21,7 @@
         "name": "Launch bulk update sample",
         "type": "python",
         "request": "launch",
-        "program": "bulk_update.py",
+        "program": "samples/bulk_update.py",
         "args": [
           "$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/",
           "${provider}",
@@ -30,16 +30,26 @@
         "justMyCode": true
       }
     },
-    "view sample": {
+    "get data sample": {
       "adapter": "debugpy",
       "configuration": {
-        "name": "Launch view sample",
+        "name": "Launch get data sample",
         "type": "python",
         "request": "launch",
-        "program": "view.py",
+        "program": "samples/get_equipa_data.py",
         "args": [
           "$DOWNLOADS/elifoot98/elifoot98/EQUIPAS/FLAMENGO.EFT"
         ],
+        "justMyCode": true
+      }
+    },
+    "get providers sample": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "Launch get providers sample",
+        "type": "python",
+        "request": "launch",
+        "program": "samples/get_providers.py",
         "justMyCode": true
       }
     },

@@ -24,10 +24,6 @@ from libelifoot.domain.entity.provider import Provider
 from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 
 
-def get_team_mapping_repository() -> ITeamMappingRepository:
-    return JsonTeamMappingRepository()
-
-
 class JsonTeamMappingRepository(ITeamMappingRepository):
 
     _DATA_PATH = pathlib.Path(__file__).parent.parent / 'static'

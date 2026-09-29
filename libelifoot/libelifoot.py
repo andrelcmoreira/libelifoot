@@ -13,11 +13,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-from libelifoot.infrastructure.provider import factory
-from libelifoot.infrastructure.repository.file_equipa import \
-    get_equipa_repository
-from libelifoot.infrastructure.repository.json_team_mapping import \
+from libelifoot.infrastructure.provider.factory import (
+    create_coach_provider,
+    create_roster_provider
+)
+from libelifoot.infrastructure.repository.factory import (
+    get_equipa_repository,
     get_team_mapping_repository
+)
 from libelifoot.use_case.bulk_update import BulkUpdate
 from libelifoot.use_case.dto.equipa import Equipa
 from libelifoot.use_case.event.update_equipa_listener import \
@@ -48,8 +51,8 @@ def update_equipa(
     """
     cmd = UpdateEquipa(
         equipa_file,
-        factory.create_roster_provider(provider, _TEAM_MAPPING_REPO),
-        factory.create_coach_provider(_TEAM_MAPPING_REPO),
+        create_roster_provider(provider, _TEAM_MAPPING_REPO),
+        create_coach_provider(_TEAM_MAPPING_REPO),
         season,
         _EQUIPA_REPO,
         listener
@@ -74,8 +77,8 @@ def bulk_update(
     """
     cmd = BulkUpdate(
         equipa_dir,
-        factory.create_roster_provider(provider, _TEAM_MAPPING_REPO),
-        factory.create_coach_provider(_TEAM_MAPPING_REPO),
+        create_roster_provider(provider, _TEAM_MAPPING_REPO),
+        create_coach_provider(_TEAM_MAPPING_REPO),
         season,
         _TEAM_MAPPING_REPO,
         _EQUIPA_REPO,
