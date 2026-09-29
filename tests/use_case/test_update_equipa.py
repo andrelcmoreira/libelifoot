@@ -1,8 +1,6 @@
 from unittest import mock
 from unittest.mock import MagicMock
 
-from fixtures import mock_equipa, mock_players
-
 from libelifoot.use_case.dto.player import Player
 from libelifoot.use_case.update_equipa import UpdateEquipa
 from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable

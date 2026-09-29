@@ -1,8 +1,6 @@
 from unittest.mock import patch, MagicMock
 from pytest import raises
 
-from fixtures import mock_equipa, mock_players, mock_equipa_bytes
-
 from libelifoot.domain.error.equipa_not_found import EquipaNotFound
 from libelifoot.use_case.update_equipa import UpdateEquipa
 from libelifoot.use_case.dto.equipa import Equipa

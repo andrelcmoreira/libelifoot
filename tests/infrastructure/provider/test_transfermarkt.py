@@ -1,8 +1,6 @@
 from pytest import raises
 from unittest.mock import patch, MagicMock
 
-from fixtures import mock_players
-
 from libelifoot.domain.entity.equipa_metadata import EquipaMetadata
 from libelifoot.domain.error.equipa_data_not_available import EquipaDataNotAvailable
 from libelifoot.domain.error.equipa_not_provided import EquipaNotProvided

@@ -1,7 +1,5 @@
 from unittest import mock
 
-from fixtures import mock_equipa
-
 from libelifoot import (
     bulk_update,
     get_providers,

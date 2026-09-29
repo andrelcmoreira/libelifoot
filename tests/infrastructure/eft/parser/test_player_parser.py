@@ -1,5 +1,3 @@
-from fixtures import mock_equipa, mock_players, mock_equipa_bytes
-
 from libelifoot.infrastructure.eft.parser.player import PlayersParser
 from libelifoot.domain.util.offset import OffsetCalculator
 

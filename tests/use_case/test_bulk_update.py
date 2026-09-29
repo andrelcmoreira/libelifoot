@@ -1,8 +1,6 @@
 from unittest import mock
 from unittest.mock import MagicMock
 
-from fixtures import mock_roster_provider
-
 from libelifoot.domain.entity.equipa_metadata import EquipaMetadata
 from libelifoot.use_case.bulk_update import BulkUpdate
 

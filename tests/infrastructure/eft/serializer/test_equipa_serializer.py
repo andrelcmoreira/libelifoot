@@ -1,5 +1,3 @@
-from fixtures import mock_equipa, mock_equipa_bytes
-
 from libelifoot.infrastructure.eft.serializer.equipa import EquipaSerializer
 
 

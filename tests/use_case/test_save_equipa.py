@@ -1,7 +1,5 @@
 from unittest.mock import MagicMock, patch
 
-from fixtures import mock_equipa, mock_equipa_bytes
-
 from libelifoot.use_case.save_equipa import SaveEquipa
 
 

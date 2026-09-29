@@ -1,8 +1,6 @@
 from unittest import mock
 from pytest import raises
 
-from fixtures import mock_equipa, mock_players, mock_equipa_bytes
-
 from libelifoot.domain.error.equipa_header_not_found import EquipaHeaderNotFound
 from libelifoot.infrastructure.eft.parser.equipa import EquipaParser
 
@@ -94,7 +92,6 @@ def test_parse_country(mock_equipa_bytes):
 
 
 def test_parse_players(mock_players, mock_equipa_bytes):
-    file = 'FORTALEZA.EFT'
     ext_name = 'FORTALEZA ESPORTE CLUBE'
     short_name = 'FORTALEZA'
 
@@ -112,7 +109,6 @@ def test_parse_players(mock_players, mock_equipa_bytes):
 
 
 def test_parse_coach(mock_equipa_bytes):
-    file = 'FORTALEZA.EFT'
     ext_name = 'FORTALEZA ESPORTE CLUBE'
     short_name = 'FORTALEZA'
     coach = 'Juan Pablo Vojvoda'
@@ -142,7 +138,6 @@ def test_parse_coach(mock_equipa_bytes):
 
 
 def test_parse_coach_with_no_info(mock_equipa_bytes):
-    file = 'FORTALEZA.EFT'
     ext_name = 'FORTALEZA ESPORTE CLUBE'
     short_name = 'FORTALEZA'
     coach = 'Juan Pablo Vojvoda'
