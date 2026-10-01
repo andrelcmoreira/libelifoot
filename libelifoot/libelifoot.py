@@ -14,8 +14,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from libelifoot.infrastructure.provider.factory import (
-    create_coach_provider,
-    create_roster_provider
+    get_coach_provider,
+    get_roster_provider
 )
 from libelifoot.infrastructure.repository.factory import (
     get_equipa_repository,
@@ -33,6 +33,7 @@ from libelifoot.use_case.update_equipa import UpdateEquipa
 
 _TEAM_MAPPING_REPO = get_team_mapping_repository()
 _EQUIPA_REPO = get_equipa_repository()
+_COACH_PROVIDER = get_coach_provider(_TEAM_MAPPING_REPO)
 
 
 def update_equipa(
@@ -51,8 +52,8 @@ def update_equipa(
     """
     cmd = UpdateEquipa(
         equipa_file,
-        create_roster_provider(provider, _TEAM_MAPPING_REPO),
-        create_coach_provider(_TEAM_MAPPING_REPO),
+        get_roster_provider(provider, _TEAM_MAPPING_REPO),
+        _COACH_PROVIDER,
         season,
         _EQUIPA_REPO,
         listener
@@ -77,8 +78,8 @@ def bulk_update(
     """
     cmd = BulkUpdate(
         equipa_dir,
-        create_roster_provider(provider, _TEAM_MAPPING_REPO),
-        create_coach_provider(_TEAM_MAPPING_REPO),
+        get_roster_provider(provider, _TEAM_MAPPING_REPO),
+        _COACH_PROVIDER,
         season,
         _TEAM_MAPPING_REPO,
         _EQUIPA_REPO,

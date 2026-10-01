@@ -18,13 +18,13 @@ from libelifoot.domain.repository.team_mapping import ITeamMappingRepository
 from libelifoot.infrastructure.provider import espn, transfermarkt
 
 
-def create_coach_provider(
+def get_coach_provider(
     team_mapping_repo: ITeamMappingRepository
 ) -> transfermarkt.CoachProvider:
     return transfermarkt.CoachProvider(team_mapping_repo)
 
 
-def create_roster_provider(
+def get_roster_provider(
     prov_name: str,
     team_mapping_repo: ITeamMappingRepository
 ) -> espn.RosterProvider | transfermarkt.RosterProvider:
